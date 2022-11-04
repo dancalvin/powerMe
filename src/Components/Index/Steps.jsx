@@ -9,7 +9,6 @@ import Step3 from "./Step3";
 import Step4 from "./Step4";
 import Step5 from "./Step5";
 const steps = ["step1", "step2", "step3", "step4", "step5"];
-// const steps = ["step5"];
 
 // Define the data that will be collected in the form
 const initForm = {
@@ -29,21 +28,18 @@ const initForm = {
   heightUnit: "(in)",
   weight: "",
   weightUnit: "(lbs)",
-  pressure: 90,
-  hdl: 20,
-  trigl: 20,
-  glucose: 75,
-  newWeight: 30,
-  newPressure: 90,
-  newHdl: 40,
-  newTrigl: 100,
-  newGlucose: 80,
+  pressure: "",
+  hdl: "",
+  trigl: "",
+  glucose: "",
 };
+
 
 const classNames = ["first", "second", "third", "fourth", "fifth"];
 
 // Define the default export function for Steps.jsx
 export default function Steps() {
+
   // add the variables form and step using useState. set form var to initForm data from and set step var to the first step in the steps array
   const [form, setForm] = useState(initForm);
   const [step, setStep] = useState(steps[0]);
@@ -74,6 +70,7 @@ export default function Steps() {
     window.scrollTo(0, 0);
   };
 
+
   const commonProps = {
     prevTab,
     nextTab,
@@ -94,7 +91,9 @@ export default function Steps() {
             Calculate your Vitality score
           </h1>
           <div className="steps__line">
-            <div className="steps__item">
+            <div
+              className="steps__item"
+            >
               <div
                 className={
                   "steps__item-circle " + (currentIndex === 0 ? "fill" : "")
@@ -110,7 +109,9 @@ export default function Steps() {
                 Intro
               </div>
             </div>
-            <div className="steps__item">
+            <div
+              className="steps__item"
+            >
               <div
                 className={
                   "steps__item-circle " + (currentIndex === 1 ? "fill" : "")
@@ -139,7 +140,7 @@ export default function Steps() {
                   "steps__item-title " + (currentIndex === 2 ? "active" : "")
                 }
               >
-                Measurments
+                Measurements
               </div>
             </div>
             <div className="steps__item">
