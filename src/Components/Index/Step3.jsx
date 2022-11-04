@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 
 import CustomSelect from "./CustomSelect";
+import RangeSlider from "./RangeSlider/RangeSlider";
+import { RangeSliderModul } from "./RangeSlider/RangeSliderModul";
 
 const heightList = [
   { id: "Inches", value: "Inches ", unit: "(in)" },
@@ -17,7 +19,6 @@ const weightList = [
 export default function Step3({ nextTab, setInput, updateForm, form }) {
   const [select, setSelect] = useState();
   const setHeightUnit = (data) => updateForm({ heightUnit: data });
-
   const isValid =
     form.feet !== "" &&
     form.inches !== "" &&
@@ -33,7 +34,11 @@ export default function Step3({ nextTab, setInput, updateForm, form }) {
       <div className="step third">
         <h2>Measurements</h2>
         <h3 className="light">
-        Your height and weight determine your BMI or Body Mass Index. BMI is a person’s weight in kilograms (or pounds) divided by the square of height in meters (or feet). While BMI doesn’t measure body fat or lean tissue directly, a high BMI is associated with an increased risk for metabolic health problems. 
+          Your height and weight determine your BMI or Body Mass Index. BMI is a
+          person’s weight in kilograms (or pounds) divided by the square of
+          height in meters (or feet). A high BMI can indicate high body fatness.
+          BMI screens for weight categories that may lead to health problems,
+          but it does not diagnose the body fatness or health of an individual.
         </h3>
         <div className="form">
           <h3 className="med">Height</h3>
@@ -45,7 +50,6 @@ export default function Step3({ nextTab, setInput, updateForm, form }) {
               placeholder="ex: 5"
               onChange={setInput("feet")}
             />
-
           </div>
           <h3 className="med">Inches</h3>
           <div className="input__measure">
@@ -65,13 +69,19 @@ export default function Step3({ nextTab, setInput, updateForm, form }) {
               onChange={setInput("weight")}
             />
           </div>
-          <h3 className="med">Blood Pressure (mmHg)</h3>
+          <h3 className="med">Systolic Blood Pressure (mmHg)</h3>
           <h3 className="light">
-            Blood Pressure consists of two numbers, systolic (top number) and diastolic (bottom number. Blood pressure greater than 130/80 mm is considered high.  People with blood pressure over 140/90 should be seen by their healthcare provider. If your blood pressure is over 170 systolic, you should seek medical attention immediately.          </h3>
-          <input
-            type="number"
-            className="input"
-            placeholder="ex: 120"
+            Blood Pressure is dependent on age and other risk factors. The CDC
+            states that normal blood pressure level is less than 120/80 mm
+            systolic/diastolic. In general, blood pressure over 140/90 indicates
+            a visit to a primary care physician is recommended. With blood
+            pressure over 170 systolic you should seek medical attention
+            immediately.
+          </h3>
+
+          <RangeSlider
+            {...RangeSliderModul[0]}
+            value={form.pressure}
             onChange={setInput("pressure")}
           />
         </div>
