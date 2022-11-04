@@ -33,7 +33,7 @@ export default function Step3({ nextTab, setInput, updateForm, form }) {
       <div className="step third">
         <h2>Measurements</h2>
         <h3 className="light">
-        Your height and weight determine your BMI or Body Mass Index. BMI is a person’s weight in kilograms (or pounds) divided by the square of height in meters (or feet). A high BMI can indicate high body fatness. BMI screens for weight categories that may lead to health problems, but it does not diagnose the body fatness or health of an individual.
+        Your height and weight determine your BMI or Body Mass Index. BMI is a person’s weight in kilograms (or pounds) divided by the square of height in meters (or feet). While BMI doesn’t measure body fat or lean tissue directly, a high BMI is associated with an increased risk for metabolic health problems. 
         </h3>
         <div className="form">
           <h3 className="med">Height</h3>
@@ -65,10 +65,9 @@ export default function Step3({ nextTab, setInput, updateForm, form }) {
               onChange={setInput("weight")}
             />
           </div>
-          <h3 className="med">Systolic Blood Pressure (mmHg)</h3>
+          <h3 className="med">Blood Pressure (mmHg)</h3>
           <h3 className="light">
-          Blood Pressure is dependent on age and other risk factors. The CDC states that normal blood pressure level is less than 120/80 mm systolic/diastolic.  In general, blood pressure over 140/90 indicates a visit to a primary care physician is recommended. With blood pressure over 170 systolic you should seek medical attention immediately.
-          </h3>
+            Blood Pressure consists of two numbers, systolic (top number) and diastolic (bottom number. Blood pressure greater than 130/80 mm is considered high.  People with blood pressure over 140/90 should be seen by their healthcare provider. If your blood pressure is over 170 systolic, you should seek medical attention immediately.          </h3>
           <input
             type="number"
             className="input"
