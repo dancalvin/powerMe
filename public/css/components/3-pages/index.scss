@@ -247,47 +247,23 @@
     }
 
     &.add {
-        display: flex;
-        align-items: center;
-
         &::before {
-            background: #F7A08C;
+            background: #A3C2C4;
         }
 
-        .step {
-            &__image {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                width: 20%;
-                max-width: 125px;
-                margin-right: 100px;
+        h3 {
+            &.light {
+                margin-bottom: 24px;
 
-                img {
-                    width: 100%;
+                &:last-child {
+                    margin-bottom: 0;
                 }
-            }
 
-            &__content {
-                width: calc(80% - 100px);
-                max-width: 525px;
+                a {
+                    text-decoration: underline;
 
-                h3 {
-                    &.light {
-                        margin-bottom: 24px;
-
-                        &:last-child {
-                            margin-bottom: 0;
-                        }
-
-                        a {
-                            text-decoration: underline;
-                            color: #F7A08C;
-
-                            &:hover {
-                                text-decoration: none;
-                            }
-                        }
+                    &:hover {
+                        text-decoration: none;
                     }
                 }
             }
@@ -305,15 +281,6 @@
     }
 
     &__outer {
-        .button {
-            &.primary {
-                &.large {
-                    margin-top: 0;
-                    margin-bottom: 60px;
-                }
-            }
-        }
-
         .step {
             margin-bottom: 60px;
 
@@ -480,21 +447,6 @@
     .step {
         padding: 30px 40px 30px 50px;
 
-        &__outer {
-            .step {
-                margin-bottom: 32px;
-            }
-
-            .button {
-                &.primary {
-                    &.large {
-                        margin-top: 0;
-                        margin-bottom: 32px;
-                    }
-                }
-            }
-        }
-
         table {
             width: 100%;
             background: $bodybg;
@@ -564,39 +516,6 @@
 
             }
         }
-
-        &.add {
-            justify-content: space-between;
-
-            .step {
-                &__image {
-                    margin-right: 0;
-                }
-
-                &__content {
-                    width: calc(80% - 50px);
-
-                    h2 {
-                        margin-bottom: 16px;
-                    }
-
-                    h3 {
-                        &.light {
-                            margin-bottom: 16px;
-
-                            a {
-                                text-decoration: underline;
-                                color: #F7A08C;
-
-                                &:hover {
-                                    text-decoration: none;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
     }
 }
 
@@ -639,38 +558,16 @@
         }
 
         &.add {
-            justify-content: unset;
-            align-items: unset;
-            flex-direction: column;
+            max-width: 293px;
 
-            .step {
-                &__image {
-                    width: 100%;
-                    margin: 0 auto 20px auto;
-                }
-
-                &__content {
-                    width: 100%;
-                    max-width: 293px;
-
-                    h2 {
-                        margin-bottom: 8px;
-                    }
-
-                    h3 {
-                        &.light {
-                            a {
-                                font-weight: 700;
-                            }
-                        }
+            h3 {
+                &.light {
+                    a {
+                        font-weight: 700;
+                        color: #6D7B9B;
                     }
                 }
             }
-        }
-
-        &.fifth {
-            padding-bottom: 32px;
-            border-bottom: 1px solid $black;
         }
     }
 }

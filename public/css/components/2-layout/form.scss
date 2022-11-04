@@ -7,10 +7,6 @@
         }
     }
 
-    &__range {
-        margin-bottom: 52px;
-    }
-
     &__list {
         margin-bottom: 16px;
 
@@ -330,9 +326,6 @@
 
 @mixin form-sm-md {
     .form {
-        &__range {
-            margin-bottom: 12px;
-        }
         .input {
             &__measure {
                 .select {
