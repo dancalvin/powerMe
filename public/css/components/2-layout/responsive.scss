@@ -5,6 +5,11 @@
     h1 {
         font-size: 50px;
         line-height: 58px;
+        &.big {
+            font-size: 80px;
+            line-height: 100px;
+    
+        }
     }
 
     h2 {
@@ -22,7 +27,7 @@
     // index page start
     @include steps-xxlg-xxxlg;
     // index page end
-
+    @include vitality-xxlg-xxxlg;
 }
 
 // 1024px
@@ -32,6 +37,10 @@
     h1 {
         font-size: 44px;
         line-height: 52px;
+        &.big {
+            font-size: 60px;
+            line-height: 80px;
+        }
     }
 
     h2 {
@@ -102,6 +111,9 @@
     @include step-sm-md;
     @include form-sm-md;
     // index page end
+    @include rangeSlider-sm-md;
+    @include vitality-sm-md;
+
 }
 
 // 540px
@@ -175,7 +187,7 @@
     @include step-xsm-sm;
     @include form-xsm-sm;
     // index page end
-
+    @include vitality-xsm-sm;
 }
 
 // 390px

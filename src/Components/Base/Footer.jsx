@@ -13,7 +13,7 @@ export default function Footer() {
           />
         </div>
         <div className="footer__inner-created">
-          Prime Meridian Healthcare 2022
+          Created by Prime Meridian Health 2022
         </div>
       </div>
     </footer>
