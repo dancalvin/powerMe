@@ -27,7 +27,7 @@ export default function ScoreLogic({ age, sex, race, feet, inches, heightUnit, w
     });
   return (
     <>
-        {((percentile -100)*-1).toFixed(0)}
+        {((percentile -100)*-1).toFixed(1)}
     </>
   );
 }

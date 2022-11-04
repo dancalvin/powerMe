@@ -140,7 +140,7 @@ export default function Steps() {
                   "steps__item-title " + (currentIndex === 2 ? "active" : "")
                 }
               >
-                Measurements
+                Measurments
               </div>
             </div>
             <div className="steps__item">

@@ -26,10 +26,10 @@ export default function Step5({ form, nextTab, setInput }) {
         <div className="step">
           <h2>How to Better Your Score</h2>
           <h3 className="light">
-            Healthy lifestyle changes and smart supplementation can improve your Vitality Score over time.  
+          Healthy lifestyle changes and smart supplementation can improve your Vitality Score over time.  
           <br />
           <br />
-            If your goal is improved health, then a good starting point is to talk with a doTERRA Wellness Advocate on supplementation options and lifestyle improvements that may help you achieve your health goals.  Or click here, to learn more about Prime Meridian HealthCare’s Vitality Health Program.  This is an 18-week program that will help educate and provide guidance on improving Metabolic Health.
+          If your goal is improved health then a good starting point is to talk with a doTERRA Wellness Advocate on supplementation options that may help you achieve your health goals.  Or click here, to learn more about Prime Meridian HealthCare’s Vitality Health Program.  This is an 18-week program that will help educate and provide guidance on improving Metabolic Health. 
           </h3>
         </div>
         <div className="step add">
@@ -45,10 +45,9 @@ export default function Step5({ form, nextTab, setInput }) {
         </div>
       </div>
 
-      {/*<button type="submit" className="button primary large">
+      <button type="submit" className="button primary large">
         Download <span>Your</span> Vitality Score
       </button>
-  */}
     </>
   );
 }
