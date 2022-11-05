@@ -70,7 +70,8 @@ main {
     @include transition;
 
     &:hover {
-        opacity: 0.8;
+        color: $bodybg;
+        background-color: $blue !important;
     }
 
     &.primary {

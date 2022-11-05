@@ -92,10 +92,10 @@ else{
   });
   useEffect(() => {
     if (setScoreStyle) {
-      const result = ((percentile - 100) * -1).toFixed(1);
+      const result = ((percentile - 100) * -1).toFixed(0);
       setScoreStyle(result);
     }
   }, [percentile]);
 
-  return <>{((percentile - 100) * -1).toFixed(1)}</>;
+  return <>{((percentile - 100) * -1).toFixed(0)}</>;
 }

@@ -22,7 +22,7 @@ export default function Step2({ form, setCheckbox, nextTab, setInput }) {
       <div className="step second">
         <h2>Tell Us About Yourself</h2>
         <h3 className="light">
-          Your age, sex at birth, and ethnicity establish foundational elements of your health and contribute baseline data in the creation of the Vitality Score.
+          Your age, sex at birth, and ethnicity contribute to the baseline data for the creation of your Vitality Score.
         </h3>
         <div className="form">
           <h3 className="med">How old are you?</h3>

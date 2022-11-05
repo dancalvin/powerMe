@@ -166,7 +166,8 @@ main {
   -moz-transition: all 0.2s ease-in-out 0s;
 }
 .button:hover {
-  opacity: 0.8;
+  color: #FAF4ED;
+  background-color: #545B89 !important;
 }
 .button.primary {
   padding: 18px 98px;

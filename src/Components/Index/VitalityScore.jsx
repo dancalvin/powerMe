@@ -39,7 +39,7 @@ export default function VitalityScore({ form, title, score, image, clName }) {
     <div className={clName}>
       <h2>{title}</h2>
       <h1 className="big">
-        {<ScoreLogic {...form} setScoreStyle={setScoreStyle} score={score} />}%
+        {<ScoreLogic {...form} setScoreStyle={setScoreStyle} score={score} />}
       </h1>
 
       <div className="vitality__inner">
@@ -68,7 +68,7 @@ export default function VitalityScore({ form, title, score, image, clName }) {
         <span className="vitality__max">100</span>
       </div>
       <h3 className="bold">
-        Your Vitality Score is xx better than xx {scoreStyle}% of peers.
+        Your Vitality Score is better than {scoreStyle}% of your peers.
       </h3>
     </div>
   );

@@ -10,8 +10,8 @@ export default function Step5({ form, setInput }) {
         <VitalityScore
           form={form}
           score={0}
-          title="Your Vitality Score Percentage Is:"
-          image="images/graph.png"
+          title="Your Vitality Score Is:"
+          image="/images/graph.png"
           clName="vitality"
         />
         <a href="#" className="button primary large">
@@ -20,22 +20,18 @@ export default function Step5({ form, setInput }) {
         <div className="step fifth">
           <h2>What Your Results Mean </h2>
           <h3 className="light">
-            Your Vitality Score indicates your current metabolic health status
-            compared to other adults in the US population.
+          Your Vitality Score indicates your current metabolic health status compared to other adults in the US population. 
             <br />
-            <br />A score of 50 suggests that you are of average health and have
-            an average risk for developing metabolic health problems in the
-            future. The higher your score, suggests better overall metabolic
-            health. The good news is that healthy lifestyle changes and smart
-            supplementation can improve your Vitality Score over time.
+            <br />
+              A score of 50 suggests that you are of average health and have an average risk for developing metabolic health problems in the future.  The higher your score, suggests better overall metabolic health.  The good news is that healthy lifestyle changes and smart supplementation can improve your Vitality Score over time. 
           </h3>
         </div>
         <div className="step">
           <VitalityScore
             score={1}
             form={form}
-            title="Your Vitality Score Percentage Could Be"
-            image="images/graph2.png"
+            title="Your Vitality Score Could Be"
+            image="/images/graph2.png"
             clName="vitality new"
           />
           <h3 className="med">Weight</h3>
@@ -84,7 +80,7 @@ export default function Step5({ form, setInput }) {
         <div className="step add">
           <div className="step__image">
             <img
-              src={process.env.PUBLIC_URL + "images/powerme.png"}
+              src={process.env.PUBLIC_URL + "/images/powerme.png"}
               alt="powerme"
             />
           </div>

@@ -30,7 +30,7 @@ export const RangeSliderModul = [
   {
     id: "weight",
     min: 1,
-    max: 200,
+    max: 400,
     clName: "rangeSlider weight",
     text: "",
   },

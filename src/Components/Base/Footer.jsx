@@ -8,12 +8,12 @@ export default function Footer() {
       <div className="footer__inner">
         <div className="footer__inner-logo">
           <img
-            src={process.env.PUBLIC_URL + "images/footer-logo.png"}
+            src={process.env.PUBLIC_URL + "/images/footer-logo.png"}
             alt="footer-logo"
           />
         </div>
         <div className="footer__inner-created">
-          Created by Prime Meridian Health 2022
+          Prime Meridian Healthcare 2022
         </div>
       </div>
     </footer>

@@ -7,7 +7,7 @@ export default function Header() {
     <header className="header">
       <div className="header__inner">
         <div className="header__inner-logo">
-          <img src={process.env.PUBLIC_URL + "images/logo.png"} alt="logo" />
+          <img src={process.env.PUBLIC_URL + "/images/logo.png"} alt="logo" />
         </div>
       </div>
     </header>
