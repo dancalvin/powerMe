@@ -1,0 +1,98 @@
+h1 {
+    font-family: $mainFont;
+    font-weight: 300;
+    font-size: 60px;
+    line-height: 64px;
+    text-transform: uppercase;
+    color: $black;
+    text-align: center;
+
+    &.big {
+        font-family: $mainFont;
+        font-weight: 400;
+        font-size: 100px;
+        line-height: 122px;
+        text-align: center;
+        color: $black;
+
+    }
+}
+
+h2 {
+    font-family: $mainFont;
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 39px;
+    color: $black;
+}
+
+h3 {
+    font-family: $mainFont;
+    font-size: 20px;
+    line-height: 24px;
+    color: $black;
+
+    &.light {
+        font-weight: 300;
+
+    }
+
+    &.reg {
+        font-weight: 400;
+    }
+
+    &.med {
+        font-weight: 500;
+    }
+
+    &.bold {
+        font-weight: 700;
+    }
+
+
+}
+
+p {
+    font-family: $mainFont;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    color: $black;
+}
+
+main {
+    min-height: calc(100vh - 308.48px);
+}
+
+.button {
+    cursor: pointer;
+    box-sizing: border-box;
+    @include transition;
+
+    &:hover {
+        color: $bodybg;
+        background-color: $blue !important;
+    }
+
+    &.primary {
+        padding: 18px 98px;
+        max-width: 293px;
+        background: $black;
+        border-radius: 35px;
+        font-family: $mainFont;
+        font-weight: 700;
+        font-size: 20px;
+        line-height: 24px;
+        text-align: center;
+        color: $bodybg;
+
+        &:disabled {
+            opacity: 0.5;
+        }
+
+        &.large {
+            padding: 18px 45px;
+            max-width: 400px;
+        }
+    }
+}
