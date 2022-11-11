@@ -17,6 +17,11 @@ export default function Step5({ form, setInput }) {
         <a href="#" className="button primary large">
           View History
         </a>
+
+        <a href="#" className="button primary large">
+          Save Score
+        </a>
+
         <div className="step fifth">
           <h2>What Your Results Mean </h2>
           <h3 className="light">

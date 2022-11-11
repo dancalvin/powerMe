@@ -1,3 +1,9 @@
+Notes from Daniel Taylor --
+Before compiling with node,
+change the .env file URL variable to the relevant url from which the react app will be served.
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
