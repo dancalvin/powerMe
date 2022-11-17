@@ -50,7 +50,7 @@
             color: $black;
             position: absolute;
             bottom: 2px;
-            left: 50%;
+            left: 41%;
             @include transformX;
         }
 
@@ -149,23 +149,25 @@
 
         &.hdl {
             .rangeSlider__optimal {
-                left: 43.16%;
+                left: 65.16%;
             }
 
             &::before {
-                left: 43.16%;
+                left: 65.16%;
+                max-width:550px;
+                width: 60%;
             }
 
             &::after {
-                left: 43.16%;
+                left: 65.16%;
                 @include transformReset;
             }
 
             .rangeSlider__input {
-                background: linear-gradient(90deg, rgba(149, 182, 168, 0) 26.83%, #95B6A8 43.16%, rgba(149, 182, 168, 0) 59.17%);
+                background: linear-gradient(90deg, rgba(149, 182, 168, 0) 26.83%, #95B6A8 50.16%, rgba(149, 182, 168, 0) 150.17%);
 
                 &::before {
-                    left: 43.16%;
+                    left:65.16%;
                     @include transformReset;
 
                 }
@@ -283,6 +285,68 @@
                 }
 
 
+            }
+        }
+
+        &.diastolicBP 
+        {
+            .rangeSlider__optimal {
+                left: 30%;
+            }
+
+            &::before {
+                left: 22%;
+                width:37%;
+            }
+
+            &::after {
+                left: 26%;
+                @include transformReset;
+            }
+
+            .rangeSlider__input 
+            {
+                background: linear-gradient(90deg, rgba(242, 100, 78, 0) -15.00%, #F2644E 25%, rgba(242, 100, 78, 0) 40.00%);
+
+                
+                &::before {
+                    left: 26%;
+                    @include transformReset;
+                }
+
+                &::-webkit-slider-thumb {
+                    background-color:#F2644E;
+                }
+
+                &::-moz-range-thumb {
+                    background-color:#F2644E;
+                }
+
+
+            }
+
+            &.new
+            {
+                .rangeSlider__input 
+                {
+                    background: linear-gradient(90deg, rgba(242, 100, 78, 0) -15.00%, #95B6A8 25%, rgba(242, 100, 78, 0) 40.00%);
+    
+                    
+                    &::before {
+                        left: 26%;
+                        @include transformReset;
+                    }
+    
+                    &::-webkit-slider-thumb {
+                        background-color:#95B6A8;
+                    }
+    
+                    &::-moz-range-thumb {
+                        background-color:#95B6A8;
+                    }
+    
+    
+                }
             }
         }
 

@@ -16,12 +16,13 @@ const weightList = [
 ];
 
 // the main export of this jsx file
-export default function Step3({ nextTab, setInput, updateForm, form }) {
+export default function Step3({ nextTab, prevTab, setInput, updateForm, form }) {
   const [select, setSelect] = useState();
   const setHeightUnit = (data) => updateForm({ heightUnit: data });
   const isValid =
     form.feet !== "" &&
     form.inches !== "" &&
+    form.waist !== "" &&
     form.weight !== "" &&
     form.pressure !== "";
   const changeMedium = (item) => {
@@ -65,6 +66,25 @@ export default function Step3({ nextTab, setInput, updateForm, form }) {
               onChange={setInput("weight")}
             />
           </div>
+          <h3 className="med">Waist Circumference (in)</h3>
+          <h3 className="light">
+            To correctly measure wasit circumference:
+            <ul className="myList">
+              <li>Stand and place a tape measure around your waist, just above your hipbones</li>
+              <li>Make sure tape is horizontal around the waist</li>
+              <li>Keep the tape snug around the waist, but not compressing the skin</li>
+              <li>Measure your waist just after you breathe out</li>
+            </ul>
+          </h3>
+
+          <div className="input__measure">
+            <input
+              type="number"
+              className="input"
+              placeholder="ex: 30"
+              onChange={setInput("waist")}
+            />
+          </div>
           <h3 className="med">Systolic Blood Pressure (mmHg)</h3>
           <h3 className="light">
             Blood Pressure consists of two numbers, systolic (top number) and diastolic (bottom number. Blood pressure greater than 130/80 mm is considered high.  People with blood pressure over 140/90 should be seen by their healthcare provider. If your blood pressure is over 170 systolic, you should seek medical attention immediately.          
@@ -75,17 +95,24 @@ export default function Step3({ nextTab, setInput, updateForm, form }) {
             value={form.pressure}
             onChange={setInput("pressure")}
           />
+
+          <RangeSlider
+            {...RangeSliderModul[5]}
+            value={form.diastolicBP}
+            onChange={setInput("diastolicBP")}
+          />
         </div>
       </div>
 
       <button
         type="button"
         className="button primary"
-        disabled={!isValid}
+        //disabled={!isValid}
         onClick={nextTab}
       >
         Continue
       </button>
+      <button type="button" className="button primary clearDT back" onClick={prevTab}>Back</button>
     </>
   );
 }

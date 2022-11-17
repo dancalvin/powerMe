@@ -1,0 +1,75 @@
+.circleDisplay
+{
+    display: grid;
+    text-align: center;
+    
+
+    .partOne, .partTwo, .partThree {
+        grid-area: 1 / 1;
+      }
+
+    .partThree
+    {
+        height:100px;
+        position: relative;
+        top: 43.5%;
+        span
+        {
+            text-align: center;
+            font-weight: bold;
+            font-size: 2.5rem;
+        }
+    }
+
+    .svg-pi {
+        width: 400px;
+        height: 400px;
+        transform: rotate(-90deg); /* Fix the orientation */
+        &.svg-pi-outer
+        {
+            .svg-pi-track, .svg-pi-indicator
+            {
+                r: 180px;
+                fill: transparent;
+            }
+        }
+    }
+    
+    .svg-pi-track {
+        stroke: rgb(22, 22, 22);
+    }
+    
+    .svg-pi-indicator {
+        stroke-linecap: butt;
+    }
+    
+    .svg-pi-track,
+    .svg-pi-indicator {
+        cx: 200px;
+        cy: 200px;
+        r: 135px;
+        fill: transparent;
+        
+    }
+
+    .svg-pi-track {
+        stroke-width: 1px;
+    }
+    
+    .svg-pi-indicator {
+        stroke-width: 16px;
+    }
+    
+    .svg-pi-outer .svg-pi-indicator {
+        stroke-dashoffset: 565.485px;
+        stroke-dasharray: 1130.97px; 
+        stroke: $darkBlue;
+    }
+
+    .svg-pi-inner .svg-pi-indicator {
+        stroke-dashoffset: 635.0575px; /* DashOffset = DashArray * ((100 - progress)/100) */
+        stroke-dasharray: 848.23px; /* DashArray = Track's or indicator's Circumference */
+        stroke: $lightBlue;
+    }
+    
+}

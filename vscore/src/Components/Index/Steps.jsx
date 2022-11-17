@@ -13,7 +13,7 @@ const steps = ["step1", "step2", "step3", "step4", "step5"];
 
 // Define the data that will be collected in the form
 const initForm = {
-  age: "",
+  age: 50,
   sex: "",
   asian: false,
   pacIsl: false,
@@ -38,6 +38,10 @@ const initForm = {
   newHdl: 60,
   newTrigl: 150,
   newGlucose: 90,
+  waist: "",
+  newWaist: 30,
+  diastolicBP: 70, 
+  newDiastolicBP: 70,
 };
 
 const classNames = ["first", "second", "third", "fourth", "fifth"];

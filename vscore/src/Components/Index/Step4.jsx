@@ -2,7 +2,7 @@ import React from "react";
 import RangeSlider from "./RangeSlider/RangeSlider";
 import { RangeSliderModul } from "./RangeSlider/RangeSliderModul";
 
-export default function Step4({ form, nextTab, setInput }) {
+export default function Step4({ form, nextTab,prevTab, setInput }) {
   const isValid = form.hdl !== "" && form.trigl !== "" && form.glucose !== "";
 
   return (
@@ -56,11 +56,12 @@ export default function Step4({ form, nextTab, setInput }) {
       <button
         type="button"
         className="button primary"
-        disabled={!isValid}
+        //disabled={!isValid}
         onClick={nextTab}
       >
         Continue
       </button>
+      <button type="button" className="button primary clearDT back" onClick={prevTab}>Back</button>
     </>
   );
 }

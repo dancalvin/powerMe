@@ -34,4 +34,18 @@ export const RangeSliderModul = [
     clName: "rangeSlider weight",
     text: "",
   },
+  {
+    id: "diastolicBP",
+    min: 60,
+    max: 100,
+    clName: "rangeSlider diastolicBP",
+    text: "optimal range for diastolic blood pressure",
+  },
+  {
+    id: "waist",
+    min: 15,
+    max: 60,
+    clName: "rangeSlider weight",
+    text: "",
+  },
 ];
