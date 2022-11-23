@@ -1,5 +1,4 @@
 import React from "react";
-import CircleModel from "./CircleModel/CircleModel";
 
 export default function Step1({ form,nextTab }) {
   return (
@@ -16,13 +15,12 @@ export default function Step1({ form,nextTab }) {
         <span className ="finePrint">
         Vitality Score is based on algorithms developed by MetCalc.org. Ranges are based on NHAINES data gathered by CDC
         </span>
-
-        <CircleModel metabolicAge={43} actualAge={form.age}/>
       </div>
-      <button type="button" className="button primary" onClick={nextTab}>
+      <div className ="gapDT"></div>
+      <button type="button" className="button primary mirror" onClick={nextTab}>
         Continue
       </button>
-
+      
       <button type="button" className="button primary clearDT" >
         See Your Vitality Score History
       </button>

@@ -9,7 +9,6 @@ import Step3 from "./Step3";
 import Step4 from "./Step4";
 import Step5 from "./Step5";
 const steps = ["step1", "step2", "step3", "step4", "step5"];
-// const steps = ["step5"];
 
 // Define the data that will be collected in the form
 const initForm = {
@@ -42,6 +41,7 @@ const initForm = {
   newWaist: 30,
   diastolicBP: 70, 
   newDiastolicBP: 70,
+  metabolicAge: 0,
 };
 
 const classNames = ["first", "second", "third", "fourth", "fifth"];

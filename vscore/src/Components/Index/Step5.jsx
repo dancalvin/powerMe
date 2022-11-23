@@ -1,10 +1,19 @@
 import React from "react";
+import { useState, useEffect } from "react";
 import RangeSlider from "./RangeSlider/RangeSlider";
 import CircleModel from "./CircleModel/CircleModel";
 import { RangeSliderModul } from "./RangeSlider/RangeSliderModul";
 import VitalityScore from "./VitalityScore";
+import calcMetaAge from "./CircleModel/metaCalc.js";
+
 
 export default function Step5({ form, setInput }) {
+  const [ageCalculated, setCalcAge] = useState(10);
+  useEffect(() => 
+  {
+    setCalcAge(calcMetaAge(form.age, form.pressure, form.hdl, form.trigl,form.glucose,form.waist,form.diastolicBP));
+  });
+  
   return (
     <>
       <div className="step__outer">
@@ -24,12 +33,13 @@ export default function Step5({ form, setInput }) {
           <div className="doterraRow">
             <div className="doterraColumn">
               <h2>Your Metabolic Age </h2>
-              <h1 className="bigNumber darkBlue">{form.age}</h1>
+              <h1 className="bigNumber darkBlue">{ageCalculated}</h1>
               <h2>Your Calendar Age </h2>
               <h1 className="bigNumber lightBlue">{form.age}</h1>
             </div>
             <div className="doterraColumn">
-            <CircleModel metabolicAge={43} actualAge={form.age}/>
+            {/*<CircleModel metabolicAge={<MetabolicAgeCalculator {...form}/>} actualAge={form.age}/>*/}
+            <CircleModel metabolicAge={ageCalculated} actualAge={form.age}/>
             </div>
           </div>
         </div>
