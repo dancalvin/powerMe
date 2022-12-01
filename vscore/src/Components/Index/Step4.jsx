@@ -95,7 +95,7 @@ const delay = ms => new Promise(res => setTimeout(res, ms));
 function handleSugarChangeA1CToGlucose(evt,setInputDirect) 
 {
   let sugarNumber = 0;
-  if (evt.target.value == 0)
+  if (evt.target.value === 0)
   {
     sugarNumber = parseInt(evt.target.value);
   }
@@ -110,7 +110,7 @@ function handleSugarChangeA1CToGlucose(evt,setInputDirect)
 function handleSugarChangeGlucoseToA1C(evt,setInputDirect) 
 {
   let sugarNumber = 0;
-  if (evt.target.value == 0)
+  if (evt.target.value === 0)
   {
     sugarNumber = parseInt(evt.target.value);
   }

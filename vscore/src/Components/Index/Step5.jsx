@@ -160,7 +160,7 @@ export default function Step5({ form, setInput, setInputDirect }) {
 function handleSugarChangeA1CToGlucose(evt,setInputDirect) 
 {
   let sugarNumber = 0;
-  if (evt.target.value == 0)
+  if (evt.target.value === 0)
   {
     sugarNumber = parseInt(evt.target.value);
   }
@@ -175,7 +175,7 @@ function handleSugarChangeA1CToGlucose(evt,setInputDirect)
 function handleSugarChangeGlucoseToA1C(evt,setInputDirect) 
 {
   let sugarNumber = 0;
-  if (evt.target.value == 0)
+  if (evt.target.value === 0)
   {
     sugarNumber = parseInt(evt.target.value);
   }

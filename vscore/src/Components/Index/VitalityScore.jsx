@@ -40,7 +40,7 @@ export default function VitalityScore({ form, title, score, image, clName }) {
   }, [scoreStyle]);
   return (
     <div className={clName}>
-      {image == "/images/graph2.png" ? 
+      {image === "/images/graph2.png" ? 
       (
       <div className="doterraRowNoSplit">
         <div>

@@ -9,7 +9,7 @@ export default function RangeSlider(props) {
         type="range"
         min={props.min}
         max={props.max}
-        step={props.stepAmount != "" ? props.stepAmount : "1"}
+        step={props.stepAmount !== "" ? props.stepAmount : "1"}
         value={props.value}
         onChange={props.onChange}
         className="rangeSlider__input"

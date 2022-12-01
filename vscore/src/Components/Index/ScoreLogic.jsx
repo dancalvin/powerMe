@@ -41,14 +41,7 @@ export default function ScoreLogic(
     if(score === 0)
     {
       let sugarNumber = 0;
-      if (a1cPref == 0)
-      {
-        sugarNumber = parseInt(glucose);
-      }
-      else
-      {
-        sugarNumber = parseInt((parseFloat(a1c) * 28.7) - 46.7);
-      }
+      sugarNumber = parseInt(glucose);
 
       let realHeight = feet * 12 + parseInt(inches);
       let heightSquared = realHeight * realHeight;
@@ -56,7 +49,7 @@ export default function ScoreLogic(
 
       setMiscData(heightSquared);
       setBmi(weightStarter / heightSquared);
-      if (sex == "Male") {
+      if (sex === "Male") {
         setZNumber(
           -4.8316 +
             0.0315 * bmi -
@@ -83,7 +76,7 @@ export default function ScoreLogic(
     else
     {
       let sugarNumber = 0;
-      if (newA1cPref == 0)
+      if (newA1cPref === 0)
       {
         sugarNumber = parseInt(newGlucose);
       }
@@ -97,7 +90,7 @@ export default function ScoreLogic(
       let weightStarter = newWeight * 703;
       setMiscData(heightSquared);
       setBmi(weightStarter / heightSquared);
-      if (sex == "Male") 
+      if (sex === "Male") 
       {
         setZNumber(
           -4.8316 +
