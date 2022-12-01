@@ -135,7 +135,7 @@ export default function Step2({ form, setCheckbox, nextTab, prevTab, setInput })
       <button
         type="button"
         className="button primary"
-        //disabled={!isValid}
+        disabled={!isValid}
         onClick={nextTab}
       >
         Continue

@@ -32,6 +32,7 @@ const initForm = {
   hdl: 60,
   trigl: 150,
   glucose: 90,
+  a1c: 4.7,
   newWeight: 150,
   newPressure: 120,
   newHdl: 60,
@@ -42,6 +43,9 @@ const initForm = {
   diastolicBP: 70, 
   newDiastolicBP: 70,
   metabolicAge: 0,
+  a1cPref: 0,
+  newA1cPref: 0,
+  newA1c: 4.7,
 };
 
 const classNames = ["first", "second", "third", "fourth", "fifth"];
@@ -60,6 +64,11 @@ export default function Steps() {
   // this function helps to set the corresponding items in the array to their matching input value
   const setInput = (key) => (event) =>
     updateForm({ [key]: event.target.value });
+
+  // this function helps to set the corresponding items in the array to their matching input value
+  const setInputDirect = (keyOne,directValueOne,keyTwo,directValueTwo) => {
+  updateForm({ [keyOne]: directValueOne , [keyTwo]: directValueTwo });
+  }
 
   // this function helps set the checks for the items that are clicked by the user
   const setCheckbox = (key) => (event) =>
@@ -84,6 +93,7 @@ export default function Steps() {
     form,
     updateForm,
     setInput,
+    setInputDirect,
     setCheckbox,
   };
 

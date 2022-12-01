@@ -21,7 +21,13 @@ export default function ScoreLogic(
   newTrigl,
   newGlucose,
   setScoreStyle,
-  score
+  score,
+  a1c,
+  newA1c,
+  a1cPref,
+  newA1cPref,
+  diastolicBP, 
+  newDiastolicBP,
 }) 
 {
   const [bmi, setBmi] = useState(25);
@@ -32,12 +38,22 @@ export default function ScoreLogic(
 
   useEffect(() => 
   {
-
     if(score === 0)
     {
+      let sugarNumber = 0;
+      if (a1cPref == 0)
+      {
+        sugarNumber = parseInt(glucose);
+      }
+      else
+      {
+        sugarNumber = parseInt((parseFloat(a1c) * 28.7) - 46.7);
+      }
+
       let realHeight = feet * 12 + parseInt(inches);
       let heightSquared = realHeight * realHeight;
       let weightStarter = weight * 703;
+
       setMiscData(heightSquared);
       setBmi(weightStarter / heightSquared);
       if (sex == "Male") {
@@ -47,7 +63,7 @@ export default function ScoreLogic(
             0.0272 * parseInt(hdl) +
             0.0044 * parseInt(pressure) +
             0.8018 * Math.log(parseInt(trigl)) +
-            0.0101 * parseInt(glucose)
+            0.0101 * sugarNumber
         );
       } else {
         setZNumber(
@@ -56,7 +72,7 @@ export default function ScoreLogic(
             0.0138 * parseInt(hdl) +
             0.0081 * parseInt(pressure) +
             0.6125 * Math.log(parseInt(trigl)) +
-            0.0208 * parseInt(glucose)
+            0.0208 * sugarNumber
         );
       }
       setPercentile(
@@ -66,6 +82,16 @@ export default function ScoreLogic(
     }
     else
     {
+      let sugarNumber = 0;
+      if (newA1cPref == 0)
+      {
+        sugarNumber = parseInt(newGlucose);
+      }
+      else
+      {
+        sugarNumber = parseInt((parseFloat(newA1c) * 28.7) - 46.7);
+      }
+
       let realHeight = feet * 12 + parseInt(inches);
       let heightSquared = realHeight * realHeight;
       let weightStarter = newWeight * 703;
@@ -79,7 +105,7 @@ export default function ScoreLogic(
             0.0272 * parseInt(newHdl) +
             0.0044 * parseInt(newPressure) +
             0.8018 * Math.log(parseInt(newTrigl)) +
-            0.0101 * parseInt(newGlucose)
+            0.0101 * sugarNumber
         );
       } 
       else 
@@ -90,7 +116,7 @@ export default function ScoreLogic(
             0.0138 * parseInt(newHdl) +
             0.0081 * parseInt(newPressure) +
             0.6125 * Math.log(parseInt(newTrigl)) +
-            0.0208 * parseInt(newGlucose)
+            0.0208 * sugarNumber
         );
       }
       setPercentile(

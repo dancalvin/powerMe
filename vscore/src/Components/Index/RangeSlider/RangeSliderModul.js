@@ -22,8 +22,8 @@ export const RangeSliderModul = [
   },
   {
     id: "glucose",
-    min: 70,
-    max: 130,
+    min: 50,
+    max: 160,
     clName: "rangeSlider glucose",
     text: "optimal range for fasting glucose",
   },
@@ -47,5 +47,12 @@ export const RangeSliderModul = [
     max: 60,
     clName: "rangeSlider weight",
     text: "",
+  },
+  {
+    id: "a1c",
+    min: 3.4,
+    max: 7.2,
+    clName: "rangeSlider a1c",
+    text: "optimal range for average a1c",
   },
 ];

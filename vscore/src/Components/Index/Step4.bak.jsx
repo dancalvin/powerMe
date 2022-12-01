@@ -50,8 +50,8 @@ export default function Step4({ form, nextTab,prevTab, setInput, setInputDirect,
           <RangeSlider
             {...RangeSliderModul[3]}
             value={form.glucose}
-            // update the glucose value and the a1c value
-            onChange={event => handleSugarChangeGlucoseToA1C(event, setInputDirect)}
+            //onChange={setInput("glucose")}
+            onChange={handleSugarChangeGlucoseToA1C(setInputDirect)}
           />
           </div>
 
@@ -67,13 +67,21 @@ export default function Step4({ form, nextTab,prevTab, setInput, setInputDirect,
             value={form.a1c}
             unit="%"
             stepAmount="0.1"
-            // update the glucose value and the a1c value
-            onChange={event => handleSugarChangeA1CToGlucose(event, setInputDirect)}
+            //onChange={setInput("a1c")}
+            onChange={handleSugarChangeA1CToGlucose(setInputDirect)}
           />
           </div>
           <h3 className="med">
             Check this box if you prefer to use A1C in the calculations instead of Fasting Blood Sugar.{" "}
           </h3>
+          <div className="input__checkbox">
+            <div className="input__checkbox-item">
+              <input type="checkbox" onClick={setCheckbox("a1cPref")} />
+              <label htmlFor=""></label>
+              <span>Use A1C instead of Fasting Blood Sugar</span>
+            </div>
+          </div>
+
         </div>
       </div>
       <button
@@ -89,10 +97,10 @@ export default function Step4({ form, nextTab,prevTab, setInput, setInputDirect,
   );
 }
 
-const delay = ms => new Promise(res => setTimeout(res, ms));
+
 
 // make a function that will take in A1C value and convert it to glucose then update both corresponding form values
-function handleSugarChangeA1CToGlucose(evt,setInputDirect) 
+function handleSugarChangeA1CToGlucose(evt,setInputDirect)
 {
   let sugarNumber = 0;
   if (evt.target.value == 0)
@@ -103,11 +111,12 @@ function handleSugarChangeA1CToGlucose(evt,setInputDirect)
   {
     sugarNumber = parseInt((parseFloat(evt.target.value) * 28.7) - 46.7);
   }
-  setInputDirect("a1c",evt.target.value,"glucose",sugarNumber);
+  setInputDirect("glucose",sugarNumber);
+  setInputDirect("a1c",evt.target.value);
 }
 
 // make a function that will take in glucose integer value and convert it to a1c percent by then update both corresponding form values
-function handleSugarChangeGlucoseToA1C(evt,setInputDirect) 
+function handleSugarChangeGlucoseToA1C(evt,setInputDirect)
 {
   let sugarNumber = 0;
   if (evt.target.value == 0)
@@ -118,5 +127,6 @@ function handleSugarChangeGlucoseToA1C(evt,setInputDirect)
   {
     sugarNumber = parseFloat((parseInt(evt.target.value) + 46.7) / 28.7);
   }
-  setInputDirect("glucose",evt.target.value,"a1c",sugarNumber.toFixed(1));
+  setInputDirect("glucose",sugarNumber);
+  setInputDirect("a1c",evt.target.value);
 }

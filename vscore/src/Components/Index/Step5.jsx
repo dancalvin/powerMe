@@ -4,15 +4,10 @@ import RangeSlider from "./RangeSlider/RangeSlider";
 import CircleModel from "./CircleModel/CircleModel";
 import { RangeSliderModul } from "./RangeSlider/RangeSliderModul";
 import VitalityScore from "./VitalityScore";
-import calcMetaAge from "./CircleModel/metaCalc.js";
+import MetaCalc from "./CircleModel/MetaCalc.jsx";
 
 
-export default function Step5({ form, setInput }) {
-  const [ageCalculated, setCalcAge] = useState(10);
-  useEffect(() => 
-  {
-    setCalcAge(calcMetaAge(form.age, form.pressure, form.hdl, form.trigl,form.glucose,form.waist,form.diastolicBP));
-  });
+export default function Step5({ form, setInput, setInputDirect }) {
   
   return (
     <>
@@ -27,19 +22,16 @@ export default function Step5({ form, setInput }) {
         <a href="#" className="button primary large">
           View History
         </a>
-
-        
         <div className="step fifth">
           <div className="doterraRow">
             <div className="doterraColumn">
               <h2>Your Metabolic Age </h2>
-              <h1 className="bigNumber darkBlue">{ageCalculated}</h1>
+              <h1 className="bigNumber darkBlue">{<MetaCalc {...form} />}</h1>
               <h2>Your Calendar Age </h2>
               <h1 className="bigNumber lightBlue">{form.age}</h1>
             </div>
             <div className="doterraColumn">
-            {/*<CircleModel metabolicAge={<MetabolicAgeCalculator {...form}/>} actualAge={form.age}/>*/}
-            <CircleModel metabolicAge={ageCalculated} actualAge={form.age}/>
+            <CircleModel metabolicAge={<MetaCalc {...form} />} actualAge={form.age}/>
             </div>
           </div>
         </div>
@@ -112,9 +104,18 @@ export default function Step5({ form, setInput }) {
           <RangeSlider
             {...RangeSliderModul[3]}
             value={form.newGlucose}
-            onChange={setInput("newGlucose")}
+            onChange={event => handleSugarChangeGlucoseToA1C(event, setInputDirect)}
             unit=" mg/dL"
             clName="rangeSlider new glucose"
+          />
+          <h3 className="med">A1C Glycated Hemoglobin </h3>
+          <RangeSlider
+            {...RangeSliderModul[7]}
+            value={form.newA1c}
+            onChange={event => handleSugarChangeA1CToGlucose(event, setInputDirect)}
+            unit="%"
+            stepAmount= "0.1"
+            clName="rangeSlider new a1c"
           />
         </div>
         <button type="submit" className="button primary mirror">
@@ -153,4 +154,34 @@ export default function Step5({ form, setInput }) {
       </div>
     </>
   );
+}
+
+// make a function that will take in A1C value and convert it to glucose then update both corresponding form values
+function handleSugarChangeA1CToGlucose(evt,setInputDirect) 
+{
+  let sugarNumber = 0;
+  if (evt.target.value == 0)
+  {
+    sugarNumber = parseInt(evt.target.value);
+  }
+  else
+  {
+    sugarNumber = parseInt((parseFloat(evt.target.value) * 28.7) - 46.7);
+  }
+  setInputDirect("newA1c",evt.target.value,"newGlucose",sugarNumber);
+}
+
+// make a function that will take in glucose integer value and convert it to a1c percent by then update both corresponding form values
+function handleSugarChangeGlucoseToA1C(evt,setInputDirect) 
+{
+  let sugarNumber = 0;
+  if (evt.target.value == 0)
+  {
+    sugarNumber = parseInt(evt.target.value);
+  }
+  else
+  {
+    sugarNumber = parseFloat((parseInt(evt.target.value) + 46.7) / 28.7);
+  }
+  setInputDirect("newGlucose",evt.target.value,"newA1c",sugarNumber.toFixed(1));
 }

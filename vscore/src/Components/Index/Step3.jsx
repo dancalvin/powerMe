@@ -107,7 +107,7 @@ export default function Step3({ nextTab, prevTab, setInput, updateForm, form }) 
       <button
         type="button"
         className="button primary"
-        //disabled={!isValid}
+        disabled={!isValid}
         onClick={nextTab}
       >
         Continue

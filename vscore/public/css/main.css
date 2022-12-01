@@ -100,6 +100,14 @@ li {
   margin: 0px;
 }
 
+.tagAlignRight {
+  text-align: right !important;
+}
+
+.shortText {
+  width: 275px;
+}
+
 .gapDT {
   padding-top: 30px;
 }
@@ -119,6 +127,26 @@ li {
   grid-template-columns: 1fr 1fr;
   grid-gap: 20px;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.doterraRowNoSplit {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+}
+.doterraRowNoSplit::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  -moz-ransform: translateX(-50%);
+  -o-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  -webkit-transform: translateX(-50%);
+  width: 1px;
+  height: 125px;
+  background: #000;
 }
 
 .bigNumber {
@@ -799,6 +827,37 @@ main {
   background-color: #95B6A8;
 }
 .rangeSlider.glucose .rangeSlider__input::-moz-range-thumb {
+  background-color: #95B6A8;
+}
+.rangeSlider.a1c .rangeSlider__optimal {
+  left: 34.5%;
+}
+.rangeSlider.a1c::before {
+  left: 34.5%;
+}
+.rangeSlider.a1c::after {
+  left: 34.5%;
+  transform: translate(0, 0);
+  -moz-ransform: translate(0, 0);
+  -o-transform: translate(0, 0);
+  -ms-transform: translate(0, 0);
+  -webkit-transform: translate(0, 0);
+}
+.rangeSlider.a1c .rangeSlider__input {
+  background: linear-gradient(90deg, rgba(149, 182, 168, 0) 16.75%, #95B6A8 34.5%, rgba(149, 182, 168, 0) 49.18%);
+}
+.rangeSlider.a1c .rangeSlider__input::before {
+  left: 34.5%;
+  transform: translate(0, 0);
+  -moz-ransform: translate(0, 0);
+  -o-transform: translate(0, 0);
+  -ms-transform: translate(0, 0);
+  -webkit-transform: translate(0, 0);
+}
+.rangeSlider.a1c .rangeSlider__input::-webkit-slider-thumb {
+  background-color: #95B6A8;
+}
+.rangeSlider.a1c .rangeSlider__input::-moz-range-thumb {
   background-color: #95B6A8;
 }
 .rangeSlider.pressure .rangeSlider__optimal {
@@ -1700,6 +1759,9 @@ main {
   }
 }
 @media (max-width: 540px) {
+  .doterraRowNoSplit::after {
+    display: none;
+  }
   h1 {
     font-weight: 700;
     font-size: 28px;

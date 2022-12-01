@@ -253,6 +253,41 @@
             }
         }
 
+        &.a1c {
+            .rangeSlider__optimal {
+                left: 34.5%;
+            }
+
+            &::before {
+                left: 34.5%;
+            }
+
+            &::after {
+                left: 34.5%;
+                @include transformReset;
+            }
+
+            .rangeSlider__input {
+                background: linear-gradient(90deg, rgba(149, 182, 168, 0) 16.75%, #95B6A8 34.5%, rgba(149, 182, 168, 0) 49.18%);
+
+                &::before {
+                    left: 34.5%;
+                    @include transformReset;
+
+                }
+
+                &::-webkit-slider-thumb {
+                    background-color: #95B6A8;
+                }
+
+                &::-moz-range-thumb {
+                    background-color: #95B6A8;
+                }
+
+
+            }
+        }
+
         &.pressure {
             .rangeSlider__optimal {
                 left: 41%;

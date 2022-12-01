@@ -1,4 +1,14 @@
 
+.tagAlignRight
+{
+    text-align:right !important;
+}
+
+.shortText
+{
+    width: 275px;
+}
+
 .gapDT
 {
     padding-top:30px;
@@ -23,6 +33,23 @@
     grid-template-columns: 1fr 1fr;
     grid-gap: 20px;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.doterraRowNoSplit {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+
+    &::after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        @include transformX;
+        width: 1px;
+        height: 125px;
+        background: $black;
+    }
 }
 
 
