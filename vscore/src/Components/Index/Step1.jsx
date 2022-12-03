@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Step1({ nextTab }) {
+export default function Step1({ form,nextTab }) {
   return (
     <>
       <div className="step first">
@@ -16,8 +16,13 @@ export default function Step1({ nextTab }) {
         Vitality Score is based on algorithms developed by MetCalc.org. Ranges are based on NHAINES data gathered by CDC
         </span>
       </div>
-      <button type="button" className="button primary" onClick={nextTab}>
+      <div className ="gapDT"></div>
+      <button type="button" className="button primary mirror" onClick={nextTab}>
         Continue
+      </button>
+      
+      <button type="button" className="button primary clearDT" >
+        See Your Vitality Score History
       </button>
     </>
   );

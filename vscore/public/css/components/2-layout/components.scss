@@ -1,3 +1,75 @@
+
+.tagAlignRight
+{
+    text-align:right !important;
+}
+
+.shortText
+{
+    width: 275px;
+}
+
+.gapDT
+{
+    padding-top:30px;
+}
+
+.myList
+{   
+    li
+    {
+        list-style:disc;
+    }
+
+    li::marker
+    {
+        font-size: 0.65em;
+    }
+    margin-left: 30px;
+}
+
+.doterraRow {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.doterraRowNoSplit {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+
+    &::after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        @include transformX;
+        width: 1px;
+        height: 125px;
+        background: $black;
+    }
+}
+
+
+.bigNumber{
+    font-size: 4.5rem;
+    font-weight: 400;
+    line-height: 0.5;
+    text-align: left;
+    margin-bottom:75px;
+} 
+
+.darkBlue{
+    color: $darkBlue;
+}
+
+.lightBlue
+{
+    color: $lightBlue;
+}
+
 h1 {
     font-family: $mainFont;
     font-weight: 300;
@@ -64,15 +136,21 @@ main {
     min-height: calc(100vh - 308.48px);
 }
 
+.shareIcon 
+{
+    top:5px;
+    left:5px;
+    position:relative;
+}
+
 .button {
     cursor: pointer;
     box-sizing: border-box;
     @include transition;
 
-    &:hover {
-        color: $bodybg;
-        background-color: $blue !important;
-    }
+
+
+
 
     &.primary {
         padding: 18px 98px;
@@ -86,6 +164,11 @@ main {
         text-align: center;
         color: $bodybg;
 
+        &:hover {
+            color: $bodybg;
+            background-color: $blue;
+        }
+
         &:disabled {
             opacity: 0.5;
         }
@@ -94,5 +177,56 @@ main {
             padding: 18px 45px;
             max-width: 400px;
         }
+
+        &.mirror
+        {
+            padding: 18px 35px;
+            max-width: 450px;
+            margin-top:20px !important;
+            width:375px;
+            &:hover
+            {
+                .shareIcon 
+                {
+                    filter: invert(94%) sepia(13%) saturate(149%) hue-rotate(338deg) brightness(102%) contrast(96%);
+                }
+            } 
+        }
+
+        &:hover {
+            color: $bodybg;
+            background-color: $blue;
+        }
+
+
+        &.clearDT
+        {
+            border: 1px solid black ;
+            padding: 18px 35px;
+            max-width: 450px;
+            background-color: #FAF4ED ;
+            color:black;
+            margin-top:20px !important;
+
+            &:hover {
+                color: $bodybg;
+                background-color: $blue;
+                border: 1px solid $blue ;
+            }
+
+
+            &.back
+            {
+                width: 295px;
+
+                &:hover {
+                    color: $bodybg;
+                    background-color: $blue;
+                    border: 1px solid $blue ;
+                }
+            }
+        }
+
+
     }
 }

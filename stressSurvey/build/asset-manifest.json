@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "./static/css/main.9dec87af.css",
+    "main.js": "./static/js/main.8fe62fb7.js",
+    "static/js/787.115542db.chunk.js": "./static/js/787.115542db.chunk.js",
+    "static/media/main_img.png": "./static/media/main_img.296648afef8e26933596.png",
+    "static/media/bottles_3.png": "./static/media/bottles_3.b8fa88d4c6327d0a7e2d.png",
+    "static/media/discover_bottle_2.png": "./static/media/discover_bottle_2.993c516e37dd99d00e4d.png",
+    "static/media/discover_bottle_3.png": "./static/media/discover_bottle_3.a377e6869e70a0ac326f.png",
+    "static/media/discover_bottle_1.png": "./static/media/discover_bottle_1.652911be7dde840c953c.png",
+    "static/media/logo.png": "./static/media/logo.84bd48bd7ba60f1367c4.png",
+    "static/media/human_body_img.png": "./static/media/human_body_img.3a20ee5a246b74637ed5.png",
+    "static/media/line_graph.png": "./static/media/line_graph.5613e1876592a9a85474.png",
+    "index.html": "./index.html",
+    "main.9dec87af.css.map": "./static/css/main.9dec87af.css.map",
+    "main.8fe62fb7.js.map": "./static/js/main.8fe62fb7.js.map",
+    "787.115542db.chunk.js.map": "./static/js/787.115542db.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.9dec87af.css",
+    "static/js/main.8fe62fb7.js"
+  ]
+}

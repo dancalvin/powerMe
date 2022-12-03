@@ -2,7 +2,7 @@ import React from "react";
 // get the calendar icon
 import { calendar } from "../Base/SVG";
 
-export default function Step2({ form, setCheckbox, nextTab, setInput }) {
+export default function Step2({ form, setCheckbox, nextTab, prevTab, setInput }) {
   // the constant is only valid if age and sex are not empty and form race is equal to something
   const isValid =
     form.age !== "" &&
@@ -140,6 +140,8 @@ export default function Step2({ form, setCheckbox, nextTab, setInput }) {
       >
         Continue
       </button>
+
+      <button type="button" className="button primary clearDT back" onClick={prevTab}>Back</button>
     </>
   );
 }

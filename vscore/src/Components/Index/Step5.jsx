@@ -1,9 +1,14 @@
 import React from "react";
+import { useState, useEffect } from "react";
 import RangeSlider from "./RangeSlider/RangeSlider";
+import CircleModel from "./CircleModel/CircleModel";
 import { RangeSliderModul } from "./RangeSlider/RangeSliderModul";
 import VitalityScore from "./VitalityScore";
+import MetaCalc from "./CircleModel/MetaCalc.jsx";
 
-export default function Step5({ form, setInput }) {
+
+export default function Step5({ form, setInput, setInputDirect }) {
+  
   return (
     <>
       <div className="step__outer">
@@ -17,12 +22,21 @@ export default function Step5({ form, setInput }) {
         <a href="#" className="button primary large">
           View History
         </a>
-
-        <a href="#" className="button primary large">
-          Save Score
-        </a>
-
         <div className="step fifth">
+          <div className="doterraRow">
+            <div className="doterraColumn">
+              <h2>Your Metabolic Age </h2>
+              <h1 className="bigNumber darkBlue">{<MetaCalc {...form} />}</h1>
+              <h2>Your Calendar Age </h2>
+              <h1 className="bigNumber lightBlue">{form.age}</h1>
+            </div>
+            <div className="doterraColumn">
+            <CircleModel metabolicAge={<MetaCalc {...form} />} actualAge={form.age}/>
+            </div>
+          </div>
+        </div>
+
+        <div className="step">
           <h2>What Your Results Mean </h2>
           <h3 className="light">
           Your Vitality Score indicates your current metabolic health status compared to other adults in the US population. 
@@ -31,7 +45,8 @@ export default function Step5({ form, setInput }) {
               A score of 50 suggests that you are of average health and have an average risk for developing metabolic health problems in the future.  The higher your score, suggests better overall metabolic health.  The good news is that healthy lifestyle changes and smart supplementation can improve your Vitality Score over time. 
           </h3>
         </div>
-        <div className="step">
+
+        <div className="step fourth">
           <VitalityScore
             score={1}
             form={form}
@@ -46,12 +61,27 @@ export default function Step5({ form, setInput }) {
             onChange={setInput("newWeight")}
             unit=" lbs."
           />
-          <h3 className="med">Blood Pressure (mmHg)</h3>
+          <h3 className="med">Waist</h3>
+          <RangeSlider
+            {...RangeSliderModul[6]}
+            value={form.newWaist}
+            onChange={setInput("newWaist")}
+            unit=" in."
+          />
+          <h3 className="med">Systolic Blood Pressure (mmHg)</h3>
           <RangeSlider
             {...RangeSliderModul[0]}
             value={form.newPressure}
             onChange={setInput("newPressure")}
             clName="rangeSlider new pressure"
+            unit=" mmHG"
+          />
+          <h3 className="med">Diastolic Blood Pressure (mmHg)</h3>
+          <RangeSlider
+            {...RangeSliderModul[5]}
+            value={form.newDiastolicBP}
+            onChange={setInput("newDiastolicBP")}
+            clName="rangeSlider new diastolicBP"
             unit=" mmHG"
           />
           <h3 className="med">HDL (mg/dL)</h3>
@@ -74,14 +104,30 @@ export default function Step5({ form, setInput }) {
           <RangeSlider
             {...RangeSliderModul[3]}
             value={form.newGlucose}
-            onChange={setInput("newGlucose")}
+            onChange={event => handleSugarChangeGlucoseToA1C(event, setInputDirect)}
             unit=" mg/dL"
             clName="rangeSlider new glucose"
           />
+          <h3 className="med">A1C Glycated Hemoglobin </h3>
+          <RangeSlider
+            {...RangeSliderModul[7]}
+            value={form.newA1c}
+            onChange={event => handleSugarChangeA1CToGlucose(event, setInputDirect)}
+            unit="%"
+            stepAmount= "0.1"
+            clName="rangeSlider new a1c"
+          />
         </div>
-        <button type="submit" className="button primary large">
-          Retake Your Vitality Score
+        <button type="submit" className="button primary mirror">
+          Save Your Goals
         </button>
+
+        <button type="button" className="button primary clearDT mirror" >
+        Share Your Results <img className="shareIcon" src={process.env.PUBLIC_URL + "/images/share.svg"} alt="share-icon"/>
+      </button>
+      <div className="manualGap" style={{padding: "20px"}}>
+      </div>
+
         <div className="step add">
           <div className="step__image">
             <img
@@ -108,4 +154,34 @@ export default function Step5({ form, setInput }) {
       </div>
     </>
   );
+}
+
+// make a function that will take in A1C value and convert it to glucose then update both corresponding form values
+function handleSugarChangeA1CToGlucose(evt,setInputDirect) 
+{
+  let sugarNumber = 0;
+  if (evt.target.value === 0)
+  {
+    sugarNumber = parseInt(evt.target.value);
+  }
+  else
+  {
+    sugarNumber = parseInt((parseFloat(evt.target.value) * 28.7) - 46.7);
+  }
+  setInputDirect("newA1c",evt.target.value,"newGlucose",sugarNumber);
+}
+
+// make a function that will take in glucose integer value and convert it to a1c percent by then update both corresponding form values
+function handleSugarChangeGlucoseToA1C(evt,setInputDirect) 
+{
+  let sugarNumber = 0;
+  if (evt.target.value === 0)
+  {
+    sugarNumber = parseInt(evt.target.value);
+  }
+  else
+  {
+    sugarNumber = parseFloat((parseInt(evt.target.value) + 46.7) / 28.7);
+  }
+  setInputDirect("newGlucose",evt.target.value,"newA1c",sugarNumber.toFixed(1));
 }

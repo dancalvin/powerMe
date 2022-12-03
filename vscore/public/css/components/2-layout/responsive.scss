@@ -119,6 +119,14 @@
 // 540px
 @include xsm-sm {
 
+    .doterraRowNoSplit
+    {
+        &::after
+        {
+            display: none;
+        }
+    }
+
     // base start
     h1 {
         font-weight: 700;

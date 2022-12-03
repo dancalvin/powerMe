@@ -9,11 +9,10 @@ import Step3 from "./Step3";
 import Step4 from "./Step4";
 import Step5 from "./Step5";
 const steps = ["step1", "step2", "step3", "step4", "step5"];
-// const steps = ["step5"];
 
 // Define the data that will be collected in the form
 const initForm = {
-  age: "",
+  age: 50,
   sex: "",
   asian: false,
   pacIsl: false,
@@ -33,11 +32,20 @@ const initForm = {
   hdl: 60,
   trigl: 150,
   glucose: 90,
+  a1c: 4.7,
   newWeight: 150,
   newPressure: 120,
   newHdl: 60,
   newTrigl: 150,
   newGlucose: 90,
+  waist: "",
+  newWaist: 30,
+  diastolicBP: 70, 
+  newDiastolicBP: 70,
+  metabolicAge: 0,
+  a1cPref: 0,
+  newA1cPref: 0,
+  newA1c: 4.7,
 };
 
 const classNames = ["first", "second", "third", "fourth", "fifth"];
@@ -56,6 +64,11 @@ export default function Steps() {
   // this function helps to set the corresponding items in the array to their matching input value
   const setInput = (key) => (event) =>
     updateForm({ [key]: event.target.value });
+
+  // this function helps to set the corresponding items in the array to their matching input value
+  const setInputDirect = (keyOne,directValueOne,keyTwo,directValueTwo) => {
+  updateForm({ [keyOne]: directValueOne , [keyTwo]: directValueTwo });
+  }
 
   // this function helps set the checks for the items that are clicked by the user
   const setCheckbox = (key) => (event) =>
@@ -80,6 +93,7 @@ export default function Steps() {
     form,
     updateForm,
     setInput,
+    setInputDirect,
     setCheckbox,
   };
 

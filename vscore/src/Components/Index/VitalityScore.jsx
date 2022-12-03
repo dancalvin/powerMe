@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
 import ScoreLogic from "./ScoreLogic";
+import MetaCalc from "./CircleModel/MetaCalc.jsx";
 
 export default function VitalityScore({ form, title, score, image, clName }) {
   const [scoreStyle, setScoreStyle] = useState("");
   const [scoreHeight, setScoreHeight] = useState("");
+
   useEffect(() => {
+    
     if (scoreStyle >= 0 && scoreStyle <= 10) {
       setScoreHeight(scoreStyle * 2);
     } else if (scoreStyle > 10 && scoreStyle < 20) {
@@ -37,10 +40,30 @@ export default function VitalityScore({ form, title, score, image, clName }) {
   }, [scoreStyle]);
   return (
     <div className={clName}>
-      <h2>{title}</h2>
-      <h1 className="big">
-        {<ScoreLogic {...form} setScoreStyle={setScoreStyle} score={score} />}
-      </h1>
+      {image === "/images/graph2.png" ? 
+      (
+      <div className="doterraRowNoSplit">
+        <div>
+          <h2>Your Vitality<br></br> Score Could Be</h2>
+          <h1 className="big">
+            {<ScoreLogic {...form} setScoreStyle={setScoreStyle} score={score} />}
+          </h1>
+        </div>
+        <div>
+          <h2 className="tagAlignRight">Your Metabolic<br></br> Age Could Be</h2>
+          <h1 className="big tagAlignRight">{<MetaCalc {...form} typeFlag={"type1"} />}
+          </h1>
+        </div>
+      </div>
+      ) 
+      : 
+      (<>
+          <h2>{title}</h2>
+          <h1 className="big">
+            {<ScoreLogic {...form} setScoreStyle={setScoreStyle} score={score} />}
+          </h1>
+        </>
+      )}
 
       <div className="vitality__inner">
         <div className="vitality__inner-image">
