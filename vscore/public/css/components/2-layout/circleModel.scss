@@ -69,7 +69,7 @@
     .svg-pi-inner .svg-pi-indicator {
         stroke-dashoffset: 635.0575px; /* DashOffset = DashArray * ((100 - progress)/100) */
         stroke-dasharray: 848.23px; /* DashArray = Track's or indicator's Circumference */
-        stroke: $lightBlue;
+        stroke: $violet;
     }
     
 }
