@@ -7,7 +7,7 @@ import VitalityScore from "./VitalityScore";
 import MetaCalc from "./CircleModel/MetaCalc.jsx";
 
 
-export default function Step5({ form, setInput, setInputDirect }) {
+export default function Step5({ form, setInput, setInputDirect,nextTab }) {
   
   return (
     <>
@@ -19,22 +19,32 @@ export default function Step5({ form, setInput, setInputDirect }) {
           image="/images/graph.png"
           clName="vitality"
         />
-        <a href="#" className="button primary large">
-          View History
-        </a>
+
         <div className="step fifth">
           <div className="doterraRow">
             <div className="doterraColumn">
               <h2>Your Metabolic Age </h2>
               <h1 className="bigNumber darkBlue">{<MetaCalc {...form} />}</h1>
               <h2>Your Calendar Age </h2>
-              <h1 className="bigNumber lightBlue">{form.age}</h1>
+              <h1 className="bigNumber violet">{form.age}</h1>
             </div>
             <div className="doterraColumn">
             <CircleModel metabolicAge={<MetaCalc {...form} />} actualAge={form.age}/>
             </div>
           </div>
         </div>
+
+        
+        <button type="submit" className="button primary mirror" onClick={nextTab}>
+          View History
+        </button>
+
+        <button type="button" className="button primary clearDT mirror" >
+        Share Your Results <img className="shareIcon" src={process.env.PUBLIC_URL + "/images/share.svg"} alt="share-icon"/>
+      </button>
+
+      <div className="manualGap" style={{padding: "40px"}}>
+      </div>
 
         <div className="step">
           <h2>What Your Results Mean </h2>
@@ -123,7 +133,7 @@ export default function Step5({ form, setInput, setInputDirect }) {
         </button>
 
         <button type="button" className="button primary clearDT mirror" >
-        Share Your Results <img className="shareIcon" src={process.env.PUBLIC_URL + "/images/share.svg"} alt="share-icon"/>
+        Share Your Goals <img className="shareIcon" src={process.env.PUBLIC_URL + "/images/share.svg"} alt="share-icon"/>
       </button>
       <div className="manualGap" style={{padding: "20px"}}>
       </div>

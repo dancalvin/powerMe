@@ -8,7 +8,9 @@ import Step2 from "./Step2";
 import Step3 from "./Step3";
 import Step4 from "./Step4";
 import Step5 from "./Step5";
-const steps = ["step1", "step2", "step3", "step4", "step5"];
+import VitalityHistory from  "../VitalityHistory/index";
+const steps = ["step1", "step2", "step3", "step4", "step5", "step6"];
+
 
 // Define the data that will be collected in the form
 const initForm = {
@@ -194,6 +196,7 @@ export default function Steps() {
           {step === steps[2] && <Step3 {...commonProps} />}
           {step === steps[3] && <Step4 {...commonProps} />}
           {step === steps[4] && <Step5 {...commonProps} />}
+          {step === steps[5] && <VitalityHistory {...commonProps} />}
         </div>
       </div>
     </div>
