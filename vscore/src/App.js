@@ -2,7 +2,7 @@ import Header from "./Components/Base/Header";
 import Footer from "./Components/Base/Footer";
 import Index from "./Components/Index/Index";
 import { Route, Routes } from "react-router-dom";
-
+import "./index.css";
 function App() {
   return (
     <>
