@@ -47,7 +47,7 @@ const VitalityScoreHistory = (props) => {
               <div className="w-1/2 mt-4 flex flex-col items-center pl-2">
                 <div>
                   <p className="font-montserrat text-base leading-[20px] text-third">
-                    Your Metabolic Age
+                    Your Vitality Score
                   </p>
                   <p className="font-montserrat text-4xl leading-[49px] text-third">
                     50

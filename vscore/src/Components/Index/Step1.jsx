@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Step1({ form,nextTab }) {
+export default function Step1({ form,nextTab , goToTab}) {
   return (
     <>
       <div className="step first">
@@ -21,9 +21,14 @@ export default function Step1({ form,nextTab }) {
         Continue
       </button>
       
-      <button type="button" className="button primary clearDT" >
-        See Your Vitality Score History
+
+
+      <button type="button" className="button primary clearDT"  onClick={() => { goToTab(5) }}> See Your Vitality Score History
       </button>
+
+
+
+
     </>
   );
 }
