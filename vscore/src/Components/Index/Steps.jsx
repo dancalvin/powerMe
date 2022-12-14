@@ -89,6 +89,11 @@ export default function Steps() {
     window.scrollTo(0, 0);
   };
 
+    // Define function to change to a specified step
+  const goToTab = (step) => {
+      setStep(steps[step]);
+      window.scrollTo(0, 0);
+    };
   const commonProps = {
     prevTab,
     nextTab,
@@ -97,6 +102,7 @@ export default function Steps() {
     setInput,
     setInputDirect,
     setCheckbox,
+    goToTab,
   };
 
   // this function fills in the circles by using css and additonal class names fill and active to bold the text

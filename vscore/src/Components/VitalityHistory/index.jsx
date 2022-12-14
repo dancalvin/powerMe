@@ -69,7 +69,7 @@ function DeletePopup(props) {
               </div>
 
               <div className="flex flex-col sm:flex-row flex-wrap ">
-                <div className="sm:w-1/2 mt-4 border-b-[1px] sm:border-r-[1px]">
+                <div className="sm:w-1/2 mt-4  sm:border-r-[1px]">
                   <p className="font-montserrat text-base leading-[20px]">
                     Your Metabolic Age
                   </p>
