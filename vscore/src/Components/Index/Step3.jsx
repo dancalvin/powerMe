@@ -41,7 +41,7 @@ export default function Step3({
     <>
       <div
         style={{ border: type == "1" ? "" : 0 }}
-        className={`step fourth ${type == "1" ? "" : "before:content-none"} `}
+        className={`step third ${type == "1" ? "" : "before:content-none"} `}
       >
         <h2>Measurements</h2>
         <h3 className="light">

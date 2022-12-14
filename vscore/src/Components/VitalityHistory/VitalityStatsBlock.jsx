@@ -184,7 +184,7 @@ export default function VitalityStatsBlock(props) {
             </p>
           </div>
         </div>
-        <div className="px-6 py-8 sm:px-12 sm:py-10">
+        <div className="py-8 px-4 sm:px-12 sm:py-10">
           <div className="flex flex-row flex-nowrap justify-between gap-2 sm:gap-5">
             {timeRanges.map((tRange, index) => (
               <div
@@ -348,7 +348,10 @@ export default function VitalityStatsBlock(props) {
       </div>
 
       {historicalDataPopup ? (
-        <EditVitalityCalculator close={() => setHistoricalDataPopup(false)} />
+        <EditVitalityCalculator
+          close={() => setHistoricalDataPopup(false)}
+          loadHistoryData={props.loadHistoryData}
+        />
       ) : null}
     </div>
   );

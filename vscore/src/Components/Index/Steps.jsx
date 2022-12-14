@@ -184,101 +184,119 @@ export default function Steps() {
   // onClick={() => {setStep(steps[0]);}}
   return (
     <div className="steps">
-      <div className="auto__container">
+      <div className="auto__container box-content max-sm:px-[16px]">
         <div className="steps__inner">
-          <h1 className={classNames[currentIndex]}>
-            Calculate your Vitality score
-          </h1>
-          <div className="steps__line">
-            <div className="steps__item">
-              <div
-                className={
-                  "steps__item-circle " + (currentIndex === 0 ? "fill" : "")
-                }
+          {step === steps[5] ? null : (
+            <>
+              <h1
+                className={`classNames[currentIndex] max-[540px]:bg-[#405F53]`}
               >
-                1
+                Calculate your Vitality score
+              </h1>
+              <div className="steps__line">
+                <div className="steps__item">
+                  <div
+                    className={
+                      "steps__item-circle " + (currentIndex === 0 ? "fill" : "")
+                    }
+                  >
+                    1
+                  </div>
+                  <div
+                    className={
+                      "steps__item-title " +
+                      (currentIndex === 0 ? "active" : "")
+                    }
+                  >
+                    Intro
+                  </div>
+                </div>
+                <div className="steps__item">
+                  <div
+                    className={
+                      "steps__item-circle " + (currentIndex === 1 ? "fill" : "")
+                    }
+                  >
+                    2
+                  </div>
+                  <div
+                    className={
+                      "steps__item-title " +
+                      (currentIndex === 1 ? "active" : "")
+                    }
+                  >
+                    Tell Us About Yourself
+                  </div>
+                </div>
+                <div className="steps__item">
+                  <div
+                    className={
+                      "steps__item-circle " + (currentIndex === 2 ? "fill" : "")
+                    }
+                  >
+                    3
+                  </div>
+                  <div
+                    className={
+                      "steps__item-title " +
+                      (currentIndex === 2 ? "active" : "")
+                    }
+                  >
+                    Measurements
+                  </div>
+                </div>
+                <div className="steps__item">
+                  <div
+                    className={
+                      "steps__item-circle " + (currentIndex === 3 ? "fill" : "")
+                    }
+                  >
+                    4
+                  </div>
+                  <div
+                    className={
+                      "steps__item-title " +
+                      (currentIndex === 3 ? "active" : "")
+                    }
+                  >
+                    Lab Values
+                  </div>
+                </div>
+                <div className="steps__item">
+                  <div
+                    className={
+                      "steps__item-circle " + (currentIndex === 4 ? "fill" : "")
+                    }
+                  >
+                    5
+                  </div>
+                  <div
+                    className={
+                      "steps__item-title " +
+                      (currentIndex === 4 ? "active" : "")
+                    }
+                  >
+                    Results
+                  </div>
+                </div>
               </div>
-              <div
-                className={
-                  "steps__item-title " + (currentIndex === 0 ? "active" : "")
-                }
-              >
-                Intro
-              </div>
-            </div>
-            <div className="steps__item">
-              <div
-                className={
-                  "steps__item-circle " + (currentIndex === 1 ? "fill" : "")
-                }
-              >
-                2
-              </div>
-              <div
-                className={
-                  "steps__item-title " + (currentIndex === 1 ? "active" : "")
-                }
-              >
-                Tell Us About Yourself
-              </div>
-            </div>
-            <div className="steps__item">
-              <div
-                className={
-                  "steps__item-circle " + (currentIndex === 2 ? "fill" : "")
-                }
-              >
-                3
-              </div>
-              <div
-                className={
-                  "steps__item-title " + (currentIndex === 2 ? "active" : "")
-                }
-              >
-                Measurements
-              </div>
-            </div>
-            <div className="steps__item">
-              <div
-                className={
-                  "steps__item-circle " + (currentIndex === 3 ? "fill" : "")
-                }
-              >
-                4
-              </div>
-              <div
-                className={
-                  "steps__item-title " + (currentIndex === 3 ? "active" : "")
-                }
-              >
-                Lab Values
-              </div>
-            </div>
-            <div className="steps__item">
-              <div
-                className={
-                  "steps__item-circle " + (currentIndex === 4 ? "fill" : "")
-                }
-              >
-                5
-              </div>
-              <div
-                className={
-                  "steps__item-title " + (currentIndex === 4 ? "active" : "")
-                }
-              >
-                Results
-              </div>
-            </div>
-          </div>
+            </>
+          )}
           {step === steps[0] && <Step1 {...commonProps} />}
           {step === steps[1] && <Step2 {...commonProps} />}
           {step === steps[2] && <Step3 {...commonProps} />}
           {step === steps[3] && <Step4 {...commonProps} />}
           {step === steps[4] && <Step5 {...commonProps} />}
-          {step === steps[5] && <VitalityHistory {...commonProps} />}
         </div>
       </div>
+
+      {step === steps[5] && (
+        <div className="">
+          <div className="auto__container box-content max-sm:px-[0px]">
+            <VitalityHistory {...commonProps} />
+          </div>
+        </div>
+      )}
     </div>
   );
 }

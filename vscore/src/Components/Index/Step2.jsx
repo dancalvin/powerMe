@@ -28,7 +28,7 @@ export default function Step2({
     <>
       <div
         style={{ border: type == "1" ? "" : 0 }}
-        className={`step fourth ${type == "1" ? "" : "before:content-none"} `}
+        className={`step second ${type == "1" ? "" : "before:content-none"} `}
       >
         <h2>Tell Us About Yourself</h2>
         <h3 className="light">

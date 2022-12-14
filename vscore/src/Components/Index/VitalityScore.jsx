@@ -49,12 +49,12 @@ export default function VitalityScore({ form, title, score, image, clName }) {
   return (
     <div className={clName}>
       {image === "/images/graph2.png" ? (
-        <div className="doterraRowNoSplit">
+        <div className="doterraRowNoSplit ">
           <div>
-            <h2>
+            <h2 className="min-sm:text-[16px] font-light">
               Your Vitality<br></br> Score Could Be
             </h2>
-            <h1 className="big">
+            <h1 className="big max-sm:!text-[40px] max-sm:!font-bold">
               {/*
                 <ScoreLogic
                   {...form}
@@ -67,10 +67,10 @@ export default function VitalityScore({ form, title, score, image, clName }) {
             </h1>
           </div>
           <div>
-            <h2 className="tagAlignRight">
+            <h2 className="tagAlignRight font-light max-sm:text-[16px]">
               Your Metabolic<br></br> Age Could Be
             </h2>
-            <h1 className="big tagAlignRight">
+            <h1 className="big tagAlignRight max-sm:!text-[40px] max-sm:!font-bold">
               {/*<MetaCalc {...form} typeFlag={"type1"} />*/}
               {metabolicAge}
             </h1>
@@ -78,7 +78,7 @@ export default function VitalityScore({ form, title, score, image, clName }) {
         </div>
       ) : (
         <>
-          <h2>{title}</h2>
+          <h2 className="min-sm:text-[20px] ">{title}</h2>
           <h1 className="big">
             {/*
               <ScoreLogic
@@ -118,7 +118,7 @@ export default function VitalityScore({ form, title, score, image, clName }) {
         <span className="vitality__min">1</span>
         <span className="vitality__max">100</span>
       </div>
-      <h3 className="bold">
+      <h3 className="bold max-sm:text-[16px]">
         Your Vitality Score is better than {scoreStyle}% of your peers.
       </h3>
     </div>

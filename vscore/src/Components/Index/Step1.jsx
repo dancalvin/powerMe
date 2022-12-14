@@ -19,9 +19,9 @@ export default function Step1({ form, nextTab, jumpTab }) {
   };
   return (
     <>
-      <div className="step first">
+      <div className="step first ">
         <h2>Welcome to the Vitality Score Calculator</h2>
-        <p>
+        <p className="">
           Your Vitality Score indicates your current metabolic health status
           compared to other adults in the US population.
           <br />
@@ -40,13 +40,17 @@ export default function Step1({ form, nextTab, jumpTab }) {
       </div>
       <div className="gapDT"></div>
 
-      <button type="button" className="button primary mirror" onClick={nextTab}>
+      <button
+        type="button"
+        className="button primary mirror sm:!w-none !w-full !border-[1px] text-[16px] sm:text-[20px]"
+        onClick={nextTab}
+      >
         Continue
       </button>
       {isFormSave ? (
         <button
           type="button"
-          className="button primary clearDT"
+          className="button primary mirror sm:!w-none !w-full !border-[1px] !border-black !bg-transparent text-[16px] !text-black hover:!bg-primary hover:!text-white sm:text-[20px]"
           onClick={vitalityScoreHistory}
         >
           See Your Vitality Score History

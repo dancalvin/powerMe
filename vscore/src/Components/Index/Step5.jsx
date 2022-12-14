@@ -43,7 +43,7 @@ export default function Step5({
                   Your Metabolic Age{" "}
                 </h3>
 
-                <p className="font-montserrat text-[40px] font-bold leading-[110%] text-primary md:text-[80px] md:leading-[98px]">
+                <p className="md:text-normal font-montserrat text-[40px] font-bold leading-[110%] text-primary md:text-[80px] md:font-normal md:leading-[98px] ">
                   {metaAge}
                 </p>
               </div>
@@ -52,12 +52,13 @@ export default function Step5({
                 <h3 className="font-montserrat text-base leading-[39px] text-[#7C5D7A] md:text-3xl">
                   Your Calendar Age{" "}
                 </h3>
-                <p className="font-montserrat text-[40px] font-bold leading-[110%] text-[#7C5D7A] md:text-[80px] md:leading-[98px]">
+                <p className="md:text-normal font-montserrat text-[40px] font-bold leading-[110%] text-[#7C5D7A] md:text-[80px] md:font-normal md:leading-[98px]">
                   {form.age}
                 </p>
               </div>
             </div>
             <div className="doterraColumn flex items-center">
+              {/*
               <div className="relative mx-auto h-[200px] min-w-[200px] max-w-[300px] grow sm:block">
                 <VitalityScoreGraph value1={metaAge} value2={form.age} />
 
@@ -68,11 +69,11 @@ export default function Step5({
                   </p>
                 </div>
               </div>
+            */}
 
-              {/*<CircleModel
-                      metabolicAge={metaAge}
-                      actualAge={form.age}
-                    />*/}
+              <div className="mx-auto">
+                <CircleModel metabolicAge={metaAge} actualAge={form.age} />
+              </div>
             </div>
           </div>
         </div>
@@ -103,7 +104,7 @@ export default function Step5({
                         Your Metabolic Age{" "}
                       </h3>
 
-                      <p className="font-montserrat text-[40px] font-bold leading-[110%] text-primary md:text-[80px] md:leading-[98px]">
+                      <p className="font-montserrat text-[40px] font-bold leading-[110%] text-primary md:text-[80px] md:font-normal md:leading-[98px] ">
                         {metaAge}
                       </p>
                     </div>
@@ -112,7 +113,7 @@ export default function Step5({
                       <h3 className="font-montserrat text-base leading-[39px] text-[#7C5D7A] md:text-3xl">
                         Your Calendar Age{" "}
                       </h3>
-                      <p className="font-montserrat text-[40px] font-bold leading-[110%] text-[#7C5D7A] md:text-[80px] md:leading-[98px]">
+                      <p className="font-montserrat text-[40px] font-bold leading-[110%] text-[#7C5D7A] md:text-[80px] md:font-normal md:leading-[98px] ">
                         {form.age}
                       </p>
                     </div>
@@ -142,7 +143,7 @@ export default function Step5({
 
         <button
           type="submit"
-          className="button primary !mt-[60px] !min-w-[375px]"
+          className="button primary !min-w-none !max-w-370px !mt-[60px] !w-full !py-[20px] sm:!min-w-[375px]"
           onClick={nextTab}
         >
           View History
@@ -150,7 +151,7 @@ export default function Step5({
 
         <button
           type="button"
-          className="button primary clearDT mirror !mb-[60px]"
+          className="button primary clearDT mirror !max-w-370px min-w-none !mb-[60px] !w-full !py-[16px] sm:!w-[375px]"
           style={{
             display: "flex",
             gridGap: "10px",
@@ -260,7 +261,7 @@ export default function Step5({
         </div>
         <button
           type="submit"
-          className="button primary mirror"
+          className="button primary mirror !w-full !max-w-[375px] border-[1px]"
           onClick={() => saveYourGoals()}
         >
           Save Your Goals
@@ -268,7 +269,7 @@ export default function Step5({
 
         <button
           type="button"
-          className="button primary clearDT mirror"
+          className="button primary clearDT mirror !w-full  !max-w-[375px]"
           style={{
             display: "flex",
             gridGap: "10px",

@@ -38,7 +38,7 @@ const VitalityScoreHistory = (props) => {
       {...handlers}
     >
       <div
-        className={`flex grow flex-row flex-nowrap justify-between py-10 px-6 sm:pl-6 md:pl-20`}
+        className={`flex grow flex-row flex-nowrap justify-between py-10 px-0 sm:px-6 sm:pl-6 md:pl-20`}
       >
         <div className="w-full">
           <div className="">
@@ -49,7 +49,7 @@ const VitalityScoreHistory = (props) => {
             </div>
 
             <div className="flex flex-row flex-wrap ">
-              <div className="mt-4 w-1/2 border-r-[1px]">
+              <div className="mt-4 w-1/2 border-r-[1px] max-sm:pr-1">
                 <p className="font-montserrat text-base leading-[20px] text-primary">
                   Your Metabolic Age
                 </p>

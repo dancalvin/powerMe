@@ -122,6 +122,7 @@ export default function EditVitalityCalculator(props) {
         ) {
           oldTests[oldTests.length - 1]["form"] = form;
           setItem("forms", oldTests);
+          props.loadHistoryData();
         }
       } else {
         oldTests.push({
@@ -130,10 +131,12 @@ export default function EditVitalityCalculator(props) {
           form: form,
         });
         setItem("forms", oldTests);
+        props.loadHistoryData();
         props.close();
       }
     } else {
       setItem("forms", [{ id: 1, timeStamp: new Date(timeStamp), form: form }]);
+      props.loadHistoryData();
       props.close();
     }
   };

@@ -12,6 +12,26 @@ export default function VitalityHistory(props) {
   const [deleteEntry, setDeleteEntry] = useState(null);
 
   useEffect(() => {
+    loadHistoryData();
+  }, []);
+
+  const setDeletePopupToggleFunc = (entry) => {
+    setDeleteEntry(entry);
+    setDeletePopupToggle(!deletePopupToggle);
+  };
+
+  const deleteEntryFunc = () => {
+    const oldTests = historyData;
+    const deleteEntryIndex = deleteEntry.index;
+    if (deleteEntryIndex > -1 && deleteEntryIndex < oldTests.length) {
+      oldTests.splice(deleteEntryIndex, 1);
+      setItem("forms", oldTests);
+      setDeletePopupToggle(false);
+      loadHistoryData();
+    }
+  };
+
+  const loadHistoryData = () => {
     const oldTests = getItem("forms");
     const copyOldTests = [].concat(oldTests);
     copyOldTests.sort(function (a, b) {
@@ -23,35 +43,22 @@ export default function VitalityHistory(props) {
       return 0;
     });
     setHistoryData(copyOldTests);
-  }, []);
-
-  const setDeletePopupToggleFunc = (entry) => {
-    setDeleteEntry(entry);
-    setDeletePopupToggle(!deletePopupToggle);
-  };
-
-  const deleteEntryFunc = () => {
-    const oldTests = getItem("forms");
-    const deleteEntryIndex = deleteEntry.id;
-    if (deleteEntryIndex > -1 && deleteEntryIndex < oldTests.length) {
-      oldTests.splice(deleteEntryIndex, 1);
-      setItem("forms", oldTests);
-      setDeletePopupToggle(false);
-      setHistoryData(oldTests);
-    }
   };
 
   return (
-    <div className="container w-full max-w-none sm:my-8 sm:px-6 md:my-12">
+    <div className="container mt-0 w-full max-w-none sm:mb-8 sm:px-6 ">
       <div className="m-auto max-w-[1080px]">
-        <div className="bg-primary pt-6 sm:bg-transparent">
-          <h1 className="mb-20 text-center font-montserrat text-3xl font-normal leading-[64px] text-secondary sm:text-6xl sm:text-black">
+        <div className="bg-primary sm:bg-transparent">
+          <h1 className="mb-[60px] max-sm:mb-0 max-sm:!py-8 max-sm:text-white">
             Vitality History
           </h1>
         </div>
-        <div className="">
-          <VitalityStatsBlock historyData={historyData} />
-          <div>
+        <div>
+          <VitalityStatsBlock
+            historyData={historyData}
+            loadHistoryData={loadHistoryData}
+          />
+          <div className="max-sm:px-[16px]">
             {historyData.map((singleHistory, index) => (
               <VitalityScoreHistory
                 key={index}
