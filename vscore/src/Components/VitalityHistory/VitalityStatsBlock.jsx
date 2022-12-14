@@ -12,49 +12,49 @@ const timeRanges = ["day", "week", "month", "year"];
 const vitalityGoalsData = [
   {
     name: "Visit 1",
-    scoreGoals: 0,
-    ageGoals: 59,
+    scoreGoals: 61,
+    ageGoals: 50,
   },
   {
     name: "Visit 2",
-    scoreGoals: 1,
-    ageGoals: 56,
+    scoreGoals: 62,
+    ageGoals: 49,
   },
   {
     name: "Visit 3",
-    scoreGoals: 2,
-    ageGoals: 56,
+    scoreGoals: 64,
+    ageGoals: 49,
   },
 
   {
     name: "Visit 4",
-    scoreGoals: 2,
-    ageGoals: 56,
+    scoreGoals: 66,
+    ageGoals: 48,
   },
   {
     name: "Visit 5",
-    scoreGoals: 2,
-    ageGoals: 59,
+    scoreGoals: 68,
+    ageGoals: 47,
   },
   {
     name: "Visit 6",
-    scoreGoals: 2,
-    ageGoals: 30,
+    scoreGoals: 70,
+    ageGoals: 46,
   },
   {
     name: "Visit 7",
-    scoreGoals: 0,
-    ageGoals: 59,
+    scoreGoals: 72,
+    ageGoals: 45,
   },
   {
     name: "Visit 8",
-    scoreGoals: 2,
-    ageGoals: 59,
+    scoreGoals: 74,
+    ageGoals: 45,
   },
   {
     name: "Visit 9",
-    scoreGoals: 2,
-    ageGoals: 59,
+    scoreGoals: 76,
+    ageGoals: 44,
   },
 ];
 */
@@ -258,7 +258,7 @@ export default function VitalityStatsBlock(props) {
                 </div>
                 <div>
                   <p className="font-montserrat text-base leading-5 text-primary">
-                    MetaPWR Metabolic Blend
+                    Vitality Score
                   </p>
                 </div>
               </div>
@@ -279,7 +279,7 @@ export default function VitalityStatsBlock(props) {
                       stroke="#6D7B9B"
                       stroke-width="2"
                     />
-                    <circle cx="40" cy="10.3101" r="10" fill="#6D7B9B" />
+                    <circle cx="40" cy="10.3101" r="10" fill="#7D9D92" />
                   </svg>
                 </div>
                 <div>
@@ -319,9 +319,9 @@ export default function VitalityStatsBlock(props) {
                 {tab == "progress" ? (
                   <VitalityHistoryGraph
                     lineData={vitalityProgressData}
-                    line1Color="#7D9D92"
+                    line1Color="#6D7B9B"
                     line1DataKey="score"
-                    YLable={"# OF DROPS"}
+                    YLable={"Score"}
                   />
                 ) : (
                   <VitalityHistoryGraph

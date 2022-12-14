@@ -52,6 +52,7 @@ export default class VitalityScoreGraph extends PureComponent {
             startAngle={90}
             endAngle={-500}
             paddingAngle={0}
+            stroke="#D5D0DA"
           >
             {data01.map((entry, index) => (
               <Cell key={`cell-${index}`} fill={entry.fill} />
@@ -67,7 +68,7 @@ export default class VitalityScoreGraph extends PureComponent {
             outerRadius={80}
             startAngle={90}
             endAngle={-500}
-            label
+            stroke="#D5D0DA"
           >
             {data02.map((entry, index) => (
               <Cell key={`cell-${index}`} fill={entry.fill} />

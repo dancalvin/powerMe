@@ -162,6 +162,11 @@ export default function Steps() {
     }
   };
 
+  // Define function to change to a specified step
+  const goToTab = (step) => {
+    setStep(steps[step]);
+    window.scrollTo(0, 0);
+  };
   const commonProps = {
     prevTab,
     nextTab,
