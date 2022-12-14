@@ -228,14 +228,17 @@ export default function EditVitalityCalculator(props) {
           {<Step3 {...commonProps} type="2" />}
           {<Step4 {...commonProps} type="2" />}
         </div>
-        <button
-          type="button"
-          className="button primary mt-0"
-          disabled={!isValid}
-          onClick={nextTab}
-        >
-          Continue
-        </button>
+
+        <div className="flex items-center justify-center">
+          <button
+            type="button"
+            className="button primary mt-0"
+            disabled={!isValid}
+            onClick={nextTab}
+          >
+            Continue
+          </button>
+        </div>
       </div>
     </div>
   );
