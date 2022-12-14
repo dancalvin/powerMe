@@ -2,12 +2,20 @@ import React, { useEffect, useState } from "react";
 import ScoreLogic from "./ScoreLogic";
 import MetaCalc from "./CircleModel/MetaCalc.jsx";
 
+import { getVitalityScore, getMetaAge } from "../../utils";
 export default function VitalityScore({ form, title, score, image, clName }) {
   const [scoreStyle, setScoreStyle] = useState("");
   const [scoreHeight, setScoreHeight] = useState("");
+  const [metabolicAge, setMetabolicAge] = useState(0);
 
   useEffect(() => {
-    
+    const vScore = getVitalityScore({ ...form, ["score"]: score });
+    const metaAgeData = getMetaAge({ ...form, ["typeFlag"]: "type1" });
+    setScoreStyle(vScore);
+    setMetabolicAge(metaAgeData);
+  });
+
+  useEffect(() => {
     if (scoreStyle >= 0 && scoreStyle <= 10) {
       setScoreHeight(scoreStyle * 2);
     } else if (scoreStyle > 10 && scoreStyle < 20) {
@@ -40,27 +48,46 @@ export default function VitalityScore({ form, title, score, image, clName }) {
   }, [scoreStyle]);
   return (
     <div className={clName}>
-      {image === "/images/graph2.png" ? 
-      (
-      <div className="doterraRowNoSplit">
-        <div>
-          <h2>Your Vitality<br></br> Score Could Be</h2>
-          <h1 className="big">
-            {<ScoreLogic {...form} setScoreStyle={setScoreStyle} score={score} />}
-          </h1>
+      {image === "/images/graph2.png" ? (
+        <div className="doterraRowNoSplit">
+          <div>
+            <h2>
+              Your Vitality<br></br> Score Could Be
+            </h2>
+            <h1 className="big">
+              {/*
+                <ScoreLogic
+                  {...form}
+                  setScoreStyle={setScoreStyle}
+                  score={score}
+                />
+                */}
+
+              {scoreStyle}
+            </h1>
+          </div>
+          <div>
+            <h2 className="tagAlignRight">
+              Your Metabolic<br></br> Age Could Be
+            </h2>
+            <h1 className="big tagAlignRight">
+              {/*<MetaCalc {...form} typeFlag={"type1"} />*/}
+              {metabolicAge}
+            </h1>
+          </div>
         </div>
-        <div>
-          <h2 className="tagAlignRight">Your Metabolic<br></br> Age Could Be</h2>
-          <h1 className="big tagAlignRight">{<MetaCalc {...form} typeFlag={"type1"} />}
-          </h1>
-        </div>
-      </div>
-      ) 
-      : 
-      (<>
+      ) : (
+        <>
           <h2>{title}</h2>
           <h1 className="big">
-            {<ScoreLogic {...form} setScoreStyle={setScoreStyle} score={score} />}
+            {/*
+              <ScoreLogic
+                {...form}
+                setScoreStyle={setScoreStyle}
+                score={score}
+              />
+              */}
+            {scoreStyle}
           </h1>
         </>
       )}
@@ -82,7 +109,8 @@ export default function VitalityScore({ form, title, score, image, clName }) {
                 left: scoreStyle + "%",
               }}
             >
-              {<ScoreLogic {...form} score={score} />}
+              {/*<ScoreLogic {...form} score={score} />*/}
+              {scoreStyle}
             </span>
           </span>
         </div>

@@ -1,47 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import sub from "date-fns/sub";
+import compareDesc from "date-fns/compareDesc";
+
 import VitalityHistoryGraph from "./VitalityHistoryGraph";
+import EditVitalityCalculator from "../EditVitalityCalculator";
 
+import { getVitalityScore, getMetaAge } from "../../utils";
 const timeRanges = ["day", "week", "month", "year"];
-const vitalityProgressData = [
-  {
-    name: "Page 1",
-    score: 60,
-  },
-  {
-    name: "Visit 2",
-    score: 65,
-  },
-  {
-    name: "Visit 3",
-    score: 62,
-  },
-  {
-    name: "Visit 4",
-    score: 61,
-  },
-  {
-    name: "Visit 5",
-    score: 65,
-  },
-  {
-    name: "Visit 6",
-    score: 68,
-  },
-  {
-    name: "Visit 7",
-    score: 72,
-  },
 
-  {
-    name: "Visit 8",
-    score: 73,
-  },
-  {
-    name: "Visit 9",
-    score: 75,
-  },
-];
-
+/*
 const vitalityGoalsData = [
   {
     name: "Visit 1",
@@ -90,16 +57,104 @@ const vitalityGoalsData = [
     ageGoals: 59,
   },
 ];
+*/
 
 export default function VitalityStatsBlock(props) {
-  const [selectedTimeRange, setSelectedTimeRange] = useState("month");
+  const [vitalityProgressData, setVitalityProgressData] = useState([]);
+  const [vitalityGoalsData, setvitalityGoalsData] = useState([]);
+  const [selectedTimeRange, setSelectedTimeRange] = useState(null);
   const [tab, setTab] = useState("progress");
+  const [historicalDataPopup, setHistoricalDataPopup] = useState(false);
+  const [dateRange, setDateRange] = useState([null, null]);
+
+  useEffect(() => {
+    selectDateRangeFunc();
+  }, [props]);
+
+  const selectDateRangeFunc = (selectedRange = "month") => {
+    setSelectedTimeRange(selectedRange);
+    let today,
+      startDate,
+      dateRangeArr = [],
+      vitalityScores = [],
+      vitalityMetaGoals = [];
+
+    today = new Date();
+    if (selectedRange == "year") {
+      startDate = sub(today, {
+        years: 1,
+      });
+    } else if (selectedRange == "month") {
+      startDate = sub(today, {
+        months: 1,
+      });
+    } else if (selectedRange == "week") {
+      startDate = sub(today, {
+        weeks: 1,
+      });
+    } else {
+      startDate = sub(today, {
+        days: 1,
+      });
+    }
+
+    dateRangeArr = [startDate, today];
+
+    if (selectedTimeRange && props.historyData) {
+      const copyHistoryData = [].concat(props.historyData);
+      const filteredHistoryData = copyHistoryData.filter((data, index) =>
+        compareDesc(new Date(dateRangeArr[0]), new Date(data.timeStamp)) == 1 &&
+        compareDesc(new Date(data.timeStamp), new Date(dateRangeArr[1])) == 1
+          ? true
+          : false
+      );
+
+      if (filteredHistoryData) {
+        //const vScore = getVitalityScore({ ...props.form, ["score"]: 0 });
+        //const metaAgeData = getMetaAge({ ...props.form });
+        //setScoreStyle(vScore);
+        //setMetabolicAge(metaAgeData);
+
+        if (tab == "progress") {
+          filteredHistoryData
+            .slice(0)
+            .reverse()
+            .filter((data, index) => {
+              vitalityScores.push({
+                name: `Visit ${index}`,
+                score: getVitalityScore({ ...data.form, score: 0 }),
+              });
+            });
+
+          if (vitalityScores) {
+            setVitalityProgressData(vitalityScores);
+          }
+        } else if (tab == "goals") {
+          filteredHistoryData
+            .slice(0)
+            .reverse()
+            .filter((data, index) => {
+              vitalityMetaGoals.push({
+                name: `Visit ${index}`,
+                scoreGoals: getVitalityScore({ ...data.form, score: 0 }),
+                ageGoals: getMetaAge({ ...data.form }),
+              });
+            });
+
+          if (vitalityMetaGoals) {
+            setvitalityGoalsData(vitalityMetaGoals);
+          }
+        }
+      }
+    }
+  };
+
   return (
-    <div className="sm:border-[1px] bg-secondary">
+    <div className="bg-secondary sm:border-[1px]">
       <div>
-        <div className="w-full max-w-none flex flex-row flex-nowrap">
+        <div className="flex w-full max-w-none flex-row flex-nowrap">
           <div
-            className={`w-1/2 flex flex-row flex-nowrap justify-center py-4 sm:border-b-[1px] cursor-pointer ${
+            className={`flex w-1/2 cursor-pointer flex-row flex-nowrap justify-center py-4 sm:border-b-[1px] ${
               tab == "progress"
                 ? "border-b-8 border-b-primary sm:bg-primary"
                 : ""
@@ -107,22 +162,22 @@ export default function VitalityStatsBlock(props) {
             onClick={() => setTab("progress")}
           >
             <p
-              className={`font-montserrat text-xs sm:text-xl leading-5 text-center ${
-                tab == "progress" ? "sm:text-secondary font-bold" : "text-black"
+              className={`text-center font-montserrat text-xs leading-5 sm:text-xl ${
+                tab == "progress" ? "font-bold sm:text-secondary" : "text-black"
               }`}
             >
               Vitality Progress
             </p>
           </div>
           <div
-            className={`w-1/2 flex flex-row flex-nowrap justify-center py-4 sm:border-l-[1px] sm:border-b-[1px] cursor-pointer ${
+            className={`flex w-1/2 cursor-pointer flex-row flex-nowrap justify-center py-4 sm:border-l-[1px] sm:border-b-[1px] ${
               tab == "goals" ? "border-b-8 border-b-primary sm:bg-primary" : ""
             }`}
             onClick={() => setTab("goals")}
           >
             <p
-              className={`font-montserrat text-xs sm:text-xl leading-5 text-center   ${
-                tab == "goals" ? "sm:text-secondary font-bold" : "text-black"
+              className={`text-center font-montserrat text-xs leading-5 sm:text-xl   ${
+                tab == "goals" ? "font-bold sm:text-secondary" : "text-black"
               }`}
             >
               Vitality Goals
@@ -133,18 +188,19 @@ export default function VitalityStatsBlock(props) {
           <div className="flex flex-row flex-nowrap justify-between gap-2 sm:gap-5">
             {timeRanges.map((tRange, index) => (
               <div
-                className={`py-2 px:3 ms:px-8 border-[1px] rounded-full uppercase cursor-pointer grow text-center text-xs md:text-base ${
+                key={index}
+                className={`px:3 ms:px-8 grow cursor-pointer rounded-full border-[1px] py-2 text-center text-xs uppercase md:text-base ${
                   tRange == selectedTimeRange
                     ? "bg-black text-secondary"
                     : "bg-secondary"
                 }`}
-                onClick={() => setSelectedTimeRange(tRange)}
+                onClick={() => selectDateRangeFunc(tRange)}
               >
                 <span>{tRange}</span>
               </div>
             ))}
           </div>
-          <div className="h-16 flex flex-row flex-nowrap justify-between items-center mt-6 sm:mt-9 cursor-pointer">
+          <div className="mt-6 flex h-16 cursor-pointer flex-row flex-nowrap items-center justify-between sm:mt-9">
             <div className="w-[12px] sm:w-[22px]">
               <svg
                 width="100%"
@@ -160,7 +216,7 @@ export default function VitalityStatsBlock(props) {
                 />
               </svg>
             </div>
-            <div className="font-montserrat font-bold text-base text-black cursor-pointer">
+            <div className="cursor-pointer font-montserrat text-base font-bold text-black">
               April 1–30, 2022
             </div>
             <div className="w-[12px] sm:w-[22px]">
@@ -280,11 +336,20 @@ export default function VitalityStatsBlock(props) {
               </div>
             </div>
           </div>
-          <div className="mt-5 text-center font-montserrat text-xl leading-6 underline text-black">
-            <p className="">Add historical data</p>
+          <div className="mt-5 text-center font-montserrat text-xl leading-6 text-black underline">
+            <p
+              className="cursor-pointer"
+              onClick={() => setHistoricalDataPopup(true)}
+            >
+              Add historical data
+            </p>
           </div>
         </div>
       </div>
+
+      {historicalDataPopup ? (
+        <EditVitalityCalculator close={() => setHistoricalDataPopup(false)} />
+      ) : null}
     </div>
   );
 }

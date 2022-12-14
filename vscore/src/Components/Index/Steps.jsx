@@ -3,14 +3,17 @@
 // Define which files are to be included in the steps
 
 import React, { useState } from "react";
+import isToday from "date-fns/isToday";
+import { isSameDay } from "date-fns";
+import differenceInDays from "date-fns/differenceInDays";
 import Step1 from "./Step1";
 import Step2 from "./Step2";
 import Step3 from "./Step3";
 import Step4 from "./Step4";
 import Step5 from "./Step5";
-import VitalityHistory from  "../VitalityHistory/index";
+import VitalityHistory from "../VitalityHistory/index";
+import { setItem, getItem, deleteItem, clearls } from "../../localStore";
 const steps = ["step1", "step2", "step3", "step4", "step5", "step6"];
-
 
 // Define the data that will be collected in the form
 const initForm = {
@@ -42,7 +45,7 @@ const initForm = {
   newGlucose: 90,
   waist: "",
   newWaist: 30,
-  diastolicBP: 70, 
+  diastolicBP: 70,
   newDiastolicBP: 70,
   metabolicAge: 0,
   a1cPref: 0,
@@ -68,9 +71,9 @@ export default function Steps() {
     updateForm({ [key]: event.target.value });
 
   // this function helps to set the corresponding items in the array to their matching input value
-  const setInputDirect = (keyOne,directValueOne,keyTwo,directValueTwo) => {
-  updateForm({ [keyOne]: directValueOne , [keyTwo]: directValueTwo });
-  }
+  const setInputDirect = (keyOne, directValueOne, keyTwo, directValueTwo) => {
+    updateForm({ [keyOne]: directValueOne, [keyTwo]: directValueTwo });
+  };
 
   // this function helps set the checks for the items that are clicked by the user
   const setCheckbox = (key) => (event) =>
@@ -87,16 +90,88 @@ export default function Steps() {
   const nextTab = () => {
     if (currentIndex < steps.length - 1) setStep(steps[currentIndex + 1]);
     window.scrollTo(0, 0);
+
+    let lastTestId,
+      lastTest,
+      isTestAlreadyExist = false;
+    // steps iteration
+    if (currentIndex == 3) {
+      // get saved data forms from localstorage
+      const oldTests = getItem("forms");
+      if (oldTests) {
+        for (let i = 0; i < oldTests.length; i++) {
+          if (
+            differenceInDays(new Date(oldTests[i].timeStamp), new Date()) <=
+              1 &&
+            isSameDay(new Date(oldTests[i].timeStamp), new Date())
+          ) {
+            isTestAlreadyExist = true;
+            break;
+          }
+        }
+
+        lastTest = oldTests[oldTests.length - 1];
+        lastTestId = parseInt(lastTest.id);
+
+        if (isTestAlreadyExist) {
+          if (
+            window.confirm(
+              "Do you want to override your previous test on the same data?"
+            )
+          ) {
+            oldTests[oldTests.length - 1]["form"] = form;
+            setItem("forms", oldTests);
+          }
+        } else {
+          oldTests.push({
+            id: lastTestId + 1,
+            timeStamp: new Date(),
+            form: form,
+          });
+          setItem("forms", oldTests);
+        }
+      } else {
+        setItem("forms", [{ id: 1, timeStamp: new Date(), form: form }]);
+      }
+    }
+  };
+
+  const saveYourGoals = () => {
+    // get saved data forms from localstorage
+    if (form) {
+      let oldTests;
+      oldTests = getItem("forms");
+      oldTests[oldTests.length - 1]["form"] = form;
+      if (oldTests) {
+        setItem("forms", oldTests);
+        alert("Your goals have been saved.");
+      } else {
+        setItem("forms", [{ id: 1, timeStamp: new Date(), form: form }]);
+      }
+    }
+  };
+
+  const jumpTab = (index) => {
+    if (index < steps.length - 1) setStep(steps[index]);
+    // we have old forms data stored on localstorage
+    const oldTests = getItem("forms");
+    if (oldTests) {
+      // check the vitality history for the last submitted form
+      setForm(oldTests[oldTests.length - 1].form);
+      window.scrollTo(0, 0);
+    }
   };
 
   const commonProps = {
     prevTab,
     nextTab,
+    jumpTab,
     form,
     updateForm,
     setInput,
     setInputDirect,
     setCheckbox,
+    saveYourGoals,
   };
 
   // this function fills in the circles by using css and additonal class names fill and active to bold the text

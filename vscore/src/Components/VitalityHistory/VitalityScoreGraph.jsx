@@ -1,22 +1,45 @@
 import React, { PureComponent } from "react";
 import { PieChart, Pie, Sector, Cell, ResponsiveContainer } from "recharts";
 
-const data01 = [
-  { name: "Group A", value: 45, fill: "#A3C2C4" },
-  { name: "Group B", value: 55, fill: "transparent" },
-];
-const data02 = [
-  { name: "A1", value: 51, fill: "#545A88" },
-  { name: "A2", value: 49, fill: "transparent" },
-];
-
 export default class VitalityScoreGraph extends PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      value2: parseInt(this.props.value2),
+      value1: parseInt(this.props.value1),
+    };
+  }
+
+  componentDidMount() {
+    this.setState({
+      value2: parseInt(this.props.value2),
+      value1: parseInt(this.props.value1),
+    });
+  }
   render() {
+    const data01 = [
+      { name: "Group A", value: parseInt(this.props.value2), fill: "#A3C2C4" },
+      {
+        name: "Group B",
+        value: 100 - parseInt(this.props.value2),
+        fill: "transparent",
+      },
+    ];
+    const data02 = [
+      { name: "A1", value: parseInt(this.props.value1), fill: "#545A88" },
+      {
+        name: "A2",
+        value: 100 - parseInt(this.props.value1),
+        fill: "transparent",
+      },
+    ];
+
     return (
       <ResponsiveContainer
         width="100%"
         height="100%"
-        className="h-[300px] sm:h-[400px]"
+        className="h-[300px] w-[300px] sm:h-[400px]"
       >
         <PieChart width={200} height="100%" className="h-[300px] sm:h-[400px]">
           <Pie

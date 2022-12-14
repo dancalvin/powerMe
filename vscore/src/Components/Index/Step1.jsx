@@ -1,29 +1,57 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { setItem, getItem, deleteItem, clearls } from "../../localStore";
 
-export default function Step1({ form,nextTab }) {
+export default function Step1({ form, nextTab, jumpTab }) {
+  const [isFormSave, setIsFormSave] = useState(false);
+
+  useEffect(() => {
+    // check whether we have form data in localstorage or not
+    if (getItem("forms")) {
+      setIsFormSave(true);
+    }
+  }, []);
+
+  const vitalityScoreHistory = () => {
+    if (isFormSave) {
+      // jump to vitality score history because we have old form data from localstorage
+      jumpTab(4);
+    }
+  };
   return (
     <>
       <div className="step first">
         <h2>Welcome to the Vitality Score Calculator</h2>
         <p>
-          Your Vitality Score indicates your current metabolic health status compared to other adults in the US population.
+          Your Vitality Score indicates your current metabolic health status
+          compared to other adults in the US population.
           <br />
-          <br />
-          A score of 50 suggests that you have an average risk for developing metabolic health problems in the future.  A hihger score indicates better overall metabolic health anda  lower risk of developing future disease.  The good news is that healthy lifestyle changes and smart supplementation can improve your Vitality Score over time. 
+          <br />A score of 50 suggests that you have an average risk for
+          developing metabolic health problems in the future. A hihger score
+          indicates better overall metabolic health anda lower risk of
+          developing future disease. The good news is that healthy lifestyle
+          changes and smart supplementation can improve your Vitality Score over
+          time.
         </p>
         <br />
-        <span className ="finePrint">
-        Vitality Score is based on algorithms developed by MetCalc.org. Ranges are based on NHAINES data gathered by CDC
+        <span className="finePrint">
+          Vitality Score is based on algorithms developed by MetCalc.org. Ranges
+          are based on NHAINES data gathered by CDC
         </span>
       </div>
-      <div className ="gapDT"></div>
+      <div className="gapDT"></div>
+
       <button type="button" className="button primary mirror" onClick={nextTab}>
         Continue
       </button>
-      
-      <button type="button" className="button primary clearDT" >
-        See Your Vitality Score History
-      </button>
+      {isFormSave ? (
+        <button
+          type="button"
+          className="button primary clearDT"
+          onClick={vitalityScoreHistory}
+        >
+          See Your Vitality Score History
+        </button>
+      ) : null}
     </>
   );
 }

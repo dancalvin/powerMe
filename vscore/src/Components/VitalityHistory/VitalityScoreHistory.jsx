@@ -1,9 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { compareAsc, format } from "date-fns";
 import { useSwipeable } from "react-swipeable";
 import VitalityScoreGraph from "./VitalityScoreGraph";
+import { getVitalityScore, getMetaAge } from "../../utils";
 
 const VitalityScoreHistory = (props) => {
   const [actionArea, setActionArea] = useState(false);
+  const [vsHistory, setVsHistory] = useState(false);
+  const [scoreStyle, setScoreStyle] = useState("");
+  const [metabolicAge, setMetabolicAge] = useState(0);
+
+  useEffect(() => {
+    const vScore = getVitalityScore({ ...props.form, ["score"]: 0 });
+    const metaAgeData = getMetaAge({ ...props.form });
+    setScoreStyle(vScore);
+    setMetabolicAge(metaAgeData);
+    setVsHistory(props.vsHistory);
+  }, [props]);
+
   const handlers = useSwipeable({
     onSwipedLeft: () => {
       setActionArea(true);
@@ -18,66 +32,67 @@ const VitalityScoreHistory = (props) => {
     trackMouse: true,
   });
 
-  return (
+  return vsHistory ? (
     <div
-      className="sm:mt-16 border-b-[1px] sm:border-[1px] relative flex flex-row flex-nowrap sm:border-l-[15px] sm:border-l-primary "
+      className="relative flex flex-row flex-nowrap border-b-[1px] sm:mt-16 sm:border-[1px] sm:border-l-[15px] sm:border-l-primary "
       {...handlers}
     >
       <div
-        className={`py-10 px-6 sm:pl-6 md:pl-20 flex flex-row flex-nowrap justify-between grow`}
+        className={`flex grow flex-row flex-nowrap justify-between py-10 px-6 sm:pl-6 md:pl-20`}
       >
         <div className="w-full">
           <div className="">
             <div>
-              <span className="font-montserrat font-bold text-xl leading-6 text-black ">
-                November 15, 2022
+              <span className="font-montserrat text-xl font-bold leading-6 text-black ">
+                {format(new Date(vsHistory.timeStamp), "MMMM, dd yyyy")}
               </span>
             </div>
 
             <div className="flex flex-row flex-wrap ">
-              <div className="w-1/2 mt-4 border-r-[1px]">
+              <div className="mt-4 w-1/2 border-r-[1px]">
                 <p className="font-montserrat text-base leading-[20px] text-primary">
                   Your Metabolic Age
                 </p>
                 <p className="font-montserrat text-4xl leading-[49px] text-primary">
-                  43
+                  {metabolicAge}
                 </p>
               </div>
 
-              <div className="w-1/2 mt-4 flex flex-col items-center pl-2">
+              <div className="mt-4 flex w-1/2 flex-col items-center pl-2">
                 <div>
                   <p className="font-montserrat text-base leading-[20px] text-third">
-                    Your Metabolic Age
+                    Your Vitality Score
                   </p>
                   <p className="font-montserrat text-4xl leading-[49px] text-third">
-                    50
+                    {scoreStyle}
                   </p>
                 </div>
               </div>
             </div>
           </div>
           <div className="flex justify-center sm:block">
-            <button className="bg-black rounded-3xl py-3 px-10 font-montserrat font-bold text-xl leading-[24px] text-center text-secondary mt-10 mr-3">
+            <button className="mt-10 mr-3 rounded-3xl bg-black py-3 px-10 text-center font-montserrat text-xl font-bold leading-[24px] text-secondary">
               See Full Results
             </button>
           </div>
         </div>
 
-        <div className="grow relative min-w-[200px] hidden sm:block">
-          <VitalityScoreGraph />
+        <div className="relative hidden min-w-[200px] grow sm:block">
+          <VitalityScoreGraph value1={metabolicAge} value2={scoreStyle} />
 
           <div className="absolute right-0 left-0 top-0 bottom-0 flex items-center justify-center">
             <p className="text-xl font-bold">
-              {45}/{51}
+              <span className="text-primary">{metabolicAge}</span>/
+              <span className="text-third">{scoreStyle}</span>
             </p>
           </div>
         </div>
       </div>
 
-      <div className="hidden sm:absolute md:relative max-w-[80px] grow top-0 bottom-0 right-0 sm:flex flex-col justify-between p-5">
+      <div className="top-0 bottom-0 right-0 hidden max-w-[80px] grow flex-col justify-between p-5 sm:absolute sm:flex md:relative">
         <div
-          className="w-8 h-8 flex justify-center items-center border-[1px] rounded-full cursor-pointer"
-          onClick={props.setDeletePopupToggle}
+          className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border-[1px]"
+          onClick={() => props.setDeletePopupToggleFunc(props)}
         >
           <svg
             width="14"
@@ -93,7 +108,7 @@ const VitalityScoreHistory = (props) => {
           </svg>
         </div>
 
-        <div className="w-8 h-8 flex justify-center items-center cursor-pointer">
+        <div className="flex h-8 w-8 cursor-pointer items-center justify-center">
           <svg
             width="26"
             height="26"
@@ -111,8 +126,8 @@ const VitalityScoreHistory = (props) => {
 
       {actionArea ? (
         <div
-          className={`min-w-[80px] min-h-full bg-[#F2644E] sm:hidden flex items-center justify-center cursor-pointer`}
-          onClick={props.setDeletePopupToggle}
+          className={`flex min-h-full min-w-[80px] cursor-pointer items-center justify-center bg-[#F2644E] sm:hidden`}
+          onClick={() => props.setDeletePopupToggleFunc(props)}
         >
           <svg
             width="16"
@@ -155,7 +170,7 @@ const VitalityScoreHistory = (props) => {
         </div>
       ) : (
         <div
-          className="flex sm:hidden flex-col justify-between absolute top-0 bottom-0 right-0 p-5 cursor-pointer"
+          className="absolute top-0 bottom-0 right-0 flex cursor-pointer flex-col justify-between p-5 sm:hidden"
           onClick={() => setActionArea(true)}
         >
           <svg
@@ -174,7 +189,7 @@ const VitalityScoreHistory = (props) => {
         </div>
       )}
     </div>
-  );
+  ) : null;
 };
 
 export default VitalityScoreHistory;

@@ -16,7 +16,14 @@ const weightList = [
 ];
 
 // the main export of this jsx file
-export default function Step3({ nextTab, prevTab, setInput, updateForm, form }) {
+export default function Step3({
+  nextTab,
+  prevTab,
+  setInput,
+  updateForm,
+  form,
+  type = "1",
+}) {
   const [select, setSelect] = useState();
   const setHeightUnit = (data) => updateForm({ heightUnit: data });
   const isValid =
@@ -32,10 +39,17 @@ export default function Step3({ nextTab, prevTab, setInput, updateForm, form }) 
 
   return (
     <>
-      <div className="step third">
+      <div
+        style={{ border: type == "1" ? "" : 0 }}
+        className={`step fourth ${type == "1" ? "" : "before:content-none"} `}
+      >
         <h2>Measurements</h2>
         <h3 className="light">
-        Your height and weight determine your BMI or Body Mass Index. BMI is a person’s weight in kilograms (or pounds) divided by the square of height in meters (or feet). While BMI doesn’t measure body fat or lean tissue directly, a high BMI is associated with an increased risk for metabolic health problems. 
+          Your height and weight determine your BMI or Body Mass Index. BMI is a
+          person’s weight in kilograms (or pounds) divided by the square of
+          height in meters (or feet). While BMI doesn’t measure body fat or lean
+          tissue directly, a high BMI is associated with an increased risk for
+          metabolic health problems.
         </h3>
         <div className="form">
           <h3 className="med">Height</h3>
@@ -70,9 +84,15 @@ export default function Step3({ nextTab, prevTab, setInput, updateForm, form }) 
           <h3 className="light">
             To correctly measure wasit circumference:
             <ul className="myList">
-              <li>Stand and place a tape measure around your waist, just above your hipbones</li>
+              <li>
+                Stand and place a tape measure around your waist, just above
+                your hipbones
+              </li>
               <li>Make sure tape is horizontal around the waist</li>
-              <li>Keep the tape snug around the waist, but not compressing the skin</li>
+              <li>
+                Keep the tape snug around the waist, but not compressing the
+                skin
+              </li>
               <li>Measure your waist just after you breathe out</li>
             </ul>
           </h3>
@@ -87,7 +107,11 @@ export default function Step3({ nextTab, prevTab, setInput, updateForm, form }) 
           </div>
           <h3 className="med">Systolic Blood Pressure (mmHg)</h3>
           <h3 className="light">
-            Blood Pressure consists of two numbers, systolic (top number) and diastolic (bottom number. Blood pressure greater than 130/80 mm is considered high.  People with blood pressure over 140/90 should be seen by their healthcare provider. If your blood pressure is over 170 systolic, you should seek medical attention immediately.          
+            Blood Pressure consists of two numbers, systolic (top number) and
+            diastolic (bottom number. Blood pressure greater than 130/80 mm is
+            considered high. People with blood pressure over 140/90 should be
+            seen by their healthcare provider. If your blood pressure is over
+            170 systolic, you should seek medical attention immediately.
           </h3>
 
           <RangeSlider
@@ -104,15 +128,25 @@ export default function Step3({ nextTab, prevTab, setInput, updateForm, form }) 
         </div>
       </div>
 
-      <button
-        type="button"
-        className="button primary"
-        disabled={!isValid}
-        onClick={nextTab}
-      >
-        Continue
-      </button>
-      <button type="button" className="button primary clearDT back" onClick={prevTab}>Back</button>
+      {type == "1" ? (
+        <>
+          <button
+            type="button"
+            className="button primary"
+            disabled={!isValid}
+            onClick={nextTab}
+          >
+            Continue
+          </button>
+          <button
+            type="button"
+            className="button primary clearDT back"
+            onClick={prevTab}
+          >
+            Back
+          </button>
+        </>
+      ) : null}
     </>
   );
 }

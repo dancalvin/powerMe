@@ -2,7 +2,14 @@ import React from "react";
 // get the calendar icon
 import { calendar } from "../Base/SVG";
 
-export default function Step2({ form, setCheckbox, nextTab, prevTab, setInput }) {
+export default function Step2({
+  form,
+  setCheckbox,
+  nextTab,
+  prevTab,
+  setInput,
+  type = "1",
+}) {
   // the constant is only valid if age and sex are not empty and form race is equal to something
   const isValid =
     form.age !== "" &&
@@ -19,11 +26,16 @@ export default function Step2({ form, setCheckbox, nextTab, prevTab, setInput })
 
   return (
     <>
-      <div className="step second">
+      <div
+        style={{ border: type == "1" ? "" : 0 }}
+        className={`step fourth ${type == "1" ? "" : "before:content-none"} `}
+      >
         <h2>Tell Us About Yourself</h2>
         <h3 className="light">
-          Your age, sex at birth, and ethnicity contribute to the baseline data for the creation of your Vitality Score.
+          Your age, sex at birth, and ethnicity contribute to the baseline data
+          for the creation of your Vitality Score.
         </h3>
+
         <div className="form">
           <h3 className="med">How old are you?</h3>
           <div className="input__calendar">
@@ -132,16 +144,27 @@ export default function Step2({ form, setCheckbox, nextTab, prevTab, setInput })
           </div>
         </div>
       </div>
-      <button
-        type="button"
-        className="button primary"
-        disabled={!isValid}
-        onClick={nextTab}
-      >
-        Continue
-      </button>
 
-      <button type="button" className="button primary clearDT back" onClick={prevTab}>Back</button>
+      {type == "1" ? (
+        <>
+          <button
+            type="button"
+            className="button primary"
+            disabled={!isValid}
+            onClick={nextTab}
+          >
+            Continue
+          </button>
+
+          <button
+            type="button"
+            className="button primary clearDT back"
+            onClick={prevTab}
+          >
+            Back
+          </button>
+        </>
+      ) : null}
     </>
   );
 }
