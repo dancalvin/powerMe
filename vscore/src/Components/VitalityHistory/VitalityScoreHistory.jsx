@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { compareAsc, format } from "date-fns";
 import { useSwipeable } from "react-swipeable";
 import VitalityScoreGraph from "./VitalityScoreGraph";
+import EditVitalityCalculator from "../EditVitalityCalculator";
 import { getVitalityScore, getMetaAge } from "../../utils";
 
 const VitalityScoreHistory = (props) => {
@@ -9,6 +10,7 @@ const VitalityScoreHistory = (props) => {
   const [vsHistory, setVsHistory] = useState(false);
   const [scoreStyle, setScoreStyle] = useState("");
   const [metabolicAge, setMetabolicAge] = useState(0);
+  const [historicalDataPopup, setHistoricalDataPopup] = useState(false);
 
   useEffect(() => {
     const vScore = getVitalityScore({ ...props.form, ["score"]: 0 });
@@ -21,11 +23,9 @@ const VitalityScoreHistory = (props) => {
   const handlers = useSwipeable({
     onSwipedLeft: () => {
       setActionArea(true);
-      console.log("swiping left");
     },
     onSwipedRight: () => {
       setActionArea(false);
-      console.log("swiping right");
     },
     swipeDuration: 500,
     preventScrollOnSwipe: true,
@@ -39,6 +39,7 @@ const VitalityScoreHistory = (props) => {
     >
       <div
         className={`flex grow flex-row flex-nowrap justify-between py-10 px-0 sm:px-6 sm:pl-6 md:pl-20`}
+        onClick={() => setActionArea(false)}
       >
         <div className="w-full">
           <div className="">
@@ -71,7 +72,10 @@ const VitalityScoreHistory = (props) => {
             </div>
           </div>
           <div className="flex justify-center sm:block">
-            <button className="mt-10 mr-3 rounded-3xl bg-black py-3 px-10 text-center font-montserrat text-xl font-bold leading-[24px] text-secondary">
+            <button
+              className="mt-10 mr-3 rounded-3xl bg-black py-3 px-10 text-center font-montserrat text-xl font-bold leading-[24px] text-secondary"
+              onClick={() => setHistoricalDataPopup(true)}
+            >
               See Full Results
             </button>
           </div>
@@ -188,6 +192,14 @@ const VitalityScoreHistory = (props) => {
           </svg>
         </div>
       )}
+
+      {historicalDataPopup && vsHistory ? (
+        <EditVitalityCalculator
+          vsHistory={vsHistory}
+          close={() => setHistoricalDataPopup(false)}
+          loadHistoryData={props.loadHistoryData}
+        />
+      ) : null}
     </div>
   ) : null;
 };

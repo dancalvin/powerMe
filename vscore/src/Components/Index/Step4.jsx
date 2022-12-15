@@ -17,14 +17,23 @@ export default function Step4({
     <>
       <div
         style={{ border: type == "1" ? "" : 0 }}
-        className={`step fourth ${type == "1" ? "" : "before:content-none"} `}
+        className={`step fourth ${
+          type == "1" ? "" : "mt-10 !border-0 before:content-none"
+        } `}
       >
-        <h2>Lab Values</h2>
-        <h3 className="light">
-          Certain lab values help establish your risk for cardiovascular
-          disease. If you know your numbers, please enter them below. If not,
-          feel free to estimate using the numbers within the normal range.
-        </h3>
+        {type == "1" ? (
+          <>
+            {" "}
+            <h2>Lab Values</h2>
+            <h3 className="light">
+              Certain lab values help establish your risk for cardiovascular
+              disease. If you know your numbers, please enter them below. If
+              not, feel free to estimate using the numbers within the normal
+              range.
+            </h3>
+          </>
+        ) : null}
+
         <div className="form">
           <div className="form__list">
             <h3 className="light">

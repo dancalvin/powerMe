@@ -47,15 +47,48 @@ export default class VitalityScoreGraph extends PureComponent {
             dataKey="value"
             cx="50%"
             cy="50%"
+            radius={55}
+            innerRadius={55}
+            outerRadius={55}
+            startAngle={90}
+            endAngle={-500}
+            stroke="#000000"
+          >
+            {data01.map((entry, index) => (
+              <Cell key={`cell-center-0`} fill={entry.fill} />
+            ))}
+          </Pie>
+
+          <Pie
+            data={data01}
+            dataKey="value"
+            cx="50%"
+            cy="50%"
             innerRadius={50}
             outerRadius={60}
             startAngle={90}
             endAngle={-500}
             paddingAngle={0}
-            stroke="#D5D0DA"
+            stroke="0"
           >
             {data01.map((entry, index) => (
               <Cell key={`cell-${index}`} fill={entry.fill} />
+            ))}
+          </Pie>
+
+          <Pie
+            data={data02}
+            dataKey="value"
+            cx="50%"
+            cy="50%"
+            innerRadius={75}
+            outerRadius={75}
+            startAngle={90}
+            endAngle={-500}
+            stroke="#000000"
+          >
+            {data02.map((entry, index) => (
+              <Cell key={`cell-center-1`} fill={entry.fill} />
             ))}
           </Pie>
 
@@ -68,10 +101,10 @@ export default class VitalityScoreGraph extends PureComponent {
             outerRadius={80}
             startAngle={90}
             endAngle={-500}
-            stroke="#D5D0DA"
+            stroke="0"
           >
             {data02.map((entry, index) => (
-              <Cell key={`cell-${index}`} fill={entry.fill} />
+              <Cell key={`cell-${index + 1}`} fill={entry.fill} />
             ))}
           </Pie>
         </PieChart>

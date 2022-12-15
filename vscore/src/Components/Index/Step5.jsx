@@ -141,33 +141,41 @@ export default function Step5({
           </div>
         ) : null}
 
-        <button
-          type="submit"
-          className="button primary !min-w-none !max-w-370px !mt-[60px] !w-full !py-[20px] sm:!min-w-[375px]"
-          onClick={nextTab}
-        >
-          View History
-        </button>
+        <div className="mt-[60px]">
+          <button
+            type="submit"
+            onClick={nextTab}
+            className="button primary mirror !w-full !max-w-[375px] border-[1px]"
+            style={{
+              display: "flex",
+              gridGap: "10px",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            View History
+          </button>
 
-        <button
-          type="button"
-          className="button primary clearDT mirror !max-w-370px min-w-none !mb-[60px] !w-full !py-[16px] sm:!w-[375px]"
-          style={{
-            display: "flex",
-            gridGap: "10px",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-          onClick={() => setShareResultsPopup(true)}
-        >
-          Share Your Results{" "}
-          <img
-            className="shareIcon"
-            src={process.env.PUBLIC_URL + "/images/share.svg"}
-            alt="share-icon"
-            style={{ top: 0 }}
-          />
-        </button>
+          <button
+            type="button"
+            className="button primary clearDT mirror !mb-[60px]  !w-full !max-w-[375px]"
+            style={{
+              display: "flex",
+              gridGap: "10px",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+            onClick={() => setShareResultsPopup(true)}
+          >
+            Share Your Results{" "}
+            <img
+              className="shareIcon"
+              src={process.env.PUBLIC_URL + "/images/share.svg"}
+              alt="share-icon"
+              style={{ top: 0 }}
+            />
+          </button>
+        </div>
 
         <div className="step">
           <h2>What Your Results Mean </h2>
@@ -269,7 +277,7 @@ export default function Step5({
 
         <button
           type="button"
-          className="button primary clearDT mirror !w-full  !max-w-[375px]"
+          className="button primary clearDT mirror !w-full !max-w-[375px]"
           style={{
             display: "flex",
             gridGap: "10px",

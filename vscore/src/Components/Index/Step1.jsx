@@ -38,24 +38,27 @@ export default function Step1({ form, nextTab, jumpTab }) {
           are based on NHAINES data gathered by CDC
         </span>
       </div>
-      <div className="gapDT"></div>
 
-      <button
-        type="button"
-        className="button primary mirror sm:!w-none !w-full !border-[1px] text-[16px] sm:text-[20px]"
-        onClick={nextTab}
-      >
-        Continue
-      </button>
-      {isFormSave ? (
-        <button
-          type="button"
-          className="button primary mirror sm:!w-none !w-full !border-[1px] !border-black !bg-transparent text-[16px] !text-black hover:!bg-primary hover:!text-white sm:text-[20px]"
-          onClick={vitalityScoreHistory}
-        >
-          See Your Vitality Score History
-        </button>
-      ) : null}
+      <div className="mt-10 flex flex-col items-center">
+        <div className="mt-10 flex flex-col items-center">
+          <button
+            type="button"
+            className="button primary mirror sm:!w-none !m-0 !w-full !border-[1px] !text-[16px] sm:!text-[20px]"
+            onClick={nextTab}
+          >
+            Continue
+          </button>
+          {isFormSave ? (
+            <button
+              type="button"
+              className="button primary mirror sm:!w-none !m-0 !w-full !border-[1px] !border-black !bg-transparent !text-[16px] !text-black hover:!bg-primary hover:!text-white sm:!text-[20px]"
+              onClick={vitalityScoreHistory}
+            >
+              See Your Vitality Score History
+            </button>
+          ) : null}
+        </div>
+      </div>
     </>
   );
 }

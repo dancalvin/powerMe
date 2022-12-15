@@ -67,6 +67,7 @@ export default function VitalityHistory(props) {
                 timeStamp={singleHistory.timeStamp}
                 vsHistory={singleHistory}
                 setDeletePopupToggleFunc={setDeletePopupToggleFunc}
+                loadHistoryData={loadHistoryData}
               />
             ))}
           </div>

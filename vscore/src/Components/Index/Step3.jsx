@@ -40,17 +40,23 @@ export default function Step3({
   return (
     <>
       <div
-        style={{ border: type == "1" ? "" : 0 }}
-        className={`step third ${type == "1" ? "" : "before:content-none"} `}
+        className={`step third ${
+          type == "1" ? "" : "mt-10 !border-[0px] before:content-none"
+        } `}
       >
-        <h2>Measurements</h2>
-        <h3 className="light">
-          Your height and weight determine your BMI or Body Mass Index. BMI is a
-          person’s weight in kilograms (or pounds) divided by the square of
-          height in meters (or feet). While BMI doesn’t measure body fat or lean
-          tissue directly, a high BMI is associated with an increased risk for
-          metabolic health problems.
-        </h3>
+        {type == "1" ? (
+          <>
+            {" "}
+            <h2>Measurements</h2>
+            <h3 className="light">
+              Your height and weight determine your BMI or Body Mass Index. BMI
+              is a person’s weight in kilograms (or pounds) divided by the
+              square of height in meters (or feet). While BMI doesn’t measure
+              body fat or lean tissue directly, a high BMI is associated with an
+              increased risk for metabolic health problems.
+            </h3>
+          </>
+        ) : null}
         <div className="form">
           <h3 className="med">Height</h3>
           <h3 className="med">Feet</h3>
@@ -60,6 +66,7 @@ export default function Step3({
               className="input"
               placeholder="ex: 5"
               onChange={setInput("feet")}
+              value={form.feet}
             />
           </div>
           <h3 className="med">Inches</h3>
@@ -69,6 +76,7 @@ export default function Step3({
               className="input"
               placeholder="ex: 7"
               onChange={setInput("inches")}
+              value={form.inches}
             />
           </div>
           <h3 className="med">Weight (lbs)</h3>
@@ -78,6 +86,7 @@ export default function Step3({
               className="input"
               placeholder="ex: 190"
               onChange={setInput("weight")}
+              value={form.weight}
             />
           </div>
           <h3 className="med">Waist Circumference (in)</h3>
@@ -103,6 +112,7 @@ export default function Step3({
               className="input"
               placeholder="ex: 30"
               onChange={setInput("waist")}
+              value={form.waist}
             />
           </div>
           <h3 className="med">Systolic Blood Pressure (mmHg)</h3>

@@ -57,10 +57,13 @@ export default function EditVitalityCalculator(props) {
   const [timeStamp, setTimeStamp] = useState(null);
 
   useEffect(() => {
-    if (!timeStamp) {
+    if (props.vsHistory) {
+      setTimeStamp(props.vsHistory.timeStamp);
+      setForm(props.vsHistory.form);
+    } else {
       setTimeStamp(new Date());
     }
-  });
+  }, []);
 
   // Spread operator used to copy data from one array to another
   const updateForm = (data) => {
@@ -188,16 +191,16 @@ export default function EditVitalityCalculator(props) {
     form.weight !== "" &&
     form.pressure !== "";
 
-  return (
-    <div className="fixed top-0 left-0 bottom-0 right-0 z-10 m-7">
+  return form ? (
+    <div className="fixed top-0 left-0 bottom-0 right-0 z-10 m-7 max-[540px]:m-0">
       <div
         className="fixed top-0 left-0 bottom-0 right-0 -z-[1] flex items-center justify-center bg-black opacity-[0.65]"
         onClick={props.close}
       ></div>
 
-      <div className="relative mx-auto h-full w-full max-w-[1080px] overflow-auto bg-secondary pb-16">
+      <div className="relative mx-auto h-full w-full max-w-[1080px] overflow-auto bg-secondary pb-16 max-[540px]:px-[30px]">
         <div
-          className="absolute top-8 right-8 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border-[1px]"
+          className="absolute top-5 right-5 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border-[1px]"
           onClick={props.close}
         >
           <svg
@@ -213,8 +216,8 @@ export default function EditVitalityCalculator(props) {
             />
           </svg>
         </div>
-        <div className="pl-[70px] pr-[60px] pt-[60px] min-[840px]:pl-[96px]">
-          <h2 className="font-montserrat text-3xl capitalize leading-[34px]">
+        <div className="px-[84px] pt-[60px] max-[840px]:px-[60px] max-[700px]:px-[40px] max-[540px]:px-0">
+          <h2 className="font-montserrat text-3xl capitalize leading-[34px] max-[540px]:text-2xl">
             Add historical data to calculate a vitality score
           </h2>
 
@@ -223,16 +226,44 @@ export default function EditVitalityCalculator(props) {
           </div>
         </div>
 
-        <div>
+        <div className="max-[540px]:my-[40px]">
           {<Step2 {...commonProps} type="2" />}
           {<Step3 {...commonProps} type="2" />}
           {<Step4 {...commonProps} type="2" />}
         </div>
 
-        <div className="flex items-center justify-center">
+        <div className="flex items-center justify-end gap-4 px-[84px] max-[840px]:flex-col  max-[840px]:justify-center max-[840px]:px-[60px] max-[700px]:px-[40px] max-[540px]:px-0">
+          {/*
           <button
             type="button"
-            className="button primary mt-0"
+            className="button primary mt-0 border-[1px] border-black !bg-transparent !text-black hover:!bg-primary hover:!text-white"
+            disabled={!isValid}
+            onClick={nextTab}
+          >
+            Cancel
+          </button>
+
+          <button
+            type="button"
+            className="button primary mt-0 border-[1px] border-black"
+            disabled={!isValid}
+            onClick={nextTab}
+          >
+            Continue
+          </button>
+        */}
+
+          <button
+            type="button"
+            className="button primary clearDT back !mt-0  max-[540px]:!w-[280px] max-[540px]:px-[30px] max-[540px]:!py-[14px]"
+            onClick={props.close}
+          >
+            Cancel
+          </button>
+
+          <button
+            type="button"
+            className="button primary !border-[1px] border-black hover:!border-primary"
             disabled={!isValid}
             onClick={nextTab}
           >
@@ -241,5 +272,5 @@ export default function EditVitalityCalculator(props) {
         </div>
       </div>
     </div>
-  );
+  ) : null;
 }

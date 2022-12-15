@@ -54,7 +54,6 @@ const initForm = {
 };
 
 const classNames = ["first", "second", "third", "fourth", "fifth"];
-
 // Define the default export function for Steps.jsx
 export default function Steps() {
   // add the variables form and step using useState. set form var to initForm data from and set step var to the first step in the steps array
@@ -188,9 +187,7 @@ export default function Steps() {
         <div className="steps__inner">
           {step === steps[5] ? null : (
             <>
-              <h1
-                className={`classNames[currentIndex] max-[540px]:bg-[#405F53]`}
-              >
+              <h1 className={`${classNames[currentIndex]} `}>
                 Calculate your Vitality score
               </h1>
               <div className="steps__line">

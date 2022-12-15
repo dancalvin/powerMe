@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import sub from "date-fns/sub";
+import add from "date-fns/add";
 import compareDesc from "date-fns/compareDesc";
 
 import VitalityHistoryGraph from "./VitalityHistoryGraph";
 import EditVitalityCalculator from "../EditVitalityCalculator";
 
 import { getVitalityScore, getMetaAge } from "../../utils";
+import { format } from "date-fns";
 const timeRanges = ["day", "week", "month", "year"];
 
 /*
@@ -66,6 +68,7 @@ export default function VitalityStatsBlock(props) {
   const [tab, setTab] = useState("progress");
   const [historicalDataPopup, setHistoricalDataPopup] = useState(false);
   const [dateRange, setDateRange] = useState([null, null]);
+  const [dateDiffFormat, setDateDiffFormat] = useState("");
 
   useEffect(() => {
     selectDateRangeFunc();
@@ -73,33 +76,38 @@ export default function VitalityStatsBlock(props) {
 
   const selectDateRangeFunc = (selectedRange = "month") => {
     setSelectedTimeRange(selectedRange);
-    let today,
+    let endDate,
       startDate,
-      dateRangeArr = [],
-      vitalityScores = [],
-      vitalityMetaGoals = [];
+      dateRangeArr = [];
 
-    today = new Date();
+    endDate = new Date();
     if (selectedRange == "year") {
-      startDate = sub(today, {
+      startDate = sub(endDate, {
         years: 1,
       });
     } else if (selectedRange == "month") {
-      startDate = sub(today, {
+      startDate = sub(endDate, {
         months: 1,
       });
     } else if (selectedRange == "week") {
-      startDate = sub(today, {
+      startDate = sub(endDate, {
         weeks: 1,
       });
     } else {
-      startDate = sub(today, {
+      startDate = sub(endDate, {
         days: 1,
       });
     }
 
-    dateRangeArr = [startDate, today];
+    dateRangeArr = [startDate, endDate];
+    setDateRange(dateRangeArr);
+    filterData(dateRangeArr);
+    formatDateDifferenceFunc(dateRangeArr);
+  };
 
+  const filterData = (dateRangeArr = []) => {
+    let vitalityScores = [],
+      vitalityMetaGoals = [];
     if (selectedTimeRange && props.historyData) {
       const copyHistoryData = [].concat(props.historyData);
       const filteredHistoryData = copyHistoryData.filter((data, index) =>
@@ -110,11 +118,6 @@ export default function VitalityStatsBlock(props) {
       );
 
       if (filteredHistoryData) {
-        //const vScore = getVitalityScore({ ...props.form, ["score"]: 0 });
-        //const metaAgeData = getMetaAge({ ...props.form });
-        //setScoreStyle(vScore);
-        //setMetabolicAge(metaAgeData);
-
         if (tab == "progress") {
           filteredHistoryData
             .slice(0)
@@ -149,6 +152,109 @@ export default function VitalityStatsBlock(props) {
     }
   };
 
+  const previous = () => {
+    let endDate,
+      startDate,
+      updatedStartDate,
+      updatedEndDate,
+      dateRangeArr = [];
+
+    endDate = dateRange[1];
+    startDate = dateRange[0];
+
+    if (selectedTimeRange == "year") {
+      updatedStartDate = sub(startDate, {
+        years: 1,
+      });
+      updatedEndDate = sub(endDate, {
+        years: 1,
+      });
+    } else if (selectedTimeRange == "month") {
+      updatedStartDate = sub(startDate, {
+        months: 1,
+      });
+      updatedEndDate = sub(endDate, {
+        months: 1,
+      });
+    } else if (selectedTimeRange == "week") {
+      updatedStartDate = sub(startDate, {
+        weeks: 1,
+      });
+      updatedEndDate = sub(endDate, {
+        weeks: 1,
+      });
+    } else {
+      updatedStartDate = sub(startDate, {
+        days: 1,
+      });
+      updatedEndDate = sub(endDate, {
+        days: 1,
+      });
+    }
+
+    dateRangeArr = [updatedStartDate, updatedEndDate];
+    setDateRange(dateRangeArr);
+    formatDateDifferenceFunc(dateRangeArr);
+    filterData(dateRangeArr);
+  };
+
+  const next = () => {
+    let endDate,
+      startDate,
+      updatedStartDate,
+      updatedEndDate,
+      dateRangeArr = [];
+
+    endDate = dateRange[1];
+    startDate = dateRange[0];
+
+    if (selectedTimeRange == "year") {
+      updatedStartDate = add(startDate, {
+        years: 1,
+      });
+      updatedEndDate = add(endDate, {
+        years: 1,
+      });
+    } else if (selectedTimeRange == "month") {
+      updatedStartDate = add(startDate, {
+        months: 1,
+      });
+      updatedEndDate = add(endDate, {
+        months: 1,
+      });
+    } else if (selectedTimeRange == "week") {
+      updatedStartDate = add(startDate, {
+        weeks: 1,
+      });
+      updatedEndDate = add(endDate, {
+        weeks: 1,
+      });
+    } else {
+      updatedStartDate = add(startDate, {
+        days: 1,
+      });
+      updatedEndDate = add(endDate, {
+        days: 1,
+      });
+    }
+
+    dateRangeArr = [updatedStartDate, updatedEndDate];
+    setDateRange(dateRangeArr);
+    formatDateDifferenceFunc(dateRangeArr);
+    filterData(dateRangeArr);
+  };
+
+  const formatDateDifferenceFunc = (dateRangeArr) => {
+    let dateFormat = "";
+    if (dateRangeArr[0] && dateRangeArr[1]) {
+      dateFormat = `${format(
+        new Date(dateRangeArr[0]),
+        "MMMM d yyyy "
+      )}-${format(new Date(dateRangeArr[1]), " MMMM d yyyy")}`;
+    }
+
+    setDateDiffFormat(dateFormat);
+  };
   return (
     <div className="bg-secondary sm:border-[1px]">
       <div>
@@ -156,7 +262,7 @@ export default function VitalityStatsBlock(props) {
           <div
             className={`flex w-1/2 cursor-pointer flex-row flex-nowrap justify-center py-4 sm:border-b-[1px] ${
               tab == "progress"
-                ? "border-b-8 border-b-primary sm:bg-primary"
+                ? "border-b-[6px] border-b-primary sm:bg-primary"
                 : ""
             }`}
             onClick={() => setTab("progress")}
@@ -171,7 +277,9 @@ export default function VitalityStatsBlock(props) {
           </div>
           <div
             className={`flex w-1/2 cursor-pointer flex-row flex-nowrap justify-center py-4 sm:border-l-[1px] sm:border-b-[1px] ${
-              tab == "goals" ? "border-b-8 border-b-primary sm:bg-primary" : ""
+              tab == "goals"
+                ? "border-b-[6px] border-b-primary sm:bg-primary"
+                : ""
             }`}
             onClick={() => setTab("goals")}
           >
@@ -201,7 +309,7 @@ export default function VitalityStatsBlock(props) {
             ))}
           </div>
           <div className="mt-6 flex h-16 cursor-pointer flex-row flex-nowrap items-center justify-between sm:mt-9">
-            <div className="w-[12px] sm:w-[22px]">
+            <div className="w-[12px] sm:w-[22px]" onClick={() => previous()}>
               <svg
                 width="100%"
                 height="42"
@@ -216,10 +324,10 @@ export default function VitalityStatsBlock(props) {
                 />
               </svg>
             </div>
-            <div className="cursor-pointer font-montserrat text-base font-bold text-black">
-              April 1–30, 2022
+            <div className="cursor-pointer font-montserrat text-sm font-light text-black sm:text-base sm:font-bold">
+              {dateDiffFormat}
             </div>
-            <div className="w-[12px] sm:w-[22px]">
+            <div className="w-[12px] sm:w-[22px]" onClick={() => next()}>
               <svg
                 width="100%"
                 height="42"
@@ -238,9 +346,9 @@ export default function VitalityStatsBlock(props) {
           <div className="mt-5">
             {tab == "progress" ? (
               <div className="flex flex-row gap-4">
-                <div>
+                <div className="w-[40px] sm:w-[80px]">
                   <svg
-                    width="80"
+                    width="100%"
                     height="21"
                     viewBox="0 0 80 21"
                     fill="none"
@@ -264,9 +372,9 @@ export default function VitalityStatsBlock(props) {
               </div>
             ) : (
               <div className="flex flex-row gap-4">
-                <div>
+                <div className="w-[40px] sm:w-[80px]">
                   <svg
-                    width="80"
+                    width="100%"
                     height="21"
                     viewBox="0 0 80 21"
                     fill="none"
@@ -283,14 +391,14 @@ export default function VitalityStatsBlock(props) {
                   </svg>
                 </div>
                 <div>
-                  <p className="font-montserrat text-base leading-5 text-primary">
+                  <p className="font-montserrat text-xs leading-5 text-primary sm:text-base">
                     Vitality Score Goals
                   </p>
                 </div>
 
-                <div>
+                <div className="w-[40px] sm:w-[80px]">
                   <svg
-                    width="80"
+                    width="100%"
                     height="21"
                     viewBox="0 0 80 21"
                     fill="none"
@@ -307,7 +415,7 @@ export default function VitalityStatsBlock(props) {
                   </svg>
                 </div>
                 <div>
-                  <p className="font-montserrat text-base leading-5 text-primary">
+                  <p className="font-montserrat text-xs leading-5 text-primary sm:text-base">
                     Metabolic Age Goals
                   </p>
                 </div>
