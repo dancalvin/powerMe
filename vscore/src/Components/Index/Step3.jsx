@@ -41,7 +41,7 @@ export default function Step3({
     <>
       <div
         className={`step third ${
-          type == "1" ? "" : "mt-10 !border-[0px] before:content-none"
+          type == "1" ? "" : "!border-[0px] before:content-none"
         } `}
       >
         {type == "1" ? (

@@ -216,7 +216,7 @@ export default function EditVitalityCalculator(props) {
             />
           </svg>
         </div>
-        <div className="px-[84px] pt-[60px] max-[840px]:px-[60px] max-[700px]:px-[40px] max-[540px]:px-0">
+        <div className="px-[96px] pt-[100px] max-[840px]:px-[70px] max-[700px]:px-[40px] max-[540px]:px-0">
           <h2 className="font-montserrat text-3xl capitalize leading-[34px] max-[540px]:text-2xl">
             Add historical data to calculate a vitality score
           </h2>
@@ -232,7 +232,7 @@ export default function EditVitalityCalculator(props) {
           {<Step4 {...commonProps} type="2" />}
         </div>
 
-        <div className="flex items-center justify-end gap-4 px-[84px] max-[840px]:flex-col  max-[840px]:justify-center max-[840px]:px-[60px] max-[700px]:px-[40px] max-[540px]:px-0">
+        <div className="flex items-center justify-end gap-4 px-[96px] max-[840px]:flex-col  max-[840px]:justify-center max-[840px]:px-[70px] max-[700px]:px-[40px] max-[540px]:px-0">
           {/*
           <button
             type="button"
@@ -255,7 +255,7 @@ export default function EditVitalityCalculator(props) {
 
           <button
             type="button"
-            className="button primary clearDT back !mt-0  max-[540px]:!w-[280px] max-[540px]:px-[30px] max-[540px]:!py-[14px]"
+            className="button primary clearDT back  max-[540px]:!w-[280px] max-[540px]:px-[30px] max-[540px]:!py-[14px]"
             onClick={props.close}
           >
             Cancel
@@ -263,7 +263,7 @@ export default function EditVitalityCalculator(props) {
 
           <button
             type="button"
-            className="button primary !border-[1px] border-black hover:!border-primary"
+            className="button primary !mt-5 !border-[1px] border-black hover:!border-primary"
             disabled={!isValid}
             onClick={nextTab}
           >
