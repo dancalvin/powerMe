@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { compareAsc, format } from "date-fns";
 import { useSwipeable } from "react-swipeable";
+import { toast } from "react-toastify";
 import VitalityScoreGraph from "./VitalityScoreGraph";
 import EditVitalityCalculator from "../EditVitalityCalculator";
 import { getVitalityScore, getMetaAge } from "../../utils";
+import { GoalsToShare } from "../Index/Step5";
 
 const VitalityScoreHistory = (props) => {
   const [actionArea, setActionArea] = useState(false);
@@ -11,6 +13,7 @@ const VitalityScoreHistory = (props) => {
   const [scoreStyle, setScoreStyle] = useState("");
   const [metabolicAge, setMetabolicAge] = useState(0);
   const [historicalDataPopup, setHistoricalDataPopup] = useState(false);
+  const [shareGoalsPopup, setShareGoalsPopup] = useState(false);
 
   useEffect(() => {
     const vScore = getVitalityScore({ ...props.form, ["score"]: 0 });
@@ -31,6 +34,11 @@ const VitalityScoreHistory = (props) => {
     preventScrollOnSwipe: true,
     trackMouse: true,
   });
+
+  const loadHistoryData = () => {
+    props.loadHistoryData();
+    toast("The data has been saved.");
+  };
 
   return vsHistory ? (
     <div
@@ -112,7 +120,10 @@ const VitalityScoreHistory = (props) => {
           </svg>
         </div>
 
-        <div className="flex h-8 w-8 cursor-pointer items-center justify-center">
+        <div
+          className="flex h-8 w-8 cursor-pointer items-center justify-center"
+          onClick={() => setShareGoalsPopup(true)}
+        >
           <svg
             width="26"
             height="26"
@@ -197,7 +208,14 @@ const VitalityScoreHistory = (props) => {
         <EditVitalityCalculator
           vsHistory={vsHistory}
           close={() => setHistoricalDataPopup(false)}
-          loadHistoryData={props.loadHistoryData}
+          loadHistoryData={loadHistoryData}
+        />
+      ) : null}
+
+      {shareGoalsPopup ? (
+        <GoalsToShare
+          form={props.form}
+          setShareGoalsPopup={setShareGoalsPopup}
         />
       ) : null}
     </div>

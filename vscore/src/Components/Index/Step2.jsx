@@ -188,28 +188,26 @@ export default function Step2({
         </div>
       </div>
 
-      <div className="mt-10 flex flex-col items-center">
-        {type == "1" ? (
-          <>
-            <button
-              type="button"
-              className="button primary !m-0"
-              disabled={!isValid}
-              onClick={nextTab}
-            >
-              Continue
-            </button>
+      {type == "1" ? (
+        <div className="mt-10 flex flex-col items-center">
+          <button
+            type="button"
+            className="button primary !m-0"
+            disabled={!isValid}
+            onClick={nextTab}
+          >
+            Continue
+          </button>
 
-            <button
-              type="button"
-              className="button primary clearDT back !m-0"
-              onClick={prevTab}
-            >
-              Back
-            </button>
-          </>
-        ) : null}
-      </div>
+          <button
+            type="button"
+            className="button primary clearDT back !m-0"
+            onClick={prevTab}
+          >
+            Back
+          </button>
+        </div>
+      ) : null}
     </>
   );
 }

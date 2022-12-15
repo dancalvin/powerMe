@@ -18,7 +18,9 @@ export default function Step4({
       <div
         style={{ border: type == "1" ? "" : 0 }}
         className={`step fourth ${
-          type == "1" ? "" : "!border-0 before:content-none max-[540px]:!mt-10"
+          type == "1"
+            ? ""
+            : "!border-0 !pt-0 before:content-none max-[540px]:!mt-10"
         } `}
       >
         {type == "1" ? (

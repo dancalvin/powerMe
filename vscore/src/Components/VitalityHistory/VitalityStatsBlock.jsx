@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import sub from "date-fns/sub";
 import add from "date-fns/add";
 import compareDesc from "date-fns/compareDesc";
+import { toast } from "react-toastify";
 
 import VitalityHistoryGraph from "./VitalityHistoryGraph";
 import EditVitalityCalculator from "../EditVitalityCalculator";
@@ -74,6 +75,7 @@ export default function VitalityStatsBlock(props) {
     selectDateRangeFunc();
   }, [props]);
 
+  // this function will select the time range based upon year/month/week/day
   const selectDateRangeFunc = (selectedRange = "month") => {
     setSelectedTimeRange(selectedRange);
     let endDate,
@@ -105,6 +107,7 @@ export default function VitalityStatsBlock(props) {
     formatDateDifferenceFunc(dateRangeArr);
   };
 
+  // it filters the forms based upon the date range
   const filterData = (dateRangeArr = []) => {
     let vitalityScores = [],
       vitalityMetaGoals = [];
@@ -152,6 +155,7 @@ export default function VitalityStatsBlock(props) {
     }
   };
 
+  // this function will subtract the years/months, weeks, days based upon your selected time range
   const previous = () => {
     let endDate,
       startDate,
@@ -198,6 +202,7 @@ export default function VitalityStatsBlock(props) {
     filterData(dateRangeArr);
   };
 
+  // this function will add the years/months, weeks, days based upon your selected time range
   const next = () => {
     let endDate,
       startDate,
@@ -244,6 +249,7 @@ export default function VitalityStatsBlock(props) {
     filterData(dateRangeArr);
   };
 
+  // it will check the date range and will format the range of time
   const formatDateDifferenceFunc = (dateRangeArr) => {
     let dateFormat = "";
     if (dateRangeArr[0] && dateRangeArr[1]) {
@@ -254,6 +260,11 @@ export default function VitalityStatsBlock(props) {
     }
 
     setDateDiffFormat(dateFormat);
+  };
+
+  const loadHistoryData = () => {
+    props.loadHistoryData();
+    toast("The data has been saved.");
   };
   return (
     <div className="bg-secondary sm:border-[1px]">
@@ -458,7 +469,7 @@ export default function VitalityStatsBlock(props) {
       {historicalDataPopup ? (
         <EditVitalityCalculator
           close={() => setHistoricalDataPopup(false)}
-          loadHistoryData={props.loadHistoryData}
+          loadHistoryData={loadHistoryData}
         />
       ) : null}
     </div>

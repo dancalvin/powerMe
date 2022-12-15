@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { compareAsc, format } from "date-fns";
+import { toast } from "react-toastify";
 import VitalityStatsBlock from "./VitalityStatsBlock";
 import VitalityScoreHistory from "./VitalityScoreHistory";
 

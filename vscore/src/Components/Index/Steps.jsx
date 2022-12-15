@@ -6,6 +6,7 @@ import React, { useState } from "react";
 import isToday from "date-fns/isToday";
 import { isSameDay } from "date-fns";
 import differenceInDays from "date-fns/differenceInDays";
+import { toast } from "react-toastify";
 import Step1 from "./Step1";
 import Step2 from "./Step2";
 import Step3 from "./Step3";
@@ -92,12 +93,14 @@ export default function Steps() {
 
     let lastTestId,
       lastTest,
-      isTestAlreadyExist = false;
+      isTestAlreadyExist = false,
+      alreadyExistTestIndex;
     // steps iteration
     if (currentIndex == 3) {
       // get saved data forms from localstorage
       const oldTests = getItem("forms");
       if (oldTests) {
+        // check if the test already exists on that day or not (using the date compare of all the tests)
         for (let i = 0; i < oldTests.length; i++) {
           if (
             differenceInDays(new Date(oldTests[i].timeStamp), new Date()) <=
@@ -105,6 +108,7 @@ export default function Steps() {
             isSameDay(new Date(oldTests[i].timeStamp), new Date())
           ) {
             isTestAlreadyExist = true;
+            alreadyExistTestIndex = i;
             break;
           }
         }
@@ -112,25 +116,31 @@ export default function Steps() {
         lastTest = oldTests[oldTests.length - 1];
         lastTestId = parseInt(lastTest.id);
 
+        // if the data already exists on thay day, we will ask to override or ignore
         if (isTestAlreadyExist) {
           if (
             window.confirm(
               "Do you want to override your previous test on the same data?"
             )
           ) {
-            oldTests[oldTests.length - 1]["form"] = form;
+            oldTests[alreadyExistTestIndex]["form"] = form;
             setItem("forms", oldTests);
+            toast("The data has been saved.");
           }
         } else {
+          // saving a new test
           oldTests.push({
             id: lastTestId + 1,
             timeStamp: new Date(),
             form: form,
           });
           setItem("forms", oldTests);
+          toast("The data has been saved.");
         }
       } else {
+        // it is the first test being saved
         setItem("forms", [{ id: 1, timeStamp: new Date(), form: form }]);
+        toast("The data has been saved.");
       }
     }
   };
@@ -143,7 +153,8 @@ export default function Steps() {
       oldTests[oldTests.length - 1]["form"] = form;
       if (oldTests) {
         setItem("forms", oldTests);
-        alert("Your goals have been saved.");
+        toast("Your goals have been saved.");
+        //alert("Your goals have been saved.");
       } else {
         setItem("forms", [{ id: 1, timeStamp: new Date(), form: form }]);
       }

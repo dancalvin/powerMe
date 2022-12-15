@@ -10,6 +10,7 @@ import BasicDatePicker from "../CommonComponents/index";
 
 import { setItem, getItem } from "../../localStore";
 import { isSameDay } from "date-fns";
+import { toast } from "react-toastify";
 const steps = ["step1", "step2", "step3", "step4", "step5", "step6"];
 
 // Define the data that will be collected in the form
@@ -96,11 +97,12 @@ export default function EditVitalityCalculator(props) {
   const nextTab = () => {
     let lastTestId,
       lastTest,
-      isTestAlreadyExist = false;
+      isTestAlreadyExist = false,
+      alreadyExistTestIndex;
 
-    // get saved data forms from localstorage
     const oldTests = getItem("forms");
     if (oldTests) {
+      // check if the test already exists on that day or not (using the date compare of all the tests)
       for (let i = 0; i < oldTests.length; i++) {
         if (
           differenceInDays(
@@ -110,6 +112,7 @@ export default function EditVitalityCalculator(props) {
           isSameDay(new Date(oldTests[i].timeStamp), new Date(timeStamp))
         ) {
           isTestAlreadyExist = true;
+          alreadyExistTestIndex = i;
           break;
         }
       }
@@ -117,17 +120,19 @@ export default function EditVitalityCalculator(props) {
       lastTest = oldTests[oldTests.length - 1];
       lastTestId = parseInt(lastTest.id);
 
+      // if the data already exists on thay day, we will ask to override or ignore
       if (isTestAlreadyExist) {
         if (
           window.confirm(
             "Do you want to override your previous test on the same data?"
           )
         ) {
-          oldTests[oldTests.length - 1]["form"] = form;
+          oldTests[alreadyExistTestIndex]["form"] = form;
           setItem("forms", oldTests);
           props.loadHistoryData();
         }
       } else {
+        // saving a new test
         oldTests.push({
           id: lastTestId + 1,
           timeStamp: new Date(timeStamp),
@@ -138,7 +143,28 @@ export default function EditVitalityCalculator(props) {
         props.close();
       }
     } else {
+      // it is the first test being saved
       setItem("forms", [{ id: 1, timeStamp: new Date(timeStamp), form: form }]);
+      props.loadHistoryData();
+      props.close();
+    }
+  };
+
+  // it will update the form data
+  const updateData = () => {
+    let alreadyExistTestIndex;
+
+    const oldTests = getItem("forms");
+    if (oldTests) {
+      for (let i = 0; i < oldTests.length; i++) {
+        if (oldTests[i].id == props.vsHistory.id) {
+          alreadyExistTestIndex = i;
+          break;
+        }
+      }
+
+      oldTests[alreadyExistTestIndex]["form"] = form;
+      setItem("forms", oldTests);
       props.loadHistoryData();
       props.close();
     }
@@ -233,26 +259,6 @@ export default function EditVitalityCalculator(props) {
         </div>
 
         <div className="flex items-center justify-end gap-4 px-[96px] max-[840px]:flex-col  max-[840px]:justify-center max-[840px]:px-[70px] max-[700px]:px-[40px] max-[540px]:px-0">
-          {/*
-          <button
-            type="button"
-            className="button primary mt-0 border-[1px] border-black !bg-transparent !text-black hover:!bg-primary hover:!text-white"
-            disabled={!isValid}
-            onClick={nextTab}
-          >
-            Cancel
-          </button>
-
-          <button
-            type="button"
-            className="button primary mt-0 border-[1px] border-black"
-            disabled={!isValid}
-            onClick={nextTab}
-          >
-            Continue
-          </button>
-        */}
-
           <button
             type="button"
             className="button primary clearDT back  max-[540px]:!w-[280px] max-[540px]:px-[30px] max-[540px]:!py-[14px]"
@@ -261,14 +267,25 @@ export default function EditVitalityCalculator(props) {
             Cancel
           </button>
 
-          <button
-            type="button"
-            className="button primary !mt-5 !border-[1px] border-black hover:!border-primary"
-            disabled={!isValid}
-            onClick={nextTab}
-          >
-            Continue
-          </button>
+          {props.vsHistory ? (
+            <button
+              type="button"
+              className="button primary !mt-5 !border-[1px] border-black hover:!border-primary"
+              disabled={!isValid}
+              onClick={updateData}
+            >
+              Update
+            </button>
+          ) : (
+            <button
+              type="button"
+              className="button primary !mt-5 !border-[1px] border-black hover:!border-primary"
+              disabled={!isValid}
+              onClick={nextTab}
+            >
+              Save
+            </button>
+          )}
         </div>
       </div>
     </div>
