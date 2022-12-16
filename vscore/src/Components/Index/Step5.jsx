@@ -59,8 +59,7 @@ export default function Step5({
               </div>
             </div>
             <div className="doterraColumn flex items-center">
-              {/*
-              <div className="relative mx-auto h-[200px] min-w-[200px] max-w-[300px] grow sm:block">
+              <div className="relative mx-auto hidden h-[200px] min-w-[200px] max-w-[300px] grow max-[580px]:block">
                 <VitalityScoreGraph value1={metaAge} value2={form.age} />
 
                 <div className="absolute right-0 left-0 top-0 bottom-0 flex items-center justify-center">
@@ -70,9 +69,8 @@ export default function Step5({
                   </p>
                 </div>
               </div>
-            */}
 
-              <div className="mx-auto">
+              <div className="mx-auto block max-[580px]:hidden">
                 <CircleModel metabolicAge={metaAge} actualAge={form.age} />
               </div>
             </div>
