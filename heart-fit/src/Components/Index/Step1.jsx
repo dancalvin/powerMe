@@ -1,6 +1,22 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { setItem, getItem, deleteItem, clearls } from "../../localStore";
 
-export default function Step1({ form, nextTab, goToTab }) {
+export default function Step1({ form, nextTab, jumpTab, goToTab }) {
+  const [isFormSave, setIsFormSave] = useState(false);
+
+  useEffect(() => {
+    // check whether we have form data in localstorage or not
+    if (getItem("heartFitForms")) {
+      setIsFormSave(true);
+    }
+  }, []);
+
+  const HeartFitHistory = () => {
+    if (isFormSave) {
+      // jump to vitality score history because we have old form data from localstorage
+      goToTab(5);
+    }
+  };
   return (
     <>
       <div className="step first">
@@ -25,15 +41,15 @@ export default function Step1({ form, nextTab, goToTab }) {
           Continue
         </button>
 
-        <button
-          type="button"
-          className="button primary clearDT"
-          onClick={() => {
-            goToTab(5);
-          }}
-        >
-          See Your Heart-Fit Score History
-        </button>
+        {isFormSave ? (
+          <button
+            type="button"
+            className="button primary clearDT"
+            onClick={HeartFitHistory}
+          >
+            See Your Heart-Fit Score History
+          </button>
+        ) : null}
       </div>
     </>
   );

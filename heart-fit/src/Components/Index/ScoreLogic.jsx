@@ -1,8 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 
-export default function ScoreLogic(
-{
+export default function ScoreLogic({
   age,
   sex,
   race,
@@ -26,20 +25,17 @@ export default function ScoreLogic(
   newA1c,
   a1cPref,
   newA1cPref,
-  diastolicBP, 
+  diastolicBP,
   newDiastolicBP,
-}) 
-{
+}) {
   const [bmi, setBmi] = useState(25);
   const [zNumber, setZNumber] = useState(20);
   const [percentile, setPercentile] = useState(20);
   const [miscData, setMiscData] = useState(100);
   // <div>BMI:{bmi.toFixed(0)}<br></br>{((percentile -100)*-1).toFixed(0)}%</div>
 
-  useEffect(() => 
-  {
-    if(score === 0)
-    {
+  useEffect(() => {
+    if (score === 0) {
       let sugarNumber = 0;
       sugarNumber = parseInt(glucose);
 
@@ -70,19 +66,15 @@ export default function ScoreLogic(
       }
       setPercentile(
         100 *
-          (1 / (1 + Math.exp(-0.07056 * Math.pow(zNumber, 3) - 1.5976 * zNumber)))
+          (1 /
+            (1 + Math.exp(-0.07056 * Math.pow(zNumber, 3) - 1.5976 * zNumber)))
       );
-    }
-    else
-    {
+    } else {
       let sugarNumber = 0;
-      if (newA1cPref === 0)
-      {
+      if (newA1cPref === 0) {
         sugarNumber = parseInt(newGlucose);
-      }
-      else
-      {
-        sugarNumber = parseInt((parseFloat(newA1c) * 28.7) - 46.7);
+      } else {
+        sugarNumber = parseInt(parseFloat(newA1c) * 28.7 - 46.7);
       }
 
       let realHeight = feet * 12 + parseInt(inches);
@@ -90,8 +82,7 @@ export default function ScoreLogic(
       let weightStarter = newWeight * 703;
       setMiscData(heightSquared);
       setBmi(weightStarter / heightSquared);
-      if (sex === "Male") 
-      {
+      if (sex === "Male") {
         setZNumber(
           -4.8316 +
             0.0315 * bmi -
@@ -100,9 +91,7 @@ export default function ScoreLogic(
             0.8018 * Math.log(parseInt(newTrigl)) +
             0.0101 * sugarNumber
         );
-      } 
-      else 
-      {
+      } else {
         setZNumber(
           -6.5231 +
             0.0523 * bmi -
@@ -114,19 +103,18 @@ export default function ScoreLogic(
       }
       setPercentile(
         100 *
-          (1 / (1 + Math.exp(-0.07056 * Math.pow(zNumber, 3) - 1.5976 * zNumber)))
+          (1 /
+            (1 + Math.exp(-0.07056 * Math.pow(zNumber, 3) - 1.5976 * zNumber)))
       );
     }
   });
-    
-  useEffect(() => 
-  {
-    if (setScoreStyle) 
-    {
+
+  useEffect(() => {
+    if (setScoreStyle) {
       const result = ((percentile - 100) * -1).toFixed(0);
       setScoreStyle(result);
     }
   }, [percentile]);
 
-    return <>{((percentile - 100) * -1).toFixed(0)}</>;
+  return <>{((percentile - 100) * -1).toFixed(0)}</>;
 }

@@ -1,56 +1,27 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { share } from "../Base/SVG";
 import RangeSlider from "./RangeSlider/RangeSlider";
 import { RangeSliderModul } from "./RangeSlider/RangeSliderModul";
-
+import { getVitalityScore, getMetaAge } from "../../utils";
+import HeartFitScore from "./HeartFitScore";
 export default function Step5({
   nextTab,
   goToTab,
   setInput,
   updateForm,
   form,
+  saveYourGoals,
 }) {
-  const HeartFitScore = 35;
-  const min = 25;
-  const max = 49.1;
-  const style = (HeartFitScore - min) * (100 / (max - min));
+  const [hScore, setHScore] = useState("");
+  const [shareGoalsPopup, setShareGoalsPopup] = useState(false);
+
+  useEffect(() => {});
 
   return (
     <>
       <div className="step__outer">
         <div className="step fifth">
-          <div className="heartFit goal">
-            <h2 className="h2 sm">Your Heart-Fit Score Is:</h2>
-            <h1 className="h1 uniq">{HeartFitScore}</h1>
-            <div className="heartFit__inner">
-              <div className="heartFit__inner-progress">
-                <div className="heartFit__inner-progress-dot"></div>
-                <div className="heartFit__inner-progress-dot"></div>
-                <div className="heartFit__inner-progress-dot"></div>
-                <div className="heartFit__inner-progress-dot"></div>
-                <div className="heartFit__inner-progress-dot"></div>
-                <span
-                  className="heartFit__line"
-                  style={{
-                    left: style + "%",
-                    transform: `translateX(-${style}%)`,
-                  }}
-                >
-                  <span className="heartFit__score">{HeartFitScore}</span>
-                </span>
-              </div>
-              <div className="heartFit__inner-marks">
-                <div className="heartFit__inner-mark">Very Poor</div>
-                <div className="heartFit__inner-mark">Poor</div>
-                <div className="heartFit__inner-mark">Fair</div>
-                <div className="heartFit__inner-mark">Good</div>
-                <div className="heartFit__inner-mark">Excellent</div>
-                <div className="heartFit__inner-mark">Superior</div>
-              </div>
-              <span className="heartFit__min">{min}</span>
-              <span className="heartFit__max">{max}</span>
-            </div>
-          </div>
+          <HeartFitScore form={form} />
           <h3 className="h3 med">Mile Time</h3>
           <RangeSlider
             {...RangeSliderModul[2]}
@@ -72,12 +43,16 @@ export default function Step5({
           <button
             type="submit"
             className="button primary mirror"
-            onClick={nextTab}
+            onClick={saveYourGoals}
           >
             Save Your Goals
           </button>
 
-          <button type="button" className="button primary clearDT mirror share">
+          <button
+            type="button"
+            className="button primary clearDT mirror share"
+            onClick={() => setShareGoalsPopup(true)}
+          >
             Share <span>Your Goals</span>
             {share}
           </button>
@@ -105,7 +80,43 @@ export default function Step5({
             </h3>
           </div>
         </div>
+
+        {shareGoalsPopup ? (
+          <GoalsToShare form={form} setShareGoalsPopup={setShareGoalsPopup} />
+        ) : null}
       </div>
     </>
+  );
+}
+
+export function GoalsToShare({ form, setShareGoalsPopup }) {
+  return (
+    <div className="fixed top-0 left-0 bottom-0 right-0 z-10 m-7 max-[540px]:m-0 ">
+      <div
+        className="fixed top-0 left-0 bottom-0 right-0 -z-[1] flex items-center justify-center bg-black opacity-[0.65]"
+        onClick={() => setShareGoalsPopup(false)}
+      ></div>
+
+      <div className="relative mx-auto flex h-full max-w-[1280px] items-center justify-center overflow-auto bg-secondary py-10 px-20 max-[540px]:px-5">
+        <div
+          className="absolute top-5 right-5 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border-[1px]"
+          onClick={() => setShareGoalsPopup(false)}
+        >
+          <svg
+            width="14"
+            height="13"
+            viewBox="0 0 14 13"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M10.8267 12.9723L7.20797 9.35357L3.67244 12.8891L0.989592 10.2063L4.52513 6.67072L0.927201 3.0728L3.46447 0.535534L7.06239 4.13346L10.5979 0.597925L13.2808 3.28077L9.74524 6.8163L13.364 10.435L10.8267 12.9723Z"
+              fill="black"
+            />
+          </svg>
+        </div>
+        <HeartFitScore form={form} />
+      </div>
+    </div>
   );
 }

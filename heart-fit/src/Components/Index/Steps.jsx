@@ -3,14 +3,18 @@
 // Define which files are to be included in the steps
 
 import React, { useState } from "react";
+import isToday from "date-fns/isToday";
+import { isSameDay } from "date-fns";
+import differenceInDays from "date-fns/differenceInDays";
+import { toast } from "react-toastify";
 import Step1 from "./Step1";
 import Step2 from "./Step2";
 import Step3 from "./Step3";
 import Step4 from "./Step4";
 import Step5 from "./Step5";
 import HeartFitHistory from "../HeartFitHistory/index";
+import { setItem, getItem, deleteItem, clearls } from "../../localStore";
 const steps = ["step1", "step2", "step3", "step4", "step5", "step6"];
-
 // Define the data that will be collected in the form
 const initForm = {
   age: 40,
@@ -68,6 +72,91 @@ export default function Steps() {
   const nextTab = () => {
     if (currentIndex < steps.length - 1) setStep(steps[currentIndex + 1]);
     window.scrollTo(0, 0);
+
+    let lastTestId,
+      lastTest,
+      isTestAlreadyExist = false,
+      alreadyExistTestIndex;
+
+    // steps iteration
+    if (currentIndex == 2) {
+      // get saved data forms from localstorage
+      const oldTests = getItem("heartFitForms");
+      if (oldTests) {
+        // check if the test already exists on that day or not (using the date compare of all the tests)
+        for (let i = 0; i < oldTests.length; i++) {
+          if (
+            differenceInDays(new Date(oldTests[i].timeStamp), new Date()) <=
+              1 &&
+            isSameDay(new Date(oldTests[i].timeStamp), new Date())
+          ) {
+            isTestAlreadyExist = true;
+            alreadyExistTestIndex = i;
+            break;
+          }
+        }
+
+        lastTest = oldTests[oldTests.length - 1];
+        lastTestId = parseInt(lastTest.id);
+
+        // if the data already exists on thay day, we will ask to override or ignore
+        if (isTestAlreadyExist) {
+          if (
+            window.confirm(
+              "Do you want to override your previous test on the same date?"
+            )
+          ) {
+            oldTests[alreadyExistTestIndex]["form"] = form;
+            setItem("heartFitForms", oldTests);
+            toast("The data has been saved.");
+          }
+        } else {
+          // saving a new test
+          oldTests.push({
+            id: lastTestId + 1,
+            timeStamp: new Date(),
+            form: form,
+          });
+          setItem("heartFitForms", oldTests);
+          toast("The data has been saved.");
+        }
+      } else {
+        // it is the first test being saved
+        setItem("heartFitForms", [
+          { id: 1, timeStamp: new Date(), form: form },
+        ]);
+        toast("The data has been saved.");
+      }
+    }
+  };
+
+  const saveYourGoals = () => {
+    // get saved data forms from localstorage
+    if (form) {
+      let oldTests;
+      oldTests = getItem("heartFitForms");
+      oldTests[oldTests.length - 1]["form"] = form;
+      if (oldTests) {
+        setItem("heartFitForms", oldTests);
+        toast("Your goals have been saved.");
+        //alert("Your goals have been saved.");
+      } else {
+        setItem("heartFitForms", [
+          { id: 1, timeStamp: new Date(), form: form },
+        ]);
+      }
+    }
+  };
+
+  const jumpTab = (index) => {
+    if (index < steps.length - 1) setStep(steps[index]);
+    // we have old forms data stored on localstorage
+    const oldTests = getItem("heartFitForms");
+    if (oldTests) {
+      // check the vitality history for the last submitted form
+      setForm(oldTests[oldTests.length - 1].form);
+      window.scrollTo(0, 0);
+    }
   };
 
   // Define function to change to a specified step
@@ -78,12 +167,14 @@ export default function Steps() {
   const commonProps = {
     prevTab,
     nextTab,
+    jumpTab,
+    goToTab,
     form,
     updateForm,
     setInput,
     setInputDirect,
     setCheckbox,
-    goToTab,
+    saveYourGoals,
   };
 
   // this function fills in the circles by using css and additonal class names fill and active to bold the text

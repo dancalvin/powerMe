@@ -1,7 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { format } from "date-fns";
+import sub from "date-fns/sub";
+import add from "date-fns/add";
+import compareDesc from "date-fns/compareDesc";
+import { toast } from "react-toastify";
+
+import { getVitalityScore, getMetaAge } from "../../utils";
 import HeartFitHistoryGraph from "./HeartFitHistoryGraph";
 
 const timeRanges = ["day", "week", "month", "year"];
+
+/*
 const heartFitProgressData = [
   {
     name: "Page 1",
@@ -41,7 +50,8 @@ const heartFitProgressData = [
     score: 75,
   },
 ];
-
+*/
+/*
 const heartFitGoalsData = [
   {
     name: "Visit 1",
@@ -81,16 +91,219 @@ const heartFitGoalsData = [
     scoreGoals: 76,
   },
 ];
+*/
 
 export default function HeartFitStatsBlock(props) {
-  const [selectedTimeRange, setSelectedTimeRange] = useState("month");
+  const [heartFitProgressData, setHeartFitProgressData] = useState([]);
+  const [heartFitGoalsData, setHeartFitGoalsData] = useState([]);
+  const [selectedTimeRange, setSelectedTimeRange] = useState(null);
+  const [tab, setTab] = useState("progress");
+  const [historicalDataPopup, setHistoricalDataPopup] = useState(false);
+  const [dateRange, setDateRange] = useState([null, null]);
+  const [dateDiffFormat, setDateDiffFormat] = useState("");
+
+  useEffect(() => {
+    selectDateRangeFunc();
+    setTab(props.tab);
+  }, [props]);
+
+  // this function will select the time range based upon year/month/week/day
+  const selectDateRangeFunc = (selectedRange = "month") => {
+    setSelectedTimeRange(selectedRange);
+    let endDate,
+      startDate,
+      dateRangeArr = [];
+
+    endDate = new Date();
+    if (selectedRange == "year") {
+      startDate = sub(endDate, {
+        years: 1,
+      });
+    } else if (selectedRange == "month") {
+      startDate = sub(endDate, {
+        months: 1,
+      });
+    } else if (selectedRange == "week") {
+      startDate = sub(endDate, {
+        weeks: 1,
+      });
+    } else {
+      startDate = sub(endDate, {
+        days: 1,
+      });
+    }
+
+    dateRangeArr = [startDate, endDate];
+    setDateRange(dateRangeArr);
+    filterData(dateRangeArr);
+    formatDateDifferenceFunc(dateRangeArr);
+  };
+
+  // it filters the forms based upon the date range
+  const filterData = (dateRangeArr = []) => {
+    let vitalityScores = [],
+      vitalityMetaGoals = [];
+    if (selectedTimeRange && props.historyData) {
+      const copyHistoryData = [].concat(props.historyData);
+      const filteredHistoryData = copyHistoryData.filter((data, index) =>
+        compareDesc(new Date(dateRangeArr[0]), new Date(data.timeStamp)) == 1 &&
+        compareDesc(new Date(data.timeStamp), new Date(dateRangeArr[1])) == 1
+          ? true
+          : false
+      );
+
+      if (filteredHistoryData) {
+        if (tab == "progress") {
+          filteredHistoryData
+            .slice(0)
+            .reverse()
+            .filter((data, index) => {
+              vitalityScores.push({
+                name: `Visit ${index}`,
+                score: 60,
+              });
+            });
+
+          if (vitalityScores) {
+            setHeartFitProgressData(vitalityScores);
+          }
+        } else if (tab == "goals") {
+          filteredHistoryData
+            .slice(0)
+            .reverse()
+            .filter((data, index) => {
+              vitalityMetaGoals.push({
+                name: `Visit ${index}`,
+                scoreGoals: 64,
+              });
+            });
+
+          if (vitalityMetaGoals) {
+            setHeartFitGoalsData(vitalityMetaGoals);
+          }
+        }
+      }
+    }
+  };
+
+  // this function will subtract the years/months, weeks, days based upon your selected time range
+  const previous = () => {
+    let endDate,
+      startDate,
+      updatedStartDate,
+      updatedEndDate,
+      dateRangeArr = [];
+
+    endDate = dateRange[1];
+    startDate = dateRange[0];
+
+    if (selectedTimeRange == "year") {
+      updatedStartDate = sub(startDate, {
+        years: 1,
+      });
+      updatedEndDate = sub(endDate, {
+        years: 1,
+      });
+    } else if (selectedTimeRange == "month") {
+      updatedStartDate = sub(startDate, {
+        months: 1,
+      });
+      updatedEndDate = sub(endDate, {
+        months: 1,
+      });
+    } else if (selectedTimeRange == "week") {
+      updatedStartDate = sub(startDate, {
+        weeks: 1,
+      });
+      updatedEndDate = sub(endDate, {
+        weeks: 1,
+      });
+    } else {
+      updatedStartDate = sub(startDate, {
+        days: 1,
+      });
+      updatedEndDate = sub(endDate, {
+        days: 1,
+      });
+    }
+
+    dateRangeArr = [updatedStartDate, updatedEndDate];
+    setDateRange(dateRangeArr);
+    formatDateDifferenceFunc(dateRangeArr);
+    filterData(dateRangeArr);
+  };
+
+  // this function will add the years/months, weeks, days based upon your selected time range
+  const next = () => {
+    let endDate,
+      startDate,
+      updatedStartDate,
+      updatedEndDate,
+      dateRangeArr = [];
+
+    endDate = dateRange[1];
+    startDate = dateRange[0];
+
+    if (selectedTimeRange == "year") {
+      updatedStartDate = add(startDate, {
+        years: 1,
+      });
+      updatedEndDate = add(endDate, {
+        years: 1,
+      });
+    } else if (selectedTimeRange == "month") {
+      updatedStartDate = add(startDate, {
+        months: 1,
+      });
+      updatedEndDate = add(endDate, {
+        months: 1,
+      });
+    } else if (selectedTimeRange == "week") {
+      updatedStartDate = add(startDate, {
+        weeks: 1,
+      });
+      updatedEndDate = add(endDate, {
+        weeks: 1,
+      });
+    } else {
+      updatedStartDate = add(startDate, {
+        days: 1,
+      });
+      updatedEndDate = add(endDate, {
+        days: 1,
+      });
+    }
+
+    dateRangeArr = [updatedStartDate, updatedEndDate];
+    setDateRange(dateRangeArr);
+    formatDateDifferenceFunc(dateRangeArr);
+    filterData(dateRangeArr);
+  };
+
+  // it will check the date range and will format the range of time
+  const formatDateDifferenceFunc = (dateRangeArr) => {
+    let dateFormat = "";
+    if (dateRangeArr[0] && dateRangeArr[1]) {
+      dateFormat = `${format(
+        new Date(dateRangeArr[0]),
+        "MMMM d yyyy "
+      )}-${format(new Date(dateRangeArr[1]), " MMMM d yyyy")}`;
+    }
+
+    setDateDiffFormat(dateFormat);
+  };
+
+  const loadHistoryData = () => {
+    props.loadHistoryData();
+    toast("The data has been saved.");
+  };
 
   return (
-    <div className="sm:border-[1px] bg-secondary">
+    <div className="bg-secondary sm:border-[1px]">
       <div>
-        <div className="history__tabs w-full max-w-none flex flex-row flex-nowrap">
+        <div className="history__tabs flex w-full max-w-none flex-row flex-nowrap">
           <div
-            className={`history__tab w-1/2 flex flex-row flex-nowrap justify-center py-4 sm:border-b-[1px] cursor-pointer ${
+            className={`history__tab flex w-1/2 cursor-pointer flex-row flex-nowrap justify-center py-4 sm:border-b-[1px] ${
               props.tab == "progress"
                 ? "border-b-8 border-b-primary sm:bg-primary"
                 : ""
@@ -98,9 +311,9 @@ export default function HeartFitStatsBlock(props) {
             onClick={() => props.setTab("progress")}
           >
             <p
-              className={`font-montserrat text-xs sm:text-xl leading-5 text-center ${
+              className={`text-center font-montserrat text-xs leading-5 sm:text-xl ${
                 props.tab == "progress"
-                  ? "sm:text-secondary font-bold"
+                  ? "font-bold sm:text-secondary"
                   : "text-black"
               }`}
             >
@@ -109,7 +322,7 @@ export default function HeartFitStatsBlock(props) {
             </p>
           </div>
           <div
-            className={`history__tab w-1/2 flex flex-row flex-nowrap justify-center py-4 sm:border-l-[1px] sm:border-b-[1px] cursor-pointer ${
+            className={`history__tab flex w-1/2 cursor-pointer flex-row flex-nowrap justify-center py-4 sm:border-l-[1px] sm:border-b-[1px] ${
               props.tab == "goals"
                 ? "border-b-8 border-b-primary sm:bg-primary"
                 : ""
@@ -117,9 +330,9 @@ export default function HeartFitStatsBlock(props) {
             onClick={() => props.setTab("goals")}
           >
             <p
-              className={`font-montserrat text-xs sm:text-xl leading-5 text-center   ${
+              className={`text-center font-montserrat text-xs leading-5 sm:text-xl   ${
                 props.tab == "goals"
-                  ? "sm:text-secondary font-bold"
+                  ? "font-bold sm:text-secondary"
                   : "text-black"
               }`}
             >
@@ -133,7 +346,7 @@ export default function HeartFitStatsBlock(props) {
             {timeRanges.map((tRange, index) => (
               <div
                 key={index}
-                className={`py-2 px:3 ms:px-8 border-[1px] rounded-full uppercase cursor-pointer grow text-center text-xs md:text-base ${
+                className={`px:3 ms:px-8 grow cursor-pointer rounded-full border-[1px] py-2 text-center text-xs uppercase md:text-base ${
                   tRange == selectedTimeRange
                     ? "bg-black text-secondary"
                     : "bg-secondary"
@@ -144,8 +357,8 @@ export default function HeartFitStatsBlock(props) {
               </div>
             ))}
           </div>
-          <div className="h-16 flex flex-row flex-nowrap justify-between items-center mt-6 sm:mt-9 cursor-pointer">
-            <div className="w-[12px] sm:w-[22px]">
+          <div className="mt-6 flex h-16 cursor-pointer flex-row flex-nowrap items-center justify-between sm:mt-9">
+            <div className="w-[12px] sm:w-[22px]" onClick={() => previous()}>
               <svg width="100%" height="42" viewBox="0 0 22 42" fill="none">
                 <path
                   d="M21 1.31011L1.00003 21.3L21 41.3101"
@@ -154,10 +367,10 @@ export default function HeartFitStatsBlock(props) {
                 />
               </svg>
             </div>
-            <div className="font-montserrat font-bold text-base text-black cursor-pointer">
-              April 1–30, 2022
+            <div className="cursor-pointer font-montserrat text-base font-bold text-black">
+              {dateDiffFormat}
             </div>
-            <div className="w-[12px] sm:w-[22px]">
+            <div className="w-[12px] sm:w-[22px]" onClick={() => next()}>
               <svg width="100%" height="42" viewBox="0 0 22 42" fill="none">
                 <path
                   d="M1 41.31L21 21.3202L1 1.31006"
@@ -230,7 +443,7 @@ export default function HeartFitStatsBlock(props) {
               </div>
             </div>
           </div>
-          <div className="mt-5 text-center font-montserrat text-xl leading-6 underline text-black">
+          <div className="mt-5 text-center font-montserrat text-xl leading-6 text-black underline">
             <p
               className="cursor-pointer"
               onClick={() => {

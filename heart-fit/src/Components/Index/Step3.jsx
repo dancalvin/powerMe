@@ -171,6 +171,7 @@ export default function Step3({
             <CustomSelectTime
               list={hoursList}
               selected={hoursList[0]}
+              //selected={form["timeHour"]}
               onChange={changeMedium}
               timeUnit="Hours (hr)"
               timeUnitSm="hrs."
@@ -178,6 +179,7 @@ export default function Step3({
             <CustomSelectTime
               list={minuteList}
               selected={minuteList[0]}
+              //selected={form["timeMinute"]}
               onChange={changeMediumMin}
               timeUnit="Minutes (min)"
               timeUnitSm="mins."
