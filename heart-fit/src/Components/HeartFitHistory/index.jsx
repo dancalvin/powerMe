@@ -29,7 +29,7 @@ export default function HeartFitHistory() {
     for (let i = 0; i < 5; i++) {
       ylist.push(currentYear - i);
     }
-    setHistoryYear(hitoryYearsList[0]);
+    setHistoryYear(ylist[0]);
     setHitoryYearsList(ylist);
     loadHistoryData();
   }, []);
@@ -94,7 +94,11 @@ export default function HeartFitHistory() {
                       key={index}
                       onClick={() => setHistoryYear(year)}
                     >
-                      <input type="radio" name="radio" />
+                      <input
+                        type="radio"
+                        name="radio"
+                        checked={year == historyYear ? true : false}
+                      />
                       <label htmlFor=""></label>
                       <span>{year}</span>
                     </div>
@@ -104,17 +108,17 @@ export default function HeartFitHistory() {
               <div className="history__filter-icon">{filter}</div>
             </div>
             <div className="history__items">
-              {tab === "progress"
-                ? historyData.map((singleHistory, index) => (
-                    <HeartFitScoreHistory
-                      key={index}
-                      index={index}
-                      hfHistory={singleHistory}
-                      setDeletePopupToggleFunc={setDeletePopupToggleFunc}
-                      loadHistoryData={loadHistoryData}
-                    />
-                  ))
-                : null}
+              {historyData.map((singleHistory, index) =>
+                getYear(new Date(singleHistory.timeStamp)) == historyYear ? (
+                  <HeartFitScoreHistory
+                    key={index}
+                    index={index}
+                    hfHistory={singleHistory}
+                    setDeletePopupToggleFunc={setDeletePopupToggleFunc}
+                    loadHistoryData={loadHistoryData}
+                  />
+                ) : null
+              )}
 
               {/*tab === "goals"
                 ? historyData.map((singleHistory, index) => (

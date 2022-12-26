@@ -175,4 +175,48 @@ function getMetaAge({
 
   return metaAgeData;
 }
-export { getScorePercentile, getVitalityScore, getMetaAge };
+
+const getHeartFitScore = ({
+  age,
+  sex,
+  weight,
+  weightUnit,
+  timeHour,
+  timeMinute,
+  timeSecond,
+  heartRate,
+  newWeight,
+  newTime,
+  diastolicBP,
+  newDiastolicBP,
+  metabolicAge,
+  a1cPref,
+  newA1cPref,
+  newA1c,
+}) => {
+  let hfScore, walkingTime;
+  walkingTime =
+    parseInt(timeHour) + parseInt(timeMinute) + parseInt(timeSecond);
+  if (sex == "male") {
+    hfScore =
+      132.853 -
+      0.0769 * weight -
+      0.3877 * age +
+      6.315 -
+      3.2649 * walkingTime -
+      0.1565 * heartRate;
+  } else {
+    hfScore =
+      132.853 -
+      0.0769 * weight -
+      0.3877 * age +
+      0 -
+      3.2649 * walkingTime -
+      0.1565 * heartRate;
+  }
+
+  hfScore = hfScore.toFixed(0);
+  return hfScore;
+};
+
+export { getScorePercentile, getVitalityScore, getMetaAge, getHeartFitScore };

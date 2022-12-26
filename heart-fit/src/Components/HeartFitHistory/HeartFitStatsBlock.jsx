@@ -5,7 +5,7 @@ import add from "date-fns/add";
 import compareDesc from "date-fns/compareDesc";
 import { toast } from "react-toastify";
 
-import { getVitalityScore, getMetaAge } from "../../utils";
+import { getVitalityScore, getMetaAge, getHeartFitScore } from "../../utils";
 import HeartFitHistoryGraph from "./HeartFitHistoryGraph";
 
 const timeRanges = ["day", "week", "month", "year"];
@@ -174,7 +174,7 @@ export default function HeartFitStatsBlock(props) {
             .filter((data, index) => {
               vitalityMetaGoals.push({
                 name: `Visit ${index}`,
-                scoreGoals: 64,
+                scoreGoals: getHeartFitScore({ ...data.form }),
               });
             });
 

@@ -4,6 +4,7 @@ import RangeSlider from "./RangeSlider/RangeSlider";
 import { RangeSliderModul } from "./RangeSlider/RangeSliderModul";
 import { getVitalityScore, getMetaAge } from "../../utils";
 import HeartFitScore from "./HeartFitScore";
+import { closeIcon } from "../Base/SVG";
 export default function Step5({
   nextTab,
   goToTab,
@@ -102,18 +103,7 @@ export function GoalsToShare({ form, setShareGoalsPopup }) {
           className="absolute top-5 right-5 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border-[1px]"
           onClick={() => setShareGoalsPopup(false)}
         >
-          <svg
-            width="14"
-            height="13"
-            viewBox="0 0 14 13"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M10.8267 12.9723L7.20797 9.35357L3.67244 12.8891L0.989592 10.2063L4.52513 6.67072L0.927201 3.0728L3.46447 0.535534L7.06239 4.13346L10.5979 0.597925L13.2808 3.28077L9.74524 6.8163L13.364 10.435L10.8267 12.9723Z"
-              fill="black"
-            />
-          </svg>
+          {closeIcon}
         </div>
         <HeartFitScore form={form} />
       </div>

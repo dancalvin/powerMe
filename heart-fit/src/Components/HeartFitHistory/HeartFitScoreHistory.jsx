@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import { closeIcon, share, trash } from "../Base/SVG";
 import { GoalsToShare } from "../Index/Step5";
 import EditDataPopup from "./EditDataPopup";
-
+import { getHeartFitScore } from "../../utils/index";
 const HeartFitScoreHistory = (props) => {
   const [actionArea, setActionArea] = useState(false);
   const [hfHistory, setHfHistory] = useState(null);
@@ -14,7 +14,8 @@ const HeartFitScoreHistory = (props) => {
   const [historicalDataPopup, setHistoricalDataPopup] = useState(false);
 
   useEffect(() => {
-    setScoreStyle("35.3");
+    const hfScore = getHeartFitScore({ ...props.hfHistory.form });
+    setScoreStyle(hfScore);
     setHfHistory(props.hfHistory);
   }, [props]);
 
