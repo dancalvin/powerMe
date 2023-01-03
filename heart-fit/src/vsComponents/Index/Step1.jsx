@@ -26,15 +26,15 @@ export default function Step1({ form, nextTab, jumpTab }) {
           compared to other adults in the US population.
           <br />
           <br />A score of 50 suggests that you have an average risk for
-          developing metabolic health problems in the future. A hihger score
-          indicates better overall metabolic health anda lower risk of
+          developing metabolic health problems in the future. A higher score
+          indicates better overall metabolic health and a lower risk of
           developing future disease. The good news is that healthy lifestyle
           changes and smart supplementation can improve your Vitality Score over
           time.
         </p>
         <br />
         <span className="finePrint">
-          Vitality Score is based on algorithms developed by MetCalc.org. Ranges
+          Vitality Score is based on algorithms developed by metcalc.org Ranges
           are based on NHAINES data gathered by CDC
         </span>
       </div>
