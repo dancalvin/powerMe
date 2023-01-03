@@ -34,7 +34,7 @@ export default function Step1({ form, nextTab, jumpTab }) {
         </p>
         <br />
         <span className="finePrint">
-          Vitality Score is based on algorithms developed by metcalc.org Ranges
+          Vitality Score is based on algorithms developed by metcalc.org. Ranges
           are based on NHAINES data gathered by CDC
         </span>
       </div>
