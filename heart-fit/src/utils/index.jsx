@@ -196,7 +196,11 @@ const getHeartFitScore = ({
 }) => {
   let hfScore, walkingTime;
   walkingTime =
-    parseInt(timeHour) + parseInt(timeMinute) + parseInt(timeSecond);
+    parseInt(timeHour) * 60 + parseInt(timeMinute) + parseInt(timeSecond) / 60;
+
+  if (weightUnit == "(kg)") {
+    weight = weight * 2.20462;
+  }
   if (sex == "male") {
     hfScore =
       132.853 -

@@ -160,7 +160,7 @@ export default function HeartFitStatsBlock(props) {
             .filter((data, index) => {
               vitalityScores.push({
                 name: `Visit ${index}`,
-                score: 60,
+                score: getHeartFitScore({ ...data.form }),
               });
             });
 
@@ -341,7 +341,7 @@ export default function HeartFitStatsBlock(props) {
             </p>
           </div>
         </div>
-        <div className="px-6 py-8 sm:px-12 sm:py-10">
+        <div className="px-0 py-8 sm:px-12 sm:py-10">
           <div className="flex flex-row flex-nowrap justify-between gap-2 sm:gap-5">
             {timeRanges.map((tRange, index) => (
               <div
@@ -367,7 +367,7 @@ export default function HeartFitStatsBlock(props) {
                 />
               </svg>
             </div>
-            <div className="cursor-pointer font-montserrat text-base font-bold text-black">
+            <div className="cursor-pointer font-montserrat text-xs font-bold text-black sm:text-lg">
               {dateDiffFormat}
             </div>
             <div className="w-[12px] sm:w-[22px]" onClick={() => next()}>

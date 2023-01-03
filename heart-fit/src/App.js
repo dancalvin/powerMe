@@ -1,13 +1,37 @@
-import Header from "./Components/Base/Header";
-import Footer from "./Components/Base/Footer";
-import Index from "./Components/Index/Index";
-import { Route, Routes } from "react-router-dom";
+import { RouterProvider } from "react-router-dom";
+import router from "./Router";
 import "./index.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
 function App() {
   return (
     <>
+      <RouterProvider router={router} />
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
+      <ToastContainer />
+    </>
+  );
+}
+
+/*
+
+
+function App() {
+  return (
+    <>
+      <RouterProvider router={router} />
       <Header />
       <Routes>
         <Route path="*" index element={<Index />} />
@@ -25,10 +49,11 @@ function App() {
         pauseOnHover
         theme="light"
       />
-      {/* Same as */}
       <ToastContainer />
     </>
   );
 }
+
+*/
 
 export default App;

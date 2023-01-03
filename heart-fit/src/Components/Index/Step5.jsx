@@ -6,6 +6,7 @@ import { getVitalityScore, getMetaAge } from "../../utils";
 import HeartFitScore from "./HeartFitScore";
 import { closeIcon } from "../Base/SVG";
 export default function Step5({
+  prevTab,
   nextTab,
   goToTab,
   setInput,
@@ -57,13 +58,20 @@ export default function Step5({
             Share <span>Your Goals</span>
             {share}
           </button>
+
+          <div style={{ marginTop: "32px" }}>
+            <button
+              type="button"
+              className="button primary clearDT mirror share"
+              onClick={prevTab}
+            >
+              Back
+            </button>
+          </div>
         </div>
         <div className="step add">
           <div className="step__image">
-            <img
-              src={process.env.PUBLIC_URL + "images/powerme.png"}
-              alt="powerme"
-            />
+            <img src="/images/powerme.png" alt="powerme" />
           </div>
           <div className="step__content">
             <h2 className="h2">To Learn More</h2>

@@ -65,7 +65,7 @@ export default function Step4({ form, nextTab, goToTab, jump }) {
       <div className="steps__inner-result-btns">
         <button
           type="submit"
-          className="button primary mirror"
+          className="button primary mirror !w-full"
           onClick={nextTab}
         >
           Set Goals
@@ -73,7 +73,7 @@ export default function Step4({ form, nextTab, goToTab, jump }) {
 
         <button
           type="button"
-          className="button primary clearDT mirror share"
+          className="button primary clearDT mirror share !w-full"
           onClick={() => setShareResultsPopup(true)}
         >
           Share <span>Your Results</span>
@@ -83,7 +83,7 @@ export default function Step4({ form, nextTab, goToTab, jump }) {
           <button
             type="button"
             onClick={() => {
-              jump(0);
+              goToTab(0);
             }}
             className="button primary clearDT"
           >

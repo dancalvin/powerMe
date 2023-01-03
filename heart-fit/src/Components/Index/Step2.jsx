@@ -52,7 +52,7 @@ export default function Step2({
             <input
               type="number"
               className="input"
-              placeholder="#"
+              placeholder="180"
               onChange={setInput("weight")}
               value={form["weight"]}
             />
@@ -114,7 +114,7 @@ export default function Step2({
       <div className="button__outer">
         <button
           type="button"
-          className="button primary"
+          className="button primary !w-full"
           disabled={!isValid}
           onClick={nextTab}
         >
@@ -123,7 +123,7 @@ export default function Step2({
 
         <button
           type="button"
-          className="button primary clearDT back"
+          className="button primary clearDT back max-[540px]:!mx-0 max-[540px]:!w-full"
           onClick={prevTab}
         >
           Back

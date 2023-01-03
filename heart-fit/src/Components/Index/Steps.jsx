@@ -17,7 +17,7 @@ import { setItem, getItem, deleteItem, clearls } from "../../localStore";
 const steps = ["step1", "step2", "step3", "step4", "step5", "step6"];
 // Define the data that will be collected in the form
 const initForm = {
-  age: 40,
+  age: null,
   sex: "",
   weight: "",
   weightUnit: "(lbs)",

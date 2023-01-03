@@ -14,7 +14,7 @@ export default function Step1({ form, nextTab, jumpTab, goToTab }) {
   const HeartFitHistory = () => {
     if (isFormSave) {
       // jump to vitality score history because we have old form data from localstorage
-      goToTab(5);
+      goToTab(3);
     }
   };
   return (
@@ -35,7 +35,7 @@ export default function Step1({ form, nextTab, jumpTab, goToTab }) {
       <div className="button__outer">
         <button
           type="button"
-          className="button primary mirror"
+          className="button primary mirror !w-full border-[1px] border-[solid]"
           onClick={nextTab}
         >
           Continue

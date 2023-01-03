@@ -251,9 +251,7 @@ function EditDataPopup(props) {
     form.sex !== "" &&
     form.weight !== "" &&
     form.weightUnit !== "" &&
-    form.timeHour !== "00" &&
     form.timeMinute !== "00" &&
-    form.timeSecond !== "00" &&
     form.heartRate !== "";
   const changeMedium = (item) => {
     setWeightUnit(item.unit);
@@ -273,7 +271,7 @@ function EditDataPopup(props) {
     setSecond(item.value);
   };
   return (
-    <div className="popup">
+    <div className="popup max-[540px]:p-0">
       <div className="popup__inner">
         <div
           className="absolute right-4 top-4 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border-[1px] md:right-8 md:top-8"

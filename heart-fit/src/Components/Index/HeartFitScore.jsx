@@ -10,8 +10,8 @@ export default function HeartFitScore({ form }) {
   useEffect(() => {
     //const vScore = getVitalityScore({ ...form, score: 0 });
     const vScore = getHeartFitScore({ ...form });
-    const min = 25;
-    const max = 49.1;
+    const min = 15;
+    const max = 120;
     const style = (vScore - min) * (100 / (max - min));
     setHScore(vScore);
     setScoreStyle(style);
@@ -21,7 +21,7 @@ export default function HeartFitScore({ form }) {
 
   return (
     <div className="heartFit goal w-full">
-      <h2 className="h2 sm">Your Heart-Fit Score Is:</h2>
+      <h2 className="h2 sm">Your Heart-Fit Score Could Be:</h2>
       <h1 className="h1 uniq">{hScore}</h1>
 
       <div className="heartFit__inner w-full">
