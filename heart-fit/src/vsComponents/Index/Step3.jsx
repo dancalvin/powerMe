@@ -117,7 +117,7 @@ export default function Step3({
           </div>
           <h3 className="med h3">Systolic Blood Pressure (mmHg)</h3>
           <h3 className="light h3">
-            Blood Pressure consists of two numbers, systolic (top number) and
+            Blood pressure consists of two numbers, systolic (top number) and
             diastolic (bottom number. Blood pressure greater than 130/80 mm is
             considered high. People with blood pressure over 140/90 should be
             seen by their healthcare provider. If your blood pressure is over
