@@ -5,97 +5,67 @@ import add from "date-fns/add";
 import compareDesc from "date-fns/compareDesc";
 import { toast } from "react-toastify";
 
-import { getVitalityScore, getMetaAge, getHeartFitScore } from "../../utils";
-import HeartFitHistoryGraph from "./HeartFitHistoryGraph";
+import VitalityHistoryGraph from "./VitalityHistoryGraph";
+import EditVitalityCalculator from "../EditVitalityCalculator";
+
+import { getVitalityScore, getMetaAge } from "../../utils";
 
 const timeRanges = ["day", "week", "month", "year"];
 
 /*
-const heartFitProgressData = [
-  {
-    name: "Page 1",
-    score: 60,
-  },
-  {
-    name: "Visit 2",
-    score: 65,
-  },
-  {
-    name: "Visit 3",
-    score: 62,
-  },
-  {
-    name: "Visit 4",
-    score: 61,
-  },
-  {
-    name: "Visit 5",
-    score: 65,
-  },
-  {
-    name: "Visit 6",
-    score: 68,
-  },
-  {
-    name: "Visit 7",
-    score: 72,
-  },
-
-  {
-    name: "Visit 8",
-    score: 73,
-  },
-  {
-    name: "Visit 9",
-    score: 75,
-  },
-];
-*/
-/*
-const heartFitGoalsData = [
+const vitalityGoalsData = [
   {
     name: "Visit 1",
     scoreGoals: 61,
+    ageGoals: 50,
   },
   {
     name: "Visit 2",
     scoreGoals: 62,
+    ageGoals: 49,
   },
   {
     name: "Visit 3",
     scoreGoals: 64,
+    ageGoals: 49,
   },
 
   {
     name: "Visit 4",
     scoreGoals: 66,
+    ageGoals: 48,
   },
   {
     name: "Visit 5",
     scoreGoals: 68,
+    ageGoals: 47,
   },
   {
     name: "Visit 6",
     scoreGoals: 70,
+    ageGoals: 46,
   },
   {
     name: "Visit 7",
     scoreGoals: 72,
+    ageGoals: 45,
   },
   {
     name: "Visit 8",
     scoreGoals: 74,
+    ageGoals: 45,
   },
   {
     name: "Visit 9",
     scoreGoals: 76,
+    ageGoals: 44,
   },
 ];
 */
 
-export default function HeartFitStatsBlock(props) {
-  const [heartFitProgressData, setHeartFitProgressData] = useState([]);
-  const [heartFitGoalsData, setHeartFitGoalsData] = useState([]);
+export default function VitalityStatsBlock(props) {
+  const [vitalityProgressData, setVitalityProgressData] = useState([]);
+  const [vitalityGoalsData, setvitalityGoalsData] = useState([]);
   const [selectedTimeRange, setSelectedTimeRange] = useState(null);
   const [tab, setTab] = useState("progress");
   const [historicalDataPopup, setHistoricalDataPopup] = useState(false);
@@ -104,7 +74,6 @@ export default function HeartFitStatsBlock(props) {
 
   useEffect(() => {
     selectDateRangeFunc();
-    setTab(props.tab);
   }, [props]);
 
   // this function will select the time range based upon year/month/week/day
@@ -160,12 +129,12 @@ export default function HeartFitStatsBlock(props) {
             .filter((data, index) => {
               vitalityScores.push({
                 name: `Visit ${index}`,
-                score: getHeartFitScore({ ...data.form }),
+                score: getVitalityScore({ ...data.form, score: 0 }),
               });
             });
 
           if (vitalityScores) {
-            setHeartFitProgressData(vitalityScores);
+            setVitalityProgressData(vitalityScores);
           }
         } else if (tab == "goals") {
           filteredHistoryData
@@ -174,12 +143,13 @@ export default function HeartFitStatsBlock(props) {
             .filter((data, index) => {
               vitalityMetaGoals.push({
                 name: `Visit ${index}`,
-                scoreGoals: getHeartFitScore({ ...data.form }),
+                scoreGoals: getVitalityScore({ ...data.form, score: 0 }),
+                ageGoals: getMetaAge({ ...data.form }),
               });
             });
 
           if (vitalityMetaGoals) {
-            setHeartFitGoalsData(vitalityMetaGoals);
+            setvitalityGoalsData(vitalityMetaGoals);
           }
         }
       }
@@ -297,51 +267,44 @@ export default function HeartFitStatsBlock(props) {
     props.loadHistoryData();
     toast("The data has been saved.");
   };
-
   return (
     <div className="bg-secondary sm:border-[1px]">
       <div>
-        <div className="history__tabs flex w-full max-w-none flex-row flex-nowrap">
+        <div className="flex w-full max-w-none flex-row flex-nowrap">
           <div
-            className={`history__tab flex w-1/2 cursor-pointer flex-row flex-nowrap justify-center py-4 sm:border-b-[1px] ${
-              props.tab == "progress"
-                ? "border-b-8 border-b-primary sm:bg-primary"
+            className={`flex w-1/2 cursor-pointer flex-row flex-nowrap justify-center py-4 sm:border-b-[1px] ${
+              tab == "progress"
+                ? "border-b-[6px] border-b-primary sm:bg-primary"
                 : ""
             }`}
-            onClick={() => props.setTab("progress")}
+            onClick={() => setTab("progress")}
           >
             <p
               className={`text-center font-montserrat text-xs leading-5 sm:text-xl ${
-                props.tab == "progress"
-                  ? "font-bold sm:text-secondary"
-                  : "text-black"
+                tab == "progress" ? "font-bold sm:text-secondary" : "text-black"
               }`}
             >
-              <span className="init">Progress</span>
-              <span className="final">Heart-Fit Progress</span>
+              Vitality Progress
             </p>
           </div>
           <div
-            className={`history__tab flex w-1/2 cursor-pointer flex-row flex-nowrap justify-center py-4 sm:border-l-[1px] sm:border-b-[1px] ${
-              props.tab == "goals"
-                ? "border-b-8 border-b-primary sm:bg-primary"
+            className={`flex w-1/2 cursor-pointer flex-row flex-nowrap justify-center py-4 sm:border-l-[1px] sm:border-b-[1px] ${
+              tab == "goals"
+                ? "border-b-[6px] border-b-primary sm:bg-primary"
                 : ""
             }`}
-            onClick={() => props.setTab("goals")}
+            onClick={() => setTab("goals")}
           >
             <p
               className={`text-center font-montserrat text-xs leading-5 sm:text-xl   ${
-                props.tab == "goals"
-                  ? "font-bold sm:text-secondary"
-                  : "text-black"
+                tab == "goals" ? "font-bold sm:text-secondary" : "text-black"
               }`}
             >
-              <span className="init">Goals</span>
-              <span className="final">Heart-Fit Goals</span>
+              Vitality Goals
             </p>
           </div>
         </div>
-        <div className="px-0 py-8 sm:px-12 sm:py-10">
+        <div className="py-8 px-4 sm:px-12 sm:py-10">
           <div className="flex flex-row flex-nowrap justify-between gap-2 sm:gap-5">
             {timeRanges.map((tRange, index) => (
               <div
@@ -351,7 +314,7 @@ export default function HeartFitStatsBlock(props) {
                     ? "bg-black text-secondary"
                     : "bg-secondary"
                 }`}
-                onClick={() => setSelectedTimeRange(tRange)}
+                onClick={() => selectDateRangeFunc(tRange)}
               >
                 <span>{tRange}</span>
               </div>
@@ -359,65 +322,113 @@ export default function HeartFitStatsBlock(props) {
           </div>
           <div className="mt-6 flex h-16 cursor-pointer flex-row flex-nowrap items-center justify-between sm:mt-9">
             <div className="w-[12px] sm:w-[22px]" onClick={() => previous()}>
-              <svg width="100%" height="42" viewBox="0 0 22 42" fill="none">
+              <svg
+                width="100%"
+                height="42"
+                viewBox="0 0 22 42"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
                 <path
                   d="M21 1.31011L1.00003 21.3L21 41.3101"
                   stroke="black"
-                  strokeMiterlimit="10"
+                  stroke-miterlimit="10"
                 />
               </svg>
             </div>
-            <div className="cursor-pointer font-montserrat text-xs font-bold text-black sm:text-lg">
+            <div className="cursor-pointer font-montserrat text-sm font-light text-black sm:text-base sm:font-bold">
               {dateDiffFormat}
             </div>
             <div className="w-[12px] sm:w-[22px]" onClick={() => next()}>
-              <svg width="100%" height="42" viewBox="0 0 22 42" fill="none">
+              <svg
+                width="100%"
+                height="42"
+                viewBox="0 0 22 42"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
                 <path
                   d="M1 41.31L21 21.3202L1 1.31006"
                   stroke="black"
-                  strokeMiterlimit="10"
+                  stroke-miterlimit="10"
                 />
               </svg>
             </div>
           </div>
           <div className="mt-5">
-            {props.tab == "progress" ? (
+            {tab == "progress" ? (
               <div className="flex flex-row gap-4">
-                <div>
-                  <svg width="80" height="21" viewBox="0 0 80 21" fill="none">
+                <div className="w-[40px] sm:w-[80px]">
+                  <svg
+                    width="100%"
+                    height="21"
+                    viewBox="0 0 80 21"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
                     <line
                       y1="9.31006"
                       x2="80"
                       y2="9.31006"
                       stroke="#6D7B9B"
-                      strokeWidth="2"
+                      stroke-width="2"
                     />
                     <circle cx="40" cy="10.3101" r="10" fill="#6D7B9B" />
                   </svg>
                 </div>
                 <div>
                   <p className="font-montserrat text-base leading-5 text-primary">
-                    Heart-Fit score
+                    Vitality Score
                   </p>
                 </div>
               </div>
             ) : (
               <div className="flex flex-row gap-4">
-                <div>
-                  <svg width="80" height="21" viewBox="0 0 80 21" fill="none">
+                <div className="w-[40px] sm:w-[80px]">
+                  <svg
+                    width="100%"
+                    height="21"
+                    viewBox="0 0 80 21"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
                     <line
                       y1="9.31006"
                       x2="80"
                       y2="9.31006"
                       stroke="#6D7B9B"
-                      strokeWidth="2"
+                      stroke-width="2"
                     />
                     <circle cx="40" cy="10.3101" r="10" fill="#7D9D92" />
                   </svg>
                 </div>
                 <div>
-                  <p className="font-montserrat text-base leading-5 text-primary">
-                    Heart-Fit Score Goals
+                  <p className="font-montserrat text-xs leading-5 text-primary sm:text-base">
+                    Vitality Score Goals
+                  </p>
+                </div>
+
+                <div className="w-[40px] sm:w-[80px]">
+                  <svg
+                    width="100%"
+                    height="21"
+                    viewBox="0 0 80 21"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <line
+                      y1="9.31006"
+                      x2="80"
+                      y2="9.31006"
+                      stroke="#F7A08C"
+                      stroke-width="2"
+                    />
+                    <circle cx="40" cy="10.3101" r="10" fill="#F7A08C" />
+                  </svg>
+                </div>
+                <div>
+                  <p className="font-montserrat text-xs leading-5 text-primary sm:text-base">
+                    Metabolic Age Goals
                   </p>
                 </div>
               </div>
@@ -425,18 +436,20 @@ export default function HeartFitStatsBlock(props) {
 
             <div className="mt-10">
               <div>
-                {props.tab == "progress" ? (
-                  <HeartFitHistoryGraph
-                    lineData={heartFitProgressData}
+                {tab == "progress" ? (
+                  <VitalityHistoryGraph
+                    lineData={vitalityProgressData}
                     line1Color="#6D7B9B"
                     line1DataKey="score"
                     YLable={"Score"}
                   />
                 ) : (
-                  <HeartFitHistoryGraph
-                    lineData={heartFitGoalsData}
+                  <VitalityHistoryGraph
+                    lineData={vitalityGoalsData}
                     line1Color="#7D9D92"
+                    line2Color="#F7A08C"
                     line1DataKey="scoreGoals"
+                    line2DataKey="ageGoals"
                     YLable={"GOAL"}
                   />
                 )}
@@ -446,15 +459,20 @@ export default function HeartFitStatsBlock(props) {
           <div className="mt-5 text-center font-montserrat text-xl leading-6 text-black underline">
             <p
               className="cursor-pointer"
-              onClick={() => {
-                props.setAddDataPopupToggle(true);
-              }}
+              onClick={() => setHistoricalDataPopup(true)}
             >
               Add historical data
             </p>
           </div>
         </div>
       </div>
+
+      {historicalDataPopup ? (
+        <EditVitalityCalculator
+          close={() => setHistoricalDataPopup(false)}
+          loadHistoryData={loadHistoryData}
+        />
+      ) : null}
     </div>
   );
 }

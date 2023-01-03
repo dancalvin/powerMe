@@ -110,11 +110,7 @@ export default function Step3({
   const setHourVal = (data) => updateForm({ timeHour: data });
   const setMinuteVal = (data) => updateForm({ timeMinute: data });
   const setSecondVal = (data) => updateForm({ timeSecond: data });
-  const isValid =
-    form.timeHour !== "00" &&
-    form.timeMinute !== "00" &&
-    form.timeSecond !== "00" &&
-    form.heartRate !== "";
+  const isValid = form.timeMinute !== "00" && form.heartRate !== "";
   const changeMedium = (item) => {
     setHourVal(item.value);
     setHour(item.value);
@@ -171,6 +167,7 @@ export default function Step3({
             <CustomSelectTime
               list={hoursList}
               selected={hoursList[0]}
+              //selected={form["timeHour"]}
               onChange={changeMedium}
               timeUnit="Hours (hr)"
               timeUnitSm="hrs."
@@ -178,6 +175,7 @@ export default function Step3({
             <CustomSelectTime
               list={minuteList}
               selected={minuteList[0]}
+              //selected={form["timeMinute"]}
               onChange={changeMediumMin}
               timeUnit="Minutes (min)"
               timeUnitSm="mins."
@@ -204,7 +202,7 @@ export default function Step3({
       <div className="button__outer">
         <button
           type="button"
-          className="button primary"
+          className="button primary !w-full"
           disabled={!isValid}
           onClick={nextTab}
         >
@@ -212,7 +210,7 @@ export default function Step3({
         </button>
         <button
           type="button"
-          className="button primary clearDT back"
+          className="button primary clearDT back max-[540px]:!mx-0 max-[540px]:!w-full"
           onClick={prevTab}
         >
           Back

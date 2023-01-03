@@ -1,15 +1,18 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { share } from "../Base/SVG";
-
-export default function Step4({ nextTab, goToTab }) {
-  const HeartFitScore = 35;
+import HeartFitScore from "./HeartFitScore";
+import { GoalsToShare } from "./Step5";
+export default function Step4({ form, nextTab, goToTab, jump }) {
+  const [shareResultsPopup, setShareResultsPopup] = useState(false);
+  /*const HeartFitScore = 35;
   const min = 25;
   const max = 49.1;
   const style = (HeartFitScore - min) * (100 / (max - min));
-
+  */
   return (
     <>
       <div className="step__outer">
+        {/*
         <div className="heartFit">
           <h2 className="h2">Your Heart-Fit Score Is:</h2>
           <h1 className="h1 big">{HeartFitScore}</h1>
@@ -45,6 +48,9 @@ export default function Step4({ nextTab, goToTab }) {
             Your Heart-Fit Score is xx better than xx {HeartFitScore}% of peers.
           </h3>
         </div>
+        */}
+
+        <HeartFitScore form={form} />
         <div className="step res">
           <h2 className="h2">What Your Results Mean </h2>
           <h3 className="h3 light">
@@ -59,13 +65,17 @@ export default function Step4({ nextTab, goToTab }) {
       <div className="steps__inner-result-btns">
         <button
           type="submit"
-          className="button primary mirror"
+          className="button primary mirror !w-full"
           onClick={nextTab}
         >
           Set Goals
         </button>
 
-        <button type="button" className="button primary clearDT mirror share">
+        <button
+          type="button"
+          className="button primary clearDT mirror share !w-full"
+          onClick={() => setShareResultsPopup(true)}
+        >
           Share <span>Your Results</span>
           {share}
         </button>
@@ -89,6 +99,9 @@ export default function Step4({ nextTab, goToTab }) {
             View <span>Your Heart-Fit</span> History
           </button>
         </div>
+        {shareResultsPopup ? (
+          <GoalsToShare form={form} setShareGoalsPopup={setShareResultsPopup} />
+        ) : null}
       </div>
     </>
   );

@@ -12,21 +12,40 @@ import Step2 from "./Step2";
 import Step3 from "./Step3";
 import Step4 from "./Step4";
 import Step5 from "./Step5";
-import HeartFitHistory from "../HeartFitHistory/index";
+import VitalityHistory from "../VitalityHistory/index";
 import { setItem, getItem, deleteItem, clearls } from "../../localStore";
 const steps = ["step1", "step2", "step3", "step4", "step5", "step6"];
+
 // Define the data that will be collected in the form
 const initForm = {
   age: null,
   sex: "",
+  asian: false,
+  pacIsl: false,
+  whiteOrCaucas: false,
+  blackAfrAmer: false,
+  hispLat: false,
+  natAmerAlas: false,
+  multBirac: false,
+  notListed: false,
+  extraRace: "",
+  feet: "",
+  inches: "",
+  heightUnit: "(in)",
   weight: "",
   weightUnit: "(lbs)",
-  timeHour: "00",
-  timeMinute: "00",
-  timeSecond: "00",
-  heartRate: 140,
-  newWeight: 140,
-  newTime: 20,
+  pressure: 120,
+  hdl: 60,
+  trigl: 150,
+  glucose: 90,
+  a1c: 4.7,
+  newWeight: 150,
+  newPressure: 120,
+  newHdl: 60,
+  newTrigl: 150,
+  newGlucose: 90,
+  waist: "",
+  newWaist: 30,
   diastolicBP: 70,
   newDiastolicBP: 70,
   metabolicAge: 0,
@@ -36,7 +55,6 @@ const initForm = {
 };
 
 const classNames = ["first", "second", "third", "fourth", "fifth"];
-
 // Define the default export function for Steps.jsx
 export default function Steps() {
   // add the variables form and step using useState. set form var to initForm data from and set step var to the first step in the steps array
@@ -77,11 +95,10 @@ export default function Steps() {
       lastTest,
       isTestAlreadyExist = false,
       alreadyExistTestIndex;
-
     // steps iteration
-    if (currentIndex == 2) {
+    if (currentIndex == 3) {
       // get saved data forms from localstorage
-      const oldTests = getItem("heartFitForms");
+      const oldTests = getItem("forms");
       if (oldTests) {
         // check if the test already exists on that day or not (using the date compare of all the tests)
         for (let i = 0; i < oldTests.length; i++) {
@@ -107,7 +124,7 @@ export default function Steps() {
             )
           ) {
             oldTests[alreadyExistTestIndex]["form"] = form;
-            setItem("heartFitForms", oldTests);
+            setItem("forms", oldTests);
             toast("The data has been saved.");
           }
         } else {
@@ -117,14 +134,12 @@ export default function Steps() {
             timeStamp: new Date(),
             form: form,
           });
-          setItem("heartFitForms", oldTests);
+          setItem("forms", oldTests);
           toast("The data has been saved.");
         }
       } else {
         // it is the first test being saved
-        setItem("heartFitForms", [
-          { id: 1, timeStamp: new Date(), form: form },
-        ]);
+        setItem("forms", [{ id: 1, timeStamp: new Date(), form: form }]);
         toast("The data has been saved.");
       }
     }
@@ -134,16 +149,14 @@ export default function Steps() {
     // get saved data forms from localstorage
     if (form) {
       let oldTests;
-      oldTests = getItem("heartFitForms");
+      oldTests = getItem("forms");
       oldTests[oldTests.length - 1]["form"] = form;
       if (oldTests) {
-        setItem("heartFitForms", oldTests);
+        setItem("forms", oldTests);
         toast("Your goals have been saved.");
         //alert("Your goals have been saved.");
       } else {
-        setItem("heartFitForms", [
-          { id: 1, timeStamp: new Date(), form: form },
-        ]);
+        setItem("forms", [{ id: 1, timeStamp: new Date(), form: form }]);
       }
     }
   };
@@ -151,7 +164,7 @@ export default function Steps() {
   const jumpTab = (index) => {
     if (index < steps.length - 1) setStep(steps[index]);
     // we have old forms data stored on localstorage
-    const oldTests = getItem("heartFitForms");
+    const oldTests = getItem("forms");
     if (oldTests) {
       // check the vitality history for the last submitted form
       setForm(oldTests[oldTests.length - 1].form);
@@ -168,7 +181,6 @@ export default function Steps() {
     prevTab,
     nextTab,
     jumpTab,
-    goToTab,
     form,
     updateForm,
     setInput,
@@ -182,20 +194,12 @@ export default function Steps() {
   // onClick={() => {setStep(steps[0]);}}
   return (
     <div className="steps">
-      <div className="auto__container">
+      <div className="auto__container box-content max-sm:px-[32px]">
         <div className="steps__inner">
-          {step !== steps[5] ? (
+          {step === steps[5] ? null : (
             <>
-              <h1 className={"h1 " + classNames[currentIndex]}>
-                {step === steps[4] ? (
-                  <>
-                    Heart-Fit score <br /> Results
-                  </>
-                ) : (
-                  <>
-                    Calculate your heart-fit score <br /> (Vo2 Max)
-                  </>
-                )}
+              <h1 className={`${classNames[currentIndex]} h1`}>
+                Calculate your Vitality score
               </h1>
               <div className="steps__line">
                 <div className="steps__item">
@@ -246,7 +250,7 @@ export default function Steps() {
                       (currentIndex === 2 ? "active" : "")
                     }
                   >
-                    Test Yourself
+                    Measurements
                   </div>
                 </div>
                 <div className="steps__item">
@@ -263,7 +267,7 @@ export default function Steps() {
                       (currentIndex === 3 ? "active" : "")
                     }
                   >
-                    Results
+                    Lab Values
                   </div>
                 </div>
                 <div className="steps__item">
@@ -280,22 +284,27 @@ export default function Steps() {
                       (currentIndex === 4 ? "active" : "")
                     }
                   >
-                    Goal
+                    Results
                   </div>
                 </div>
               </div>
             </>
-          ) : (
-            ""
           )}
           {step === steps[0] && <Step1 {...commonProps} />}
           {step === steps[1] && <Step2 {...commonProps} />}
           {step === steps[2] && <Step3 {...commonProps} />}
           {step === steps[3] && <Step4 {...commonProps} />}
           {step === steps[4] && <Step5 {...commonProps} />}
-          {step === steps[5] && <HeartFitHistory {...commonProps} />}
         </div>
       </div>
+
+      {step === steps[5] && (
+        <div className="">
+          <div className="auto__container box-content max-sm:px-[0px]">
+            <VitalityHistory {...commonProps} />
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -44,6 +44,7 @@ export default function Step2({
               className="input"
               placeholder="40"
               onChange={setInput("age")}
+              value={form["age"]}
             />
           </div>
           <h3 className="h3 med">Weight</h3>
@@ -51,8 +52,9 @@ export default function Step2({
             <input
               type="number"
               className="input"
-              placeholder="#"
+              placeholder="180"
               onChange={setInput("weight")}
+              value={form["weight"]}
             />
             <CustomSelect
               list={weightList}
@@ -67,6 +69,7 @@ export default function Step2({
                 type="radio"
                 name="radio"
                 value="Female"
+                checked={form["sex"] == "Female"}
                 onClick={setInput("sex")}
               />
               <label htmlFor=""></label>
@@ -77,6 +80,7 @@ export default function Step2({
                 type="radio"
                 name="radio"
                 value="Male"
+                checked={form["sex"] == "Male"}
                 onClick={setInput("sex")}
               />
               <label htmlFor=""></label>
@@ -87,6 +91,7 @@ export default function Step2({
                 type="radio"
                 name="radio"
                 value="Intersex"
+                checked={form["sex"] == "Intersex"}
                 onClick={setInput("sex")}
               />
               <label htmlFor=""></label>
@@ -97,6 +102,7 @@ export default function Step2({
                 type="radio"
                 name="radio"
                 value="Prefer not to disclose"
+                checked={form["sex"] == "Prefer not to disclose"}
                 onClick={setInput("sex")}
               />
               <label htmlFor=""></label>
@@ -108,7 +114,7 @@ export default function Step2({
       <div className="button__outer">
         <button
           type="button"
-          className="button primary"
+          className="button primary !w-full"
           disabled={!isValid}
           onClick={nextTab}
         >
@@ -117,7 +123,7 @@ export default function Step2({
 
         <button
           type="button"
-          className="button primary clearDT back"
+          className="button primary clearDT back max-[540px]:!mx-0 max-[540px]:!w-full"
           onClick={prevTab}
         >
           Back

@@ -1,56 +1,29 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { share } from "../Base/SVG";
 import RangeSlider from "./RangeSlider/RangeSlider";
 import { RangeSliderModul } from "./RangeSlider/RangeSliderModul";
-
+import { getVitalityScore, getMetaAge } from "../../utils";
+import HeartFitScore from "./HeartFitScore";
+import { closeIcon } from "../Base/SVG";
 export default function Step5({
+  prevTab,
   nextTab,
   goToTab,
   setInput,
   updateForm,
   form,
+  saveYourGoals,
 }) {
-  const HeartFitScore = 35;
-  const min = 25;
-  const max = 49.1;
-  const style = (HeartFitScore - min) * (100 / (max - min));
+  const [hScore, setHScore] = useState("");
+  const [shareGoalsPopup, setShareGoalsPopup] = useState(false);
+
+  useEffect(() => {});
 
   return (
     <>
       <div className="step__outer">
         <div className="step fifth">
-          <div className="heartFit goal">
-            <h2 className="h2 sm">Your Heart-Fit Score Is:</h2>
-            <h1 className="h1 uniq">{HeartFitScore}</h1>
-            <div className="heartFit__inner">
-              <div className="heartFit__inner-progress">
-                <div className="heartFit__inner-progress-dot"></div>
-                <div className="heartFit__inner-progress-dot"></div>
-                <div className="heartFit__inner-progress-dot"></div>
-                <div className="heartFit__inner-progress-dot"></div>
-                <div className="heartFit__inner-progress-dot"></div>
-                <span
-                  className="heartFit__line"
-                  style={{
-                    left: style + "%",
-                    transform: `translateX(-${style}%)`,
-                  }}
-                >
-                  <span className="heartFit__score">{HeartFitScore}</span>
-                </span>
-              </div>
-              <div className="heartFit__inner-marks">
-                <div className="heartFit__inner-mark">Very Poor</div>
-                <div className="heartFit__inner-mark">Poor</div>
-                <div className="heartFit__inner-mark">Fair</div>
-                <div className="heartFit__inner-mark">Good</div>
-                <div className="heartFit__inner-mark">Excellent</div>
-                <div className="heartFit__inner-mark">Superior</div>
-              </div>
-              <span className="heartFit__min">{min}</span>
-              <span className="heartFit__max">{max}</span>
-            </div>
-          </div>
+          <HeartFitScore form={form} />
           <h3 className="h3 med">Mile Time</h3>
           <RangeSlider
             {...RangeSliderModul[2]}
@@ -72,22 +45,33 @@ export default function Step5({
           <button
             type="submit"
             className="button primary mirror"
-            onClick={nextTab}
+            onClick={saveYourGoals}
           >
             Save Your Goals
           </button>
 
-          <button type="button" className="button primary clearDT mirror share">
+          <button
+            type="button"
+            className="button primary clearDT mirror share"
+            onClick={() => setShareGoalsPopup(true)}
+          >
             Share <span>Your Goals</span>
             {share}
           </button>
+
+          <div style={{ marginTop: "32px" }}>
+            <button
+              type="button"
+              className="button primary clearDT mirror share"
+              onClick={prevTab}
+            >
+              Back
+            </button>
+          </div>
         </div>
         <div className="step add">
           <div className="step__image">
-            <img
-              src={process.env.PUBLIC_URL + "images/powerme.png"}
-              alt="powerme"
-            />
+            <img src="/images/powerme.png" alt="powerme" />
           </div>
           <div className="step__content">
             <h2 className="h2">To Learn More</h2>
@@ -105,7 +89,32 @@ export default function Step5({
             </h3>
           </div>
         </div>
+
+        {shareGoalsPopup ? (
+          <GoalsToShare form={form} setShareGoalsPopup={setShareGoalsPopup} />
+        ) : null}
       </div>
     </>
+  );
+}
+
+export function GoalsToShare({ form, setShareGoalsPopup }) {
+  return (
+    <div className="fixed top-0 left-0 bottom-0 right-0 z-10 m-7 max-[540px]:m-0 ">
+      <div
+        className="fixed top-0 left-0 bottom-0 right-0 -z-[1] flex items-center justify-center bg-black opacity-[0.65]"
+        onClick={() => setShareGoalsPopup(false)}
+      ></div>
+
+      <div className="relative mx-auto flex h-full max-w-[1280px] items-center justify-center overflow-auto bg-secondary py-10 px-20 max-[540px]:px-5">
+        <div
+          className="absolute top-5 right-5 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border-[1px]"
+          onClick={() => setShareGoalsPopup(false)}
+        >
+          {closeIcon}
+        </div>
+        <HeartFitScore form={form} />
+      </div>
+    </div>
   );
 }
