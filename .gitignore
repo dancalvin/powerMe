@@ -2,6 +2,11 @@
 
 # dependencies
 /heart-fit/node_modules
+/vscore/node_modules
+/survey/node_modules
+/oils/node_modules
+/oils/stressSurvey
+
 /.pnp
 .pnp.js
 
