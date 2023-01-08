@@ -29,7 +29,7 @@ export default function Step5({
         <VitalityScore
           form={form}
           score={0}
-          title="Your Vitality Score Could Be:"
+          title="Your Vitality Score Is:"
           image="/images/graph.png"
           clName="vitality"
         />

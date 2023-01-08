@@ -193,30 +193,56 @@ const getHeartFitScore = ({
   a1cPref,
   newA1cPref,
   newA1c,
+  type,
 }) => {
   let hfScore, walkingTime;
-  walkingTime =
-    parseInt(timeHour) * 60 + parseInt(timeMinute) + parseInt(timeSecond) / 60;
 
-  if (weightUnit == "(kg)") {
-    weight = weight * 2.20462;
-  }
-  if (sex == "male") {
-    hfScore =
-      132.853 -
-      0.0769 * weight -
-      0.3877 * age +
-      6.315 -
-      3.2649 * walkingTime -
-      0.1565 * heartRate;
+  if (type == "new") {
+    newTime = parseInt(newTime);
+    newWeight = parseInt(newWeight);
+    if (sex == "male") {
+      hfScore =
+        132.853 -
+        0.0769 * newWeight -
+        0.3877 * age +
+        6.315 -
+        3.2649 * newTime -
+        0.1565 * heartRate;
+    } else {
+      hfScore =
+        132.853 -
+        0.0769 * newWeight -
+        0.3877 * age +
+        0 -
+        3.2649 * newTime -
+        0.1565 * heartRate;
+    }
   } else {
-    hfScore =
-      132.853 -
-      0.0769 * weight -
-      0.3877 * age +
-      0 -
-      3.2649 * walkingTime -
-      0.1565 * heartRate;
+    walkingTime =
+      parseInt(timeHour) * 60 +
+      parseInt(timeMinute) +
+      parseInt(timeSecond) / 60;
+
+    if (weightUnit == "(kg)") {
+      weight = weight * 2.20462;
+    }
+    if (sex == "male") {
+      hfScore =
+        132.853 -
+        0.0769 * weight -
+        0.3877 * age +
+        6.315 -
+        3.2649 * walkingTime -
+        0.1565 * heartRate;
+    } else {
+      hfScore =
+        132.853 -
+        0.0769 * weight -
+        0.3877 * age +
+        0 -
+        3.2649 * walkingTime -
+        0.1565 * heartRate;
+    }
   }
 
   hfScore = hfScore.toFixed(0);

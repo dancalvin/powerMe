@@ -14,7 +14,7 @@ export default function Step1({ form, nextTab, jumpTab, goToTab }) {
   const HeartFitHistory = () => {
     if (isFormSave) {
       // jump to vitality score history because we have old form data from localstorage
-      goToTab(3);
+      jumpTab(3);
     }
   };
   return (

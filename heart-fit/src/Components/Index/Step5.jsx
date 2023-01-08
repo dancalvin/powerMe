@@ -23,7 +23,7 @@ export default function Step5({
     <>
       <div className="step__outer">
         <div className="step fifth">
-          <HeartFitScore form={form} />
+          <HeartFitScore form={form} tab="goals" />
           <h3 className="h3 med">Mile Time</h3>
           <RangeSlider
             {...RangeSliderModul[2]}
@@ -91,14 +91,18 @@ export default function Step5({
         </div>
 
         {shareGoalsPopup ? (
-          <GoalsToShare form={form} setShareGoalsPopup={setShareGoalsPopup} />
+          <GoalsToShare
+            form={form}
+            setShareGoalsPopup={setShareGoalsPopup}
+            tab="goals"
+          />
         ) : null}
       </div>
     </>
   );
 }
 
-export function GoalsToShare({ form, setShareGoalsPopup }) {
+export function GoalsToShare({ form, setShareGoalsPopup, tab }) {
   return (
     <div className="fixed top-0 left-0 bottom-0 right-0 z-10 m-7 max-[540px]:m-0 ">
       <div

@@ -1,4 +1,4 @@
-import { createBrowserRouter, Link } from "react-router-dom";
+import { createBrowserRouter, createHashRouter, Link } from "react-router-dom";
 import HeartFitPage from "../pages/HeartFitPage";
 import VsCorePage from "../pages/VsCorePage";
 import HomePage from "../pages/HomePage";

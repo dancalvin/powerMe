@@ -8,6 +8,7 @@ import { getVitalityScore, getMetaAge } from "../../utils";
 import { setItem, getItem, deleteItem, clearls } from "../../localStore";
 
 export default function VitalityHistory(props) {
+  const [tab, setTab] = useState("progress");
   const [deletePopupToggle, setDeletePopupToggle] = useState(false);
   const [historyData, setHistoryData] = useState([]);
   const [deleteEntry, setDeleteEntry] = useState(null);
@@ -58,7 +59,7 @@ export default function VitalityHistory(props) {
     <div className="container mt-0 w-full max-w-none sm:mb-8 sm:px-6 ">
       <div className="m-auto max-w-[1080px]">
         <div className="bg-primary sm:bg-transparent">
-          <h1 className="mb-[60px] max-sm:mb-0 max-sm:!py-8 max-sm:text-white">
+          <h1 className="h1 mb-[60px] max-sm:mb-0 max-sm:!py-8 max-sm:text-white">
             Vitality History
           </h1>
         </div>
@@ -66,10 +67,29 @@ export default function VitalityHistory(props) {
           <VitalityStatsBlock
             historyData={historyData}
             loadHistoryData={loadHistoryData}
+            tab={tab}
+            setTab={setTab}
           />
+
+          <div className="flex cursor-pointer flex-row  justify-end p-5 sm:hidden">
+            <svg
+              width="24"
+              height="23"
+              viewBox="0 0 24 23"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M22 1L14.3591 10.0527V17.1228L9.6409 21V10.0527L2 1H22Z"
+                stroke="black"
+                stroke-miterlimit="10"
+              />
+            </svg>
+          </div>
           <div className="max-sm:px-[16px]">
             {historyData.map((singleHistory, index) => (
               <VitalityScoreHistory
+                tab={tab}
                 key={index}
                 index={index}
                 form={singleHistory.form}

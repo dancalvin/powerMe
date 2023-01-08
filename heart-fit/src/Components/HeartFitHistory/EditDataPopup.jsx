@@ -108,7 +108,7 @@ const minuteList = [
 ];
 
 const initForm = {
-  age: 40,
+  age: null,
   sex: "",
   weight: "",
   weightUnit: "(lbs)",

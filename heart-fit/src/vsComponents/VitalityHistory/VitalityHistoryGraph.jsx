@@ -29,14 +29,14 @@ export default class VitalityHistoryGraph extends PureComponent {
   }
 
   render() {
-    const lineData = this.state.lineData;
+    const lineData = this.props.lineData;
     return lineData ? (
       <div style={{ width: "100%" }}>
         <ResponsiveContainer width="100%" height={400}>
           <LineChart
             width={500}
             height={400}
-            data={this.props.lineData}
+            data={lineData}
             syncId="anyId"
             margin={{
               top: 10,

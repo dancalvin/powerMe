@@ -73,6 +73,7 @@ export default function VitalityStatsBlock(props) {
   const [dateDiffFormat, setDateDiffFormat] = useState("");
 
   useEffect(() => {
+    setTab(props.tab);
     selectDateRangeFunc();
   }, [props]);
 
@@ -122,7 +123,7 @@ export default function VitalityStatsBlock(props) {
       );
 
       if (filteredHistoryData) {
-        if (tab == "progress") {
+        if (props.tab == "progress") {
           filteredHistoryData
             .slice(0)
             .reverse()
@@ -130,21 +131,22 @@ export default function VitalityStatsBlock(props) {
               vitalityScores.push({
                 name: `Visit ${index}`,
                 score: getVitalityScore({ ...data.form, score: 0 }),
+                metaAge: getMetaAge({ ...data.form }),
               });
             });
 
           if (vitalityScores) {
             setVitalityProgressData(vitalityScores);
           }
-        } else if (tab == "goals") {
+        } else if (props.tab == "goals") {
           filteredHistoryData
             .slice(0)
             .reverse()
             .filter((data, index) => {
               vitalityMetaGoals.push({
                 name: `Visit ${index}`,
-                scoreGoals: getVitalityScore({ ...data.form, score: 0 }),
-                ageGoals: getMetaAge({ ...data.form }),
+                scoreGoals: getVitalityScore({ ...data.form, score: 2 }),
+                ageGoals: getMetaAge({ ...data.form, typeFlag: "type1" }),
               });
             });
 
@@ -273,15 +275,17 @@ export default function VitalityStatsBlock(props) {
         <div className="flex w-full max-w-none flex-row flex-nowrap">
           <div
             className={`flex w-1/2 cursor-pointer flex-row flex-nowrap justify-center py-4 sm:border-b-[1px] ${
-              tab == "progress"
+              props.tab == "progress"
                 ? "border-b-[6px] border-b-primary sm:bg-primary"
                 : ""
             }`}
-            onClick={() => setTab("progress")}
+            onClick={() => props.setTab("progress")}
           >
             <p
               className={`text-center font-montserrat text-xs leading-5 sm:text-xl ${
-                tab == "progress" ? "font-bold sm:text-secondary" : "text-black"
+                props.tab == "progress"
+                  ? "font-bold sm:text-secondary"
+                  : "text-black"
               }`}
             >
               Vitality Progress
@@ -289,15 +293,17 @@ export default function VitalityStatsBlock(props) {
           </div>
           <div
             className={`flex w-1/2 cursor-pointer flex-row flex-nowrap justify-center py-4 sm:border-l-[1px] sm:border-b-[1px] ${
-              tab == "goals"
+              props.tab == "goals"
                 ? "border-b-[6px] border-b-primary sm:bg-primary"
                 : ""
             }`}
-            onClick={() => setTab("goals")}
+            onClick={() => props.setTab("goals")}
           >
             <p
               className={`text-center font-montserrat text-xs leading-5 sm:text-xl   ${
-                tab == "goals" ? "font-bold sm:text-secondary" : "text-black"
+                props.tab == "goals"
+                  ? "font-bold sm:text-secondary"
+                  : "text-black"
               }`}
             >
               Vitality Goals
@@ -381,6 +387,30 @@ export default function VitalityStatsBlock(props) {
                     Vitality Score
                   </p>
                 </div>
+
+                <div className="w-[40px] sm:w-[80px]">
+                  <svg
+                    width="100%"
+                    height="21"
+                    viewBox="0 0 80 21"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <line
+                      y1="9.31006"
+                      x2="80"
+                      y2="9.31006"
+                      stroke="#F7A08C"
+                      stroke-width="2"
+                    />
+                    <circle cx="40" cy="10.3101" r="10" fill="#F7A08C" />
+                  </svg>
+                </div>
+                <div>
+                  <p className="font-montserrat text-xs leading-5 text-primary sm:text-base">
+                    Metabolic Age
+                  </p>
+                </div>
               </div>
             ) : (
               <div className="flex flex-row gap-4">
@@ -440,7 +470,9 @@ export default function VitalityStatsBlock(props) {
                   <VitalityHistoryGraph
                     lineData={vitalityProgressData}
                     line1Color="#6D7B9B"
+                    line2Color="#F7A08C"
                     line1DataKey="score"
+                    line2DataKey="metaAge"
                     YLable={"Score"}
                   />
                 ) : (

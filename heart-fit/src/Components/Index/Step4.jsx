@@ -76,7 +76,7 @@ export default function Step4({ form, nextTab, goToTab, jump }) {
           className="button primary clearDT mirror share !w-full"
           onClick={() => setShareResultsPopup(true)}
         >
-          Share <span>Your Results</span>
+          Share <span> Your Results</span>
           {share}
         </button>
         <div className="button__row">

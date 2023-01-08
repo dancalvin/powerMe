@@ -14,7 +14,15 @@ const HeartFitScoreHistory = (props) => {
   const [historicalDataPopup, setHistoricalDataPopup] = useState(false);
 
   useEffect(() => {
-    const hfScore = getHeartFitScore({ ...props.hfHistory.form });
+    let hfScore;
+    if (props.tab == "goals") {
+      hfScore = getHeartFitScore({
+        ...props.hfHistory.form,
+        type: "new",
+      });
+    } else {
+      hfScore = getHeartFitScore({ ...props.hfHistory.form });
+    }
     setScoreStyle(hfScore);
     setHfHistory(props.hfHistory);
   }, [props]);
@@ -111,8 +119,9 @@ const HeartFitScoreHistory = (props) => {
 
         {shareGoalsPopup ? (
           <GoalsToShare
-            form={props.form}
+            form={props.hfHistory.form}
             setShareGoalsPopup={setShareGoalsPopup}
+            tab={props.tab}
           />
         ) : null}
       </div>

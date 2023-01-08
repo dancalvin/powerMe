@@ -16,8 +16,15 @@ const VitalityScoreHistory = (props) => {
   const [shareGoalsPopup, setShareGoalsPopup] = useState(false);
 
   useEffect(() => {
-    const vScore = getVitalityScore({ ...props.form, ["score"]: 0 });
-    const metaAgeData = getMetaAge({ ...props.form });
+    let vScore, metaAgeData;
+    if (props.tab == "goals") {
+      vScore = getVitalityScore({ ...props.form, score: 2 });
+      metaAgeData = getMetaAge({ ...props.form, typeFlag: "type1" });
+    } else {
+      vScore = getVitalityScore({ ...props.form, ["score"]: 0 });
+      metaAgeData = getMetaAge({ ...props.form });
+    }
+
     setScoreStyle(vScore);
     setMetabolicAge(metaAgeData);
     setVsHistory(props.vsHistory);
@@ -101,14 +108,13 @@ const VitalityScoreHistory = (props) => {
         </div>
       </div>
 
-      <div className="top-0 bottom-0 right-0 hidden max-w-[80px] grow flex-col justify-between p-5 sm:absolute sm:flex md:relative">
+      <div className="max-w-auto absolute top-0 bottom-0 right-0 flex grow flex-row-reverse justify-between gap-2 p-5 sm:max-w-[80px] sm:flex-col md:relative">
         <div
-          className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border-[1px]"
+          className="flex h-5 w-5 cursor-pointer items-center justify-center rounded-full border-[1px] sm:h-8 sm:w-8"
           onClick={() => props.setDeletePopupToggleFunc(props)}
         >
           <svg
-            width="14"
-            height="13"
+            className="h-[11px] w-[10px] sm:h-[13px] sm:w-[14px]"
             viewBox="0 0 14 13"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -121,12 +127,13 @@ const VitalityScoreHistory = (props) => {
         </div>
 
         <div
-          className="flex h-8 w-8 cursor-pointer items-center justify-center"
+          className="flex h-5 w-5 cursor-pointer items-center justify-center sm:h-8 sm:w-8"
           onClick={() => setShareGoalsPopup(true)}
         >
           <svg
             width="26"
             height="26"
+            className="h-[16px] w-[16px] sm:h-[26px] sm:w-[26px]"
             viewBox="0 0 26 26"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -183,26 +190,7 @@ const VitalityScoreHistory = (props) => {
             />
           </svg>
         </div>
-      ) : (
-        <div
-          className="absolute top-0 bottom-0 right-0 flex cursor-pointer flex-col justify-between p-5 sm:hidden"
-          onClick={() => setActionArea(true)}
-        >
-          <svg
-            width="24"
-            height="23"
-            viewBox="0 0 24 23"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M22 1L14.3591 10.0527V17.1228L9.6409 21V10.0527L2 1H22Z"
-              stroke="black"
-              stroke-miterlimit="10"
-            />
-          </svg>
-        </div>
-      )}
+      ) : null}
 
       {historicalDataPopup && vsHistory ? (
         <EditVitalityCalculator

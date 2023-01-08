@@ -1596,6 +1596,9 @@ main {
   line-height: 24px;
   text-align: center;
   color: #000;
+  position: absolute;
+  width: 300px;
+  left: -150px;
 }
 .steps__item-title.active {
   font-weight: 700;

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getVitalityScore, getMetaAge, getHeartFitScore } from "../../utils";
 
-export default function HeartFitScore({ form }) {
+export default function HeartFitScore({ form, tab }) {
   const [hScore, setHScore] = useState("");
   const [scoreStyle, setScoreStyle] = useState("");
   const [minScoreStyle, setMinScoreStyle] = useState(0);
@@ -9,7 +9,17 @@ export default function HeartFitScore({ form }) {
 
   useEffect(() => {
     //const vScore = getVitalityScore({ ...form, score: 0 });
-    const vScore = getHeartFitScore({ ...form });
+    let vScore;
+
+    if (tab == "goals") {
+      vScore = getHeartFitScore({
+        ...form,
+        type: "new",
+      });
+    } else {
+      vScore = getHeartFitScore({ ...form });
+    }
+    //const vScore = getHeartFitScore({ ...form });
     const min = 15;
     const max = 120;
     const style = (vScore - min) * (100 / (max - min));

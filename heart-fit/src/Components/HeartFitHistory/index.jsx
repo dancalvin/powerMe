@@ -116,6 +116,7 @@ export default function HeartFitHistory() {
                     hfHistory={singleHistory}
                     setDeletePopupToggleFunc={setDeletePopupToggleFunc}
                     loadHistoryData={loadHistoryData}
+                    tab={tab}
                   />
                 ) : null
               )}

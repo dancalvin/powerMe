@@ -153,7 +153,7 @@ export default function HeartFitStatsBlock(props) {
       );
 
       if (filteredHistoryData) {
-        if (tab == "progress") {
+        if (props.tab == "progress") {
           filteredHistoryData
             .slice(0)
             .reverse()
@@ -167,14 +167,14 @@ export default function HeartFitStatsBlock(props) {
           if (vitalityScores) {
             setHeartFitProgressData(vitalityScores);
           }
-        } else if (tab == "goals") {
+        } else if (props.tab == "goals") {
           filteredHistoryData
             .slice(0)
             .reverse()
             .filter((data, index) => {
               vitalityMetaGoals.push({
                 name: `Visit ${index}`,
-                scoreGoals: getHeartFitScore({ ...data.form }),
+                scoreGoals: getHeartFitScore({ ...data.form, type: "new" }),
               });
             });
 
