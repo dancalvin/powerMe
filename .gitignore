@@ -1,12 +1,7 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
-/heart-fit/node_modules
-/vscore/node_modules
-/survey/node_modules
-/oils/node_modules
-/oils/stressSurvey
-
+/node_modules
 /.pnp
 .pnp.js
 
