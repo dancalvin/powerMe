@@ -2119,6 +2119,7 @@ main {
   .steps__item-title {
     display: none;
   }
+
   .steps__item-circle {
     position: static;
     transform: translate(0, 0);
@@ -2129,6 +2130,7 @@ main {
     top: unset;
     left: unset;
   }
+
   .step {
     padding: 40px 60px 40px 70px;
   }
@@ -2611,16 +2613,19 @@ main {
   .steps__line::before {
     top: 18px;
   }
+
   .steps__item-circle {
     width: 36px;
     height: 36px;
-    border: 1px solid #000 !important;
+    /*border: 1px solid #000 !important;*/
     font-size: 16px;
     line-height: 20px;
   }
+
   .steps__item-circle.fill {
-    background: #000 !important;
+    /*background: #000 !important;*/
   }
+
   .step {
     padding: 0;
     border: none;

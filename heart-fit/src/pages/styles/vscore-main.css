@@ -1908,12 +1908,12 @@ main {
   .steps__item-circle {
     width: 36px;
     height: 36px;
-    border: 1px solid #000 !important;
+    /*border: 1px solid #000 !important;*/
     font-size: 16px;
     line-height: 20px;
   }
   .steps__item-circle.fill {
-    background: #000 !important;
+    /*background: #000 !important;*/
   }
   .step {
     padding: 0;

@@ -116,6 +116,13 @@ const initForm = {
   timeMinute: "00",
   timeSecond: "00",
   heartRate: 140,
+  heartRateTimeHour: "00",
+  heartRateTimeMinute: "01",
+  heartRateTimeSecond: "00",
+  newHeartRate: 140,
+  newHeartRateTimeHour: "00",
+  newHeartRateTimeMinute: "01",
+  newHeartRateTimeSecond: "00",
   newWeight: 140,
   newTime: 20,
   diastolicBP: 70,
@@ -140,6 +147,9 @@ function EditDataPopup(props) {
   const [selectedHours, setSelectedHours] = useState(null);
   const [selectedMinutes, setSelectedMinutes] = useState(null);
   const [selectedSeconds, setSelectedSeconds] = useState(null);
+  const [selectedHRHours, setSelectedHRHours] = useState(null);
+  const [selectedHRMinutes, setSelectedHRMinutes] = useState(null);
+  const [selectedHRSeconds, setSelectedHRSeconds] = useState(null);
 
   useEffect(() => {
     if (props.hfHistory) {
@@ -148,6 +158,10 @@ function EditDataPopup(props) {
       setSelectedHours({ value: props.hfHistory.form.timeHour });
       setSelectedMinutes({ value: props.hfHistory.form.timeMinute });
       setSelectedSeconds({ value: props.hfHistory.form.timeSecond });
+
+      setSelectedHRHours({ value: props.hfHistory.form.heartRateTimeHour });
+      setSelectedHRMinutes({ value: props.hfHistory.form.heartRateTimeMinute });
+      setSelectedHRSeconds({ value: props.hfHistory.form.heartRateTimeSecond });
     } else {
       setTimeStamp(new Date());
     }
@@ -270,6 +284,20 @@ function EditDataPopup(props) {
     setSecondVal(item.value);
     setSecond(item.value);
   };
+
+  const changeHeartRateHour = (item) => {
+    updateForm({ heartRateTimeHour: item.value });
+    setSelectedHRHours({ value: item.value });
+  };
+  const changeHeartRateMinute = (item) => {
+    updateForm({ heartRateTimeMinute: item.value });
+    setSelectedHRMinutes({ value: item.value });
+  };
+  const changeHeartRateSecond = (item) => {
+    updateForm({ heartRateTimeSecond: item.value });
+    setSelectedHRSeconds({ value: item.value });
+  };
+
   return (
     <div className="popup max-[540px]:p-0">
       <div className="popup__inner">
@@ -400,6 +428,30 @@ function EditDataPopup(props) {
               value={form.heartRate}
               onChange={setInput("heartRate")}
             />
+
+            <div className="time mt-4">
+              <CustomSelectTime
+                list={hoursList}
+                selected={selectedHRHours ? selectedHRHours : hoursList[0]}
+                onChange={changeHeartRateHour}
+                timeUnit="Hours (hr)"
+                timeUnitSm="hrs."
+              />
+              <CustomSelectTime
+                list={minuteList}
+                selected={selectedHRMinutes ? selectedHRMinutes : minuteList[0]}
+                onChange={changeHeartRateMinute}
+                timeUnit="Minutes (min)"
+                timeUnitSm="mins."
+              />
+              <CustomSelectTime
+                list={minuteList}
+                selected={selectedHRSeconds ? selectedHRSeconds : minuteList[0]}
+                onChange={changeHeartRateSecond}
+                timeUnit="Seconds (s)"
+                timeUnitSm="sec."
+              />
+            </div>
           </div>
 
           {props.hfHistory ? (

@@ -185,6 +185,13 @@ const getHeartFitScore = ({
   timeMinute,
   timeSecond,
   heartRate,
+  heartRateTimeHour,
+  heartRateTimeMinute,
+  heartRateTimeSecond,
+  newHeartRate,
+  newHeartRateTimeHour,
+  newHeartRateTimeMinute,
+  newHeartRateTimeSecond,
   newWeight,
   newTime,
   diastolicBP,
@@ -195,7 +202,17 @@ const getHeartFitScore = ({
   newA1c,
   type,
 }) => {
-  let hfScore, walkingTime;
+  let hfScore, walkingTime, heartRateTime, newHeartRateTime;
+
+  heartRateTime =
+    parseInt(heartRateTimeHour) * 60 +
+    parseInt(heartRateTimeMinute) +
+    parseInt(heartRateTimeSecond) / 60;
+
+  newHeartRateTime =
+    parseInt(newHeartRateTimeHour) * 60 +
+    parseInt(newHeartRateTimeMinute) +
+    parseInt(newHeartRateTimeSecond) / 60;
 
   if (type == "new") {
     newTime = parseInt(newTime);
@@ -207,7 +224,7 @@ const getHeartFitScore = ({
         0.3877 * age +
         6.315 -
         3.2649 * newTime -
-        0.1565 * heartRate;
+        0.1565 * (newHeartRate / newHeartRateTime);
     } else {
       hfScore =
         132.853 -
@@ -215,7 +232,7 @@ const getHeartFitScore = ({
         0.3877 * age +
         0 -
         3.2649 * newTime -
-        0.1565 * heartRate;
+        0.1565 * (newHeartRate / newHeartRateTime);
     }
   } else {
     walkingTime =
@@ -233,7 +250,7 @@ const getHeartFitScore = ({
         0.3877 * age +
         6.315 -
         3.2649 * walkingTime -
-        0.1565 * heartRate;
+        0.1565 * (heartRate / heartRateTime);
     } else {
       hfScore =
         132.853 -
@@ -241,7 +258,7 @@ const getHeartFitScore = ({
         0.3877 * age +
         0 -
         3.2649 * walkingTime -
-        0.1565 * heartRate;
+        0.1565 * (heartRate / heartRateTime);
     }
   }
 

@@ -5,7 +5,7 @@ import CustomSelect from "./CustomSelectTime";
 import RangeSlider from "./RangeSlider/RangeSlider";
 import { RangeSliderModul } from "./RangeSlider/RangeSliderModul";
 
-const hoursList = [
+export const hoursList = [
   { id: "0", value: "00 " },
   { id: "1", value: "01 " },
   { id: "2", value: "02 " },
@@ -32,7 +32,7 @@ const hoursList = [
   { id: "23", value: "23 " },
   { id: "24", value: "24 " },
 ];
-const minuteList = [
+export const minuteList = [
   { id: "0", value: "00" },
   { id: "1", value: "01" },
   { id: "2", value: "02" },
@@ -110,8 +110,11 @@ export default function Step3({
   const setHourVal = (data) => updateForm({ timeHour: data });
   const setMinuteVal = (data) => updateForm({ timeMinute: data });
   const setSecondVal = (data) => updateForm({ timeSecond: data });
-  const isValid = form.timeMinute !== "00" && form.heartRate !== "";
-  const changeMedium = (item) => {
+  const isValid =
+    form.timeMinute !== "00" &&
+    form.heartRateTimeMinute !== "00" &&
+    form.heartRate !== "";
+  const changeMediumHour = (item) => {
     setHourVal(item.value);
     setHour(item.value);
   };
@@ -122,6 +125,19 @@ export default function Step3({
   const changeMediumSec = (item) => {
     setSecondVal(item.value);
     setSecond(item.value);
+  };
+
+  const changeHeartRateHour = (item) => {
+    updateForm({ heartRateTimeHour: item.value });
+    updateForm({ newHeartRateTimeHour: item.value });
+  };
+  const changeHeartRateMinute = (item) => {
+    updateForm({ heartRateTimeMinute: item.value });
+    updateForm({ newHeartRateTimeMinute: item.value });
+  };
+  const changeHeartRateSecond = (item) => {
+    updateForm({ heartRateTimeSecond: item.value });
+    updateForm({ newHeartRateTimeSecond: item.value });
   };
 
   return (
@@ -168,7 +184,7 @@ export default function Step3({
               list={hoursList}
               selected={hoursList[0]}
               //selected={form["timeHour"]}
-              onChange={changeMedium}
+              onChange={changeMediumHour}
               timeUnit="Hours (hr)"
               timeUnitSm="hrs."
             />
@@ -196,6 +212,30 @@ export default function Step3({
             value={form.heartRate}
             onChange={setInput("heartRate")}
           />
+
+          <div className="time mt-4">
+            <CustomSelectTime
+              list={hoursList}
+              selected={hoursList[0]}
+              onChange={changeHeartRateHour}
+              timeUnit="Hours (hr)"
+              timeUnitSm="hrs."
+            />
+            <CustomSelectTime
+              list={minuteList}
+              selected={minuteList[0]}
+              onChange={changeHeartRateMinute}
+              timeUnit="Minutes (min)"
+              timeUnitSm="mins."
+            />
+            <CustomSelectTime
+              list={minuteList}
+              selected={minuteList[0]}
+              onChange={changeHeartRateSecond}
+              timeUnit="Seconds (s)"
+              timeUnitSm="sec."
+            />
+          </div>
         </div>
       </div>
 

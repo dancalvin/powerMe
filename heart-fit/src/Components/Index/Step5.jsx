@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { share } from "../Base/SVG";
 import RangeSlider from "./RangeSlider/RangeSlider";
+import CustomSelectTime from "./CustomSelectTime";
 import { RangeSliderModul } from "./RangeSlider/RangeSliderModul";
 import { getVitalityScore, getMetaAge } from "../../utils";
 import HeartFitScore from "./HeartFitScore";
 import { closeIcon } from "../Base/SVG";
+
+import { hoursList, minuteList } from "./Step3";
 export default function Step5({
   prevTab,
   nextTab,
@@ -16,8 +19,28 @@ export default function Step5({
 }) {
   const [hScore, setHScore] = useState("");
   const [shareGoalsPopup, setShareGoalsPopup] = useState(false);
+  const [selectedHRHours, setSelectedHRHours] = useState(null);
+  const [selectedHRMinutes, setSelectedHRMinutes] = useState(null);
+  const [selectedHRSeconds, setSelectedHRSeconds] = useState(null);
 
-  useEffect(() => {});
+  useEffect(() => {
+    setSelectedHRHours({ value: form.newHeartRateTimeHour });
+    setSelectedHRMinutes({ value: form.newHeartRateTimeMinute });
+    setSelectedHRSeconds({ value: form.newHeartRateTimeSecond });
+  }, []);
+
+  const changeHeartRateHour = (item) => {
+    updateForm({ newHeartRateTimeHour: item.value });
+    setSelectedHRHours({ value: item.value });
+  };
+  const changeHeartRateMinute = (item) => {
+    updateForm({ newHeartRateTimeMinute: item.value });
+    setSelectedHRMinutes({ value: item.value });
+  };
+  const changeHeartRateSecond = (item) => {
+    updateForm({ newHeartRateTimeSecond: item.value });
+    setSelectedHRSeconds({ value: item.value });
+  };
 
   return (
     <>
@@ -40,6 +63,37 @@ export default function Step5({
             unit=" lbs."
             plus={true}
           />
+          <h3 className="h3 med">Heart Rate @ Finish</h3>
+
+          <RangeSlider
+            {...RangeSliderModul[0]}
+            value={form.newHeartRate}
+            onChange={setInput("newHeartRate")}
+          />
+
+          <div className="time mt-4">
+            <CustomSelectTime
+              list={hoursList}
+              selected={selectedHRHours ? selectedHRHours : hoursList[0]}
+              onChange={changeHeartRateHour}
+              timeUnit="Hours (hr)"
+              timeUnitSm="hrs."
+            />
+            <CustomSelectTime
+              list={minuteList}
+              selected={selectedHRMinutes ? selectedHRMinutes : minuteList[0]}
+              onChange={changeHeartRateMinute}
+              timeUnit="Minutes (min)"
+              timeUnitSm="mins."
+            />
+            <CustomSelectTime
+              list={minuteList}
+              selected={selectedHRSeconds ? selectedHRSeconds : minuteList[0]}
+              onChange={changeHeartRateSecond}
+              timeUnit="Seconds (s)"
+              timeUnitSm="sec."
+            />
+          </div>
         </div>
         <div className="steps__inner-goals-btns">
           <button
@@ -117,7 +171,7 @@ export function GoalsToShare({ form, setShareGoalsPopup, tab }) {
         >
           {closeIcon}
         </div>
-        <HeartFitScore form={form} />
+        <HeartFitScore form={form} tab={tab} />
       </div>
     </div>
   );

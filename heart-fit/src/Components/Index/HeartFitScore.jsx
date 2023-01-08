@@ -31,7 +31,9 @@ export default function HeartFitScore({ form, tab }) {
 
   return (
     <div className="heartFit goal w-full">
-      <h2 className="h2 sm">Your Heart-Fit Score Could Be:</h2>
+      <h2 className="h2 sm">
+        Your Heart-Fit Score {tab == "goals" ? "Could Be" : "Is"}:
+      </h2>
       <h1 className="h1 uniq">{hScore}</h1>
 
       <div className="heartFit__inner w-full">
