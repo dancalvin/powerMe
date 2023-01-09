@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import CustomSelect from "./CustomSelect";
 
-const weightList = [
-  { id: "Pounds", value: "Pounds ", unit: "(lbs)" },
-  { id: "Kilograms", value: "Kilograms ", unit: "(kg)" },
+export const weightList = [
   { id: "Pounds", value: "Pounds ", unit: "(lbs)" },
   { id: "Kilograms", value: "Kilograms ", unit: "(kg)" },
   { id: "Gram", value: "Gram ", unit: "(g)" },
@@ -26,6 +24,7 @@ export default function Step2({
     form.weightUnit !== "";
   const changeMedium = (item) => {
     setWeightUnit(item.unit);
+
     setSelect(item.id);
   };
   return (

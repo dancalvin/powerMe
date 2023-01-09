@@ -20,7 +20,7 @@ export default function HeartFitScore({ form, tab }) {
       vScore = getHeartFitScore({ ...form });
     }
     //const vScore = getHeartFitScore({ ...form });
-    const min = 15;
+    const min = 10;
     const max = 120;
     const style = (vScore - min) * (100 / (max - min));
     setHScore(vScore);

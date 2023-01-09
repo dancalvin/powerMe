@@ -12,8 +12,6 @@ import { setItem, getItem, deleteItem, clearls } from "../../localStore";
 const weightList = [
   { id: "Pounds", value: "Pounds ", unit: "(lbs)" },
   { id: "Kilograms", value: "Kilograms ", unit: "(kg)" },
-  { id: "Pounds", value: "Pounds ", unit: "(lbs)" },
-  { id: "Kilograms", value: "Kilograms ", unit: "(kg)" },
   { id: "Gram", value: "Gram ", unit: "(g)" },
 ];
 const hoursList = [
@@ -112,19 +110,14 @@ const initForm = {
   sex: "",
   weight: "",
   weightUnit: "(lbs)",
-  timeHour: "00",
-  timeMinute: "00",
+  timeMinute: "01",
   timeSecond: "00",
   heartRate: 140,
-  heartRateTimeHour: "00",
-  heartRateTimeMinute: "01",
-  heartRateTimeSecond: "00",
   newHeartRate: 140,
-  newHeartRateTimeHour: "00",
-  newHeartRateTimeMinute: "01",
-  newHeartRateTimeSecond: "00",
-  newWeight: 140,
-  newTime: 20,
+  newWeight: 160,
+  newWeightUnit: "(lbs)",
+  newTimeMinute: "10",
+  newTimeSecond: "00",
   diastolicBP: 70,
   newDiastolicBP: 70,
   metabolicAge: 0,
@@ -144,24 +137,23 @@ function EditDataPopup(props) {
   const [hour, setHour] = useState("00");
   const [minute, setMinute] = useState("00");
   const [second, setSecond] = useState("00");
-  const [selectedHours, setSelectedHours] = useState(null);
   const [selectedMinutes, setSelectedMinutes] = useState(null);
   const [selectedSeconds, setSelectedSeconds] = useState(null);
-  const [selectedHRHours, setSelectedHRHours] = useState(null);
-  const [selectedHRMinutes, setSelectedHRMinutes] = useState(null);
-  const [selectedHRSeconds, setSelectedHRSeconds] = useState(null);
+  const [selectedUnit, setSelectedUnit] = useState(null);
 
   useEffect(() => {
     if (props.hfHistory) {
       setTimeStamp(props.hfHistory.timeStamp);
       setForm(props.hfHistory.form);
-      setSelectedHours({ value: props.hfHistory.form.timeHour });
       setSelectedMinutes({ value: props.hfHistory.form.timeMinute });
       setSelectedSeconds({ value: props.hfHistory.form.timeSecond });
 
-      setSelectedHRHours({ value: props.hfHistory.form.heartRateTimeHour });
-      setSelectedHRMinutes({ value: props.hfHistory.form.heartRateTimeMinute });
-      setSelectedHRSeconds({ value: props.hfHistory.form.heartRateTimeSecond });
+      let foundUnit = weightList.find(
+        (unit) => props.hfHistory.form.weightUnit == unit.unit
+      );
+      if (foundUnit) {
+        setSelectedUnit(foundUnit);
+      }
     } else {
       setTimeStamp(new Date());
     }
@@ -272,10 +264,6 @@ function EditDataPopup(props) {
     setSelect(item.id);
   };
 
-  const changeMediumHour = (item) => {
-    setHourVal(item.value);
-    setHour(item.value);
-  };
   const changeMediumMin = (item) => {
     setMinuteVal(item.value);
     setMinute(item.value);
@@ -283,19 +271,6 @@ function EditDataPopup(props) {
   const changeMediumSec = (item) => {
     setSecondVal(item.value);
     setSecond(item.value);
-  };
-
-  const changeHeartRateHour = (item) => {
-    updateForm({ heartRateTimeHour: item.value });
-    setSelectedHRHours({ value: item.value });
-  };
-  const changeHeartRateMinute = (item) => {
-    updateForm({ heartRateTimeMinute: item.value });
-    setSelectedHRMinutes({ value: item.value });
-  };
-  const changeHeartRateSecond = (item) => {
-    updateForm({ heartRateTimeSecond: item.value });
-    setSelectedHRSeconds({ value: item.value });
   };
 
   return (
@@ -392,19 +367,12 @@ function EditDataPopup(props) {
               />
               <CustomSelect
                 list={weightList}
-                selected={weightList[0]}
+                selected={selectedUnit ? selectedUnit : weightList[0]}
                 onChange={changeMedium}
               />
             </div>
             <h3 className="h3 med">Time</h3>
             <div className="time">
-              <CustomSelectTime
-                list={hoursList}
-                selected={selectedHours ? selectedHours : hoursList[0]}
-                onChange={changeMediumHour}
-                timeUnit="Hours (hr)"
-                timeUnitSm="hrs."
-              />
               <CustomSelectTime
                 list={minuteList}
                 selected={selectedMinutes ? selectedMinutes : minuteList[0]}
@@ -414,7 +382,7 @@ function EditDataPopup(props) {
               />
               <CustomSelectTime
                 list={minuteList}
-                selected={selectedSeconds ? selectedMinutes : minuteList[0]}
+                selected={selectedSeconds ? selectedSeconds : minuteList[0]}
                 onChange={changeMediumSec}
                 timeUnit="Seconds (s)"
                 timeUnitSm="sec."
@@ -428,30 +396,6 @@ function EditDataPopup(props) {
               value={form.heartRate}
               onChange={setInput("heartRate")}
             />
-
-            <div className="time mt-4">
-              <CustomSelectTime
-                list={hoursList}
-                selected={selectedHRHours ? selectedHRHours : hoursList[0]}
-                onChange={changeHeartRateHour}
-                timeUnit="Hours (hr)"
-                timeUnitSm="hrs."
-              />
-              <CustomSelectTime
-                list={minuteList}
-                selected={selectedHRMinutes ? selectedHRMinutes : minuteList[0]}
-                onChange={changeHeartRateMinute}
-                timeUnit="Minutes (min)"
-                timeUnitSm="mins."
-              />
-              <CustomSelectTime
-                list={minuteList}
-                selected={selectedHRSeconds ? selectedHRSeconds : minuteList[0]}
-                onChange={changeHeartRateSecond}
-                timeUnit="Seconds (s)"
-                timeUnitSm="sec."
-              />
-            </div>
           </div>
 
           {props.hfHistory ? (

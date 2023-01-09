@@ -176,24 +176,31 @@ function getMetaAge({
   return metaAgeData;
 }
 
+const convertWeightInPound = (weight, weightUnit) => {
+  let weightInPound;
+  if (weightUnit == "(kg)") {
+    weightInPound = weight * 2.20462;
+  } else if (weightUnit == "(g)") {
+    weightInPound = ((weight * 2.20462) / 1000).toFixed(0);
+  } else {
+    weightInPound = weight;
+  }
+  return weightInPound;
+};
+
 const getHeartFitScore = ({
   age,
   sex,
   weight,
   weightUnit,
-  timeHour,
   timeMinute,
   timeSecond,
   heartRate,
-  heartRateTimeHour,
-  heartRateTimeMinute,
-  heartRateTimeSecond,
   newHeartRate,
-  newHeartRateTimeHour,
-  newHeartRateTimeMinute,
-  newHeartRateTimeSecond,
+  newTimeMinute,
+  newTimeSecond,
   newWeight,
-  newTime,
+  newWeightUnit,
   diastolicBP,
   newDiastolicBP,
   metabolicAge,
@@ -202,47 +209,32 @@ const getHeartFitScore = ({
   newA1c,
   type,
 }) => {
-  let hfScore, walkingTime, heartRateTime, newHeartRateTime;
-
-  heartRateTime =
-    parseInt(heartRateTimeHour) * 60 +
-    parseInt(heartRateTimeMinute) +
-    parseInt(heartRateTimeSecond) / 60;
-
-  newHeartRateTime =
-    parseInt(newHeartRateTimeHour) * 60 +
-    parseInt(newHeartRateTimeMinute) +
-    parseInt(newHeartRateTimeSecond) / 60;
+  let hfScore, walkingTime;
 
   if (type == "new") {
-    newTime = parseInt(newTime);
-    newWeight = parseInt(newWeight);
+    walkingTime = parseInt(newTimeMinute) + parseInt(newTimeSecond) / 60;
+    weight = convertWeightInPound(newWeight, newWeightUnit);
     if (sex == "male") {
       hfScore =
         132.853 -
         0.0769 * newWeight -
         0.3877 * age +
         6.315 -
-        3.2649 * newTime -
-        0.1565 * (newHeartRate / newHeartRateTime);
+        3.2649 * walkingTime -
+        0.1565 * newHeartRate;
     } else {
       hfScore =
         132.853 -
         0.0769 * newWeight -
         0.3877 * age +
         0 -
-        3.2649 * newTime -
-        0.1565 * (newHeartRate / newHeartRateTime);
+        3.2649 * walkingTime -
+        0.1565 * newHeartRate;
     }
   } else {
-    walkingTime =
-      parseInt(timeHour) * 60 +
-      parseInt(timeMinute) +
-      parseInt(timeSecond) / 60;
+    walkingTime = parseInt(timeMinute) + parseInt(timeSecond) / 60;
+    weight = convertWeightInPound(weight, weightUnit);
 
-    if (weightUnit == "(kg)") {
-      weight = weight * 2.20462;
-    }
     if (sex == "male") {
       hfScore =
         132.853 -
@@ -250,7 +242,7 @@ const getHeartFitScore = ({
         0.3877 * age +
         6.315 -
         3.2649 * walkingTime -
-        0.1565 * (heartRate / heartRateTime);
+        0.1565 * heartRate;
     } else {
       hfScore =
         132.853 -
@@ -258,7 +250,7 @@ const getHeartFitScore = ({
         0.3877 * age +
         0 -
         3.2649 * walkingTime -
-        0.1565 * (heartRate / heartRateTime);
+        0.1565 * heartRate;
     }
   }
 

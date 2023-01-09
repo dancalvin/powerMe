@@ -351,7 +351,7 @@ export default function HeartFitStatsBlock(props) {
                     ? "bg-black text-secondary"
                     : "bg-secondary"
                 }`}
-                onClick={() => setSelectedTimeRange(tRange)}
+                onClick={() => selectDateRangeFunc(tRange)}
               >
                 <span>{tRange}</span>
               </div>

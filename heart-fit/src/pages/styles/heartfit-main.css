@@ -1379,8 +1379,8 @@ main {
   border: 1px solid #000;
 }
 .time .select:nth-child(2) {
-  border-left: none;
-  border-right: none;
+  /*border-left: none;
+  border-right: none;*/
 }
 .time .select.active .select__options-outer {
   opacity: 1;

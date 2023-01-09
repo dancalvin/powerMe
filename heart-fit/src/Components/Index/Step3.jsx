@@ -107,17 +107,10 @@ export default function Step3({
   const [hour, setHour] = useState("00");
   const [minute, setMinute] = useState("00");
   const [second, setSecond] = useState("00");
-  const setHourVal = (data) => updateForm({ timeHour: data });
   const setMinuteVal = (data) => updateForm({ timeMinute: data });
   const setSecondVal = (data) => updateForm({ timeSecond: data });
-  const isValid =
-    form.timeMinute !== "00" &&
-    form.heartRateTimeMinute !== "00" &&
-    form.heartRate !== "";
-  const changeMediumHour = (item) => {
-    setHourVal(item.value);
-    setHour(item.value);
-  };
+  const isValid = form.timeMinute !== "00" && form.heartRate !== "";
+
   const changeMediumMin = (item) => {
     setMinuteVal(item.value);
     setMinute(item.value);
@@ -125,19 +118,6 @@ export default function Step3({
   const changeMediumSec = (item) => {
     setSecondVal(item.value);
     setSecond(item.value);
-  };
-
-  const changeHeartRateHour = (item) => {
-    updateForm({ heartRateTimeHour: item.value });
-    updateForm({ newHeartRateTimeHour: item.value });
-  };
-  const changeHeartRateMinute = (item) => {
-    updateForm({ heartRateTimeMinute: item.value });
-    updateForm({ newHeartRateTimeMinute: item.value });
-  };
-  const changeHeartRateSecond = (item) => {
-    updateForm({ heartRateTimeSecond: item.value });
-    updateForm({ newHeartRateTimeSecond: item.value });
   };
 
   return (
@@ -178,19 +158,11 @@ export default function Step3({
               </li>
             </ul>
           </h3>
-          <h3 className="h3 med">Time</h3>
+          <h3 className="h3 med">Mile Time</h3>
           <div className="time">
             <CustomSelectTime
-              list={hoursList}
-              selected={hoursList[0]}
-              //selected={form["timeHour"]}
-              onChange={changeMediumHour}
-              timeUnit="Hours (hr)"
-              timeUnitSm="hrs."
-            />
-            <CustomSelectTime
-              list={minuteList}
-              selected={minuteList[0]}
+              list={[].concat(minuteList).splice(1, 22)}
+              selected={[].concat(minuteList).splice(1, 22)[0]}
               //selected={form["timeMinute"]}
               onChange={changeMediumMin}
               timeUnit="Minutes (min)"
@@ -212,30 +184,6 @@ export default function Step3({
             value={form.heartRate}
             onChange={setInput("heartRate")}
           />
-
-          <div className="time mt-4">
-            <CustomSelectTime
-              list={hoursList}
-              selected={hoursList[0]}
-              onChange={changeHeartRateHour}
-              timeUnit="Hours (hr)"
-              timeUnitSm="hrs."
-            />
-            <CustomSelectTime
-              list={minuteList}
-              selected={minuteList[0]}
-              onChange={changeHeartRateMinute}
-              timeUnit="Minutes (min)"
-              timeUnitSm="mins."
-            />
-            <CustomSelectTime
-              list={minuteList}
-              selected={minuteList[0]}
-              onChange={changeHeartRateSecond}
-              timeUnit="Seconds (s)"
-              timeUnitSm="sec."
-            />
-          </div>
         </div>
       </div>
 

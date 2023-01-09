@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import { share } from "../Base/SVG";
 import RangeSlider from "./RangeSlider/RangeSlider";
 import CustomSelectTime from "./CustomSelectTime";
+import CustomSelect from "./CustomSelect";
 import { RangeSliderModul } from "./RangeSlider/RangeSliderModul";
 import { getVitalityScore, getMetaAge } from "../../utils";
+import { weightList } from "./Step2";
 import HeartFitScore from "./HeartFitScore";
 import { closeIcon } from "../Base/SVG";
 
@@ -17,30 +19,50 @@ export default function Step5({
   form,
   saveYourGoals,
 }) {
-  const [hScore, setHScore] = useState("");
   const [shareGoalsPopup, setShareGoalsPopup] = useState(false);
-  const [selectedHRHours, setSelectedHRHours] = useState(null);
-  const [selectedHRMinutes, setSelectedHRMinutes] = useState(null);
-  const [selectedHRSeconds, setSelectedHRSeconds] = useState(null);
+  const [hour, setHour] = useState("00");
+  const [minute, setMinute] = useState("00");
+  const [second, setSecond] = useState("00");
+
+  const [selectedMinutes, setSelectedMinutes] = useState(null);
+  const [selectedSeconds, setSelectedSeconds] = useState(null);
+  const [selectedUnit, setSelectedUnit] = useState(null);
+
+  const setWeightUnit = (data) => updateForm({ newWeightUnit: data });
 
   useEffect(() => {
-    setSelectedHRHours({ value: form.newHeartRateTimeHour });
-    setSelectedHRMinutes({ value: form.newHeartRateTimeMinute });
-    setSelectedHRSeconds({ value: form.newHeartRateTimeSecond });
+    setSelectedMinutes({ value: form.newTimeMinute });
+    setSelectedSeconds({ value: form.newTimeSecond });
+
+    let foundUnit = weightList.find((unit) => form.newWeightUnit == unit.unit);
+    if (foundUnit) {
+      setSelectedUnit(foundUnit);
+    }
   }, []);
 
-  const changeHeartRateHour = (item) => {
-    updateForm({ newHeartRateTimeHour: item.value });
-    setSelectedHRHours({ value: item.value });
+  const setMinuteVal = (data) => updateForm({ newTimeMinute: data });
+  const setSecondVal = (data) => updateForm({ newTimeSecond: data });
+
+  const changeMediumMin = (item) => {
+    setMinuteVal(item.value);
+    setMinute(item.value);
   };
-  const changeHeartRateMinute = (item) => {
-    updateForm({ newHeartRateTimeMinute: item.value });
-    setSelectedHRMinutes({ value: item.value });
+  const changeMediumSec = (item) => {
+    setSecondVal(item.value);
+    setSecond(item.value);
   };
-  const changeHeartRateSecond = (item) => {
-    updateForm({ newHeartRateTimeSecond: item.value });
-    setSelectedHRSeconds({ value: item.value });
+
+  const changeMedium = (item) => {
+    setWeightUnit(item.unit);
   };
+
+  const isValid =
+    form.newTimeMinute !== "00" &&
+    form.heartRate !== "" &&
+    form.age !== "" &&
+    form.sex !== "" &&
+    form.weight !== "" &&
+    form.weightUnit !== "";
 
   return (
     <>
@@ -48,6 +70,8 @@ export default function Step5({
         <div className="step fifth">
           <HeartFitScore form={form} tab="goals" />
           <h3 className="h3 med">Mile Time</h3>
+
+          {/*
           <RangeSlider
             {...RangeSliderModul[2]}
             value={form.newTime}
@@ -55,14 +79,58 @@ export default function Step5({
             unit=" min."
             plus={true}
           />
+            */}
+
+          <div className="flex justify-start">
+            <div className="time mt-4 w-full">
+              <CustomSelectTime
+                list={[].concat(minuteList).splice(1, 22)}
+                selected={
+                  selectedMinutes
+                    ? selectedMinutes
+                    : [].concat(minuteList).splice(1, 22)[0]
+                }
+                //selected={form["timeMinute"]}
+                onChange={changeMediumMin}
+                timeUnit="Minutes (min)"
+                timeUnitSm="mins."
+              />
+              <CustomSelectTime
+                list={minuteList}
+                selected={selectedSeconds ? selectedSeconds : minuteList[0]}
+                onChange={changeMediumSec}
+                timeUnit="Seconds (s)"
+                timeUnitSm="sec."
+              />
+            </div>
+          </div>
+
           <h3 className="h3 med">Weight</h3>
-          <RangeSlider
+
+          <div className="form mt-4">
+            <div className="input__measure">
+              <input
+                type="number"
+                className="input"
+                placeholder="180"
+                onChange={setInput("newWeight")}
+                value={form["newWeight"]}
+              />
+              <CustomSelect
+                list={weightList}
+                selected={selectedUnit ? selectedUnit : weightList[0]}
+                onChange={changeMedium}
+              />
+            </div>
+          </div>
+
+          {/*<RangeSlider
             {...RangeSliderModul[1]}
             value={form.newWeight}
             onChange={setInput("newWeight")}
             unit=" lbs."
             plus={true}
-          />
+          />*/}
           <h3 className="h3 med">Heart Rate @ Finish</h3>
 
           <RangeSlider
@@ -70,36 +138,13 @@ export default function Step5({
             value={form.newHeartRate}
             onChange={setInput("newHeartRate")}
           />
-
-          <div className="time mt-4">
-            <CustomSelectTime
-              list={hoursList}
-              selected={selectedHRHours ? selectedHRHours : hoursList[0]}
-              onChange={changeHeartRateHour}
-              timeUnit="Hours (hr)"
-              timeUnitSm="hrs."
-            />
-            <CustomSelectTime
-              list={minuteList}
-              selected={selectedHRMinutes ? selectedHRMinutes : minuteList[0]}
-              onChange={changeHeartRateMinute}
-              timeUnit="Minutes (min)"
-              timeUnitSm="mins."
-            />
-            <CustomSelectTime
-              list={minuteList}
-              selected={selectedHRSeconds ? selectedHRSeconds : minuteList[0]}
-              onChange={changeHeartRateSecond}
-              timeUnit="Seconds (s)"
-              timeUnitSm="sec."
-            />
-          </div>
         </div>
         <div className="steps__inner-goals-btns">
           <button
             type="submit"
             className="button primary mirror"
             onClick={saveYourGoals}
+            disabled={!isValid}
           >
             Save Your Goals
           </button>
