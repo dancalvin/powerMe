@@ -1,0 +1,330 @@
+// 1680px
+@include xxxxlg-xxxxxlg {
+  @include history-xxxxlg-xxxxxlg;
+}
+// 1460px
+@include xxxlg-xxxxlg {
+  @include history-xxxlg-xxxxlg;
+}
+// 1240px
+@include xxlg-xxxlg {
+  // base start
+  .h1 {
+    font-size: 50px;
+    line-height: 58px;
+    &.big {
+      font-size: 80px;
+      line-height: 100px;
+    }
+  }
+
+  .h2 {
+    font-size: 26px;
+    line-height: 32px;
+    &.sm {
+      font-size: 26px;
+      line-height: 32px;
+    }
+  }
+
+  main {
+    min-height: calc(100vh - 257.48px);
+  }
+
+  @include header-xxlg-xxxlg;
+  @include footer-xxlg-xxxlg;
+  // base end
+  // index page start
+  @include steps-xxlg-xxxlg;
+  // index page end
+  @include heartFit-xxlg-xxxlg;
+}
+
+// 1024px
+@include lg-xlg {
+  // base start
+  .h1 {
+    font-size: 44px;
+    line-height: 52px;
+    &.big {
+      font-size: 60px;
+      line-height: 80px;
+    }
+  }
+
+  .h2 {
+    font-size: 24px;
+    line-height: 30px;
+    &.sm {
+      font-size: 24px;
+      line-height: 30px;
+    }
+  }
+
+  main {
+    min-height: calc(100vh - 238.35px);
+  }
+
+  .auto__container {
+    padding: 0 40px;
+  }
+
+  @include header-lg-xlg;
+  @include footer-lg-xlg;
+  // base end
+  // index page start
+  @include time-lg-xlg;
+  // index page end
+}
+
+// 840px
+@include md-lg {
+  // base start
+  .h1 {
+    font-size: 34px;
+    line-height: 46px;
+  }
+
+  .h2 {
+    font-size: 22px;
+    line-height: 26px;
+    &.sm {
+      font-size: 22px;
+      line-height: 28px;
+    }
+  }
+  .h3 {
+    &.big {
+      font-size: 20px;
+      line-height: 24px;
+    }
+  }
+  .button {
+    &__row {
+      flex-direction: column;
+      margin-top: 0;
+      .button {
+        width: 100%;
+      }
+    }
+  }
+  // h3 {
+  //     font-size: 18px;
+  //     line-height: 22px;
+  // }
+
+  // p {
+  //     font-size: 18px;
+  //     line-height: 22px;
+  // }
+
+  // base end
+  // index page start
+  @include steps-md-lg;
+  @include step-md-lg;
+  @include form-md-lg;
+  @include history-md-lg;
+
+  // index page end
+}
+
+// 700px
+@include sm-md {
+  // base start
+  .popup {
+    &__addData {
+      .h2 {
+        &.sm {
+          margin-bottom: 25px;
+        }
+      }
+    }
+    &__inner {
+      padding: 60px 40px 40px 40px;
+    }
+  }
+  main {
+    min-height: calc(100vh - 247.22px);
+  }
+
+  @include header-sm-md;
+  // base end
+  // index page start
+  @include steps-sm-md;
+  @include step-sm-md;
+  @include form-sm-md;
+  // index page end
+  @include rangeSlider-sm-md;
+  @include heartFit-sm-md;
+  @include history-sm-md;
+}
+
+// 540px
+@include xsm-sm {
+  .popup {
+    &__inner {
+      padding: 60px 20px 20px 20px;
+    }
+    &__delete {
+      flex-direction: column;
+      align-items: flex-start;
+      .h3 {
+        &.big {
+          padding-right: 0;
+          margin-right: 0;
+          &::before {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+  .uniqList {
+    padding-left: 25px;
+  }
+  // base start
+  .h1 {
+    font-weight: 700;
+    font-size: 28px;
+    line-height: 34px;
+    color: $bodybg;
+    text-transform: capitalize;
+  }
+
+  .h2 {
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 24px;
+    &.sm {
+      font-size: 20px;
+      line-height: 26px;
+    }
+  }
+
+  .h3 {
+    &.big {
+      font-size: 24px;
+      line-height: 30px;
+    }
+    &.light {
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 20px;
+    }
+    &.bold {
+      font-size: 16px;
+      line-height: 20px;
+    }
+    &.med {
+      font-weight: 700;
+      font-size: 16px;
+      line-height: 24px;
+    }
+  }
+
+  .para {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 20px;
+  }
+
+  main {
+    min-height: calc(100vh - 222.01px);
+  }
+
+  .button {
+    &.primary {
+      width: 280px;
+      max-width: unset;
+      padding: 14px 90px;
+      &.clearDT {
+        padding: 15px 38px;
+        max-width: unset;
+        width: 100%;
+        &.back {
+          padding: 14px 0;
+          width: 280px;
+        }
+      }
+
+      &.large {
+        width: 326px;
+        max-width: unset;
+        padding: 14px 0;
+
+        span {
+          display: none;
+        }
+      }
+    }
+  }
+
+  .auto__container {
+    padding: 0 32px;
+  }
+
+  @include header-xsm-sm;
+  @include footer-xsm-sm;
+  // base end
+  // index page start
+  @include steps-xsm-sm;
+  @include step-xsm-sm;
+  @include form-xsm-sm;
+  // index page end
+  @include time-xsm-sm;
+  @include heartFit-xsm-sm;
+  @include history-xsm-sm;
+}
+
+// 390px
+@include xxsm-xsm {
+  // base start
+  .button {
+    span {
+      display: none !important;
+    }
+  }
+  // base end
+}
+// 360px
+@include xxxsm-xxsm {
+  // base start
+  .h1 {
+    font-size: 24px;
+    line-height: 30px;
+  }
+
+  .h2 {
+    font-size: 18px;
+    line-height: 22px;
+    &.sm {
+      font-size: 18px;
+      line-height: 22px;
+    }
+  }
+  .auto__container {
+    padding: 0 24px;
+  }
+  .button {
+    &.primary {
+      max-width: unset;
+      width: 100%;
+      &.clearDT {
+        &.back {
+          width: 100%;
+        }
+      }
+    }
+    font-size: 16px !important;
+    line-height: 20px !important;
+  }
+  // base end
+  // index page start
+  @include form-xxxsm-xxsm;
+  @include steps-xxxsm-xxsm;
+  @include step-xxxsm-xxsm;
+  @include time-xxxsm-xxsm;
+  @include heartFit-xxxsm-xxsm;
+  @include history-xxxsm-xxsm;
+  // index page end
+}

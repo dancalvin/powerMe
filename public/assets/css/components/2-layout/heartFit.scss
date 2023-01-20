@@ -1,0 +1,383 @@
+.heartFit {
+  margin-bottom: 80px;
+
+  &.goal {
+    .h2 {
+      &.sm {
+        margin-bottom: 0;
+      }
+    }
+    .h1 {
+      &.uniq {
+        margin-bottom: 120px;
+      }
+    }
+    .heartFit {
+      &__min {
+        font-weight: 300;
+        font-size: 18px;
+        line-height: 24px;
+        color: $black;
+      }
+      &__max {
+        font-weight: 300;
+        font-size: 18px;
+        line-height: 24px;
+        color: $black;
+        right: -10px;
+      }
+      &__inner {
+        &-progress {
+          height: 28px;
+        }
+        &-mark {
+          font-size: 18px;
+          line-height: 24px;
+        }
+      }
+      &__score {
+        width: 55px;
+        height: 55px;
+        font-size: 18px;
+        line-height: 22px;
+        background: $bodybg;
+        border: 2px solid $black;
+        color: $black;
+      }
+      &__line {
+        height: 75px;
+      }
+    }
+  }
+
+  .h2 {
+    text-align: center;
+  }
+
+  .h1 {
+    &.big {
+      margin-bottom: 140px;
+    }
+  }
+
+  .h3 {
+    &.bold {
+      text-align: center;
+    }
+  }
+
+  &__inner {
+    margin-bottom: 30px;
+    position: relative;
+
+    &-progress {
+      width: 100%;
+      height: 35px;
+      position: relative;
+      background: linear-gradient(
+        90deg,
+        #a4606b 0%,
+        #f2644e 16.67%,
+        #f7a08c 33.33%,
+        #a3c2c4 50%,
+        #badbd2 66.67%,
+        #7d9d92 83.33%,
+        #405f53 100%
+      );
+      border: 1px solid #000000;
+      border-radius: 30000px;
+      &-dot {
+        position: absolute;
+        top: 0;
+        left: 16.66666666666667%;
+        width: 1px;
+        height: 100%;
+        border: 1px dashed #faf4ed;
+        &:nth-child(2) {
+          left: 33.33333333333333%;
+        }
+        &:nth-child(3) {
+          left: 50%;
+          @include transformX;
+        }
+        &:nth-child(4) {
+          left: 66.66666666666667%;
+        }
+        &:nth-child(5) {
+          left: 83.33333333333333%;
+        }
+      }
+    }
+    &-marks {
+      margin-top: 13px;
+      display: flex;
+      align-items: center;
+    }
+    &-mark {
+      width: 16.66666666666667%;
+      font-family: $mainFont;
+      font-weight: 500;
+      font-size: 20px;
+      line-height: 24px;
+      text-align: center;
+      color: $black;
+    }
+  }
+
+  &__score {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    @include transformX;
+    background: $black;
+    border-radius: 50%;
+    font-family: $mainFont;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 24px;
+    color: #faf4ed;
+  }
+
+  &__min,
+  &__max {
+    font-family: $mainFont;
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 24px;
+    color: $black;
+    position: absolute;
+    bottom: 0;
+  }
+
+  &__min {
+    left: 0;
+  }
+
+  &__max {
+    right: 0;
+  }
+
+  &__line {
+    position: absolute;
+    left: 50%;
+    @include transformX;
+    bottom: 1px;
+    width: 2px;
+    height: 100px;
+    background: $black;
+  }
+}
+
+@mixin heartFit-xxlg-xxxlg {
+  .heartFit {
+    &.goal {
+      .heartFit {
+        &__min {
+          font-size: 14px;
+          line-height: 20px;
+        }
+        &__max {
+          font-size: 14px;
+          line-height: 20px;
+          right: 0;
+        }
+        &__inner {
+          &-mark {
+            font-size: 14px;
+            line-height: 20px;
+          }
+        }
+      }
+    }
+    &__inner {
+      &-mark {
+        font-size: 16px;
+        line-height: 20px;
+      }
+    }
+    &__min {
+      font-size: 16px;
+      line-height: 20px;
+      bottom: unset;
+      top: -25px;
+    }
+    &__max {
+      font-size: 16px;
+      line-height: 20px;
+      bottom: unset;
+      top: -25px;
+    }
+  }
+}
+
+@mixin heartFit-sm-md {
+  .heartFit {
+    margin-bottom: 30px;
+    &.goal {
+      .h2 {
+        text-align: left;
+      }
+
+      .h1 {
+        &.uniq {
+          padding: 0 !important;
+          margin: 0 0 75px 0 !important;
+          text-align: left;
+        }
+      }
+      .heartFit {
+        &__min {
+          font-size: 12px;
+          line-height: 16px;
+        }
+        &__line {
+          height: 60px;
+        }
+        &__score {
+          width: 40px;
+          height: 40px;
+          font-size: 16px;
+          line-height: 20px;
+        }
+        &__max {
+          font-size: 12px;
+          line-height: 16px;
+        }
+        &__inner {
+          &-mark {
+            font-size: 12px;
+            line-height: 16px;
+          }
+          &-progress {
+            height: 24px;
+          }
+        }
+      }
+    }
+    .h2 {
+      text-align: left;
+    }
+
+    .h1 {
+      &.big {
+        padding: 0 !important;
+        margin: 0 0 50px 0 !important;
+        text-align: left;
+      }
+    }
+
+    .h3 {
+      &.bold {
+        text-align: left;
+      }
+    }
+
+    &__line {
+      height: 50px;
+    }
+    &__score {
+      width: 40px;
+      height: 40px;
+      font-size: 16px;
+      line-height: 20px;
+    }
+
+    &__min,
+    &__max {
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 18px;
+    }
+    &__inner {
+      &-mark {
+        font-size: 14px;
+        line-height: 18px;
+      }
+      &-progress {
+        height: 24px;
+      }
+    }
+  }
+}
+
+@mixin heartFit-xsm-sm {
+  .heartFit {
+    .h2 {
+      margin-bottom: 0 !important;
+    }
+
+    .h1 {
+      &.big {
+        margin: 0 0 66px 0 !important;
+      }
+    }
+    .h3 {
+      &.bold {
+        max-width: 300px;
+      }
+    }
+    &__inner {
+      &-marks {
+        margin-top: 5px;
+      }
+      &-mark {
+        font-size: 10px;
+        line-height: 14px;
+      }
+    }
+    &__min,
+    &__max {
+      font-size: 10px;
+      line-height: 14px;
+    }
+    &.goal {
+      .heartFit {
+        &__inner {
+          &-marks {
+            margin-top: 5px;
+          }
+          &-mark {
+            font-size: 10px;
+            line-height: 14px;
+          }
+        }
+        &__min,
+        &__max {
+          font-size: 10px;
+          line-height: 14px;
+        }
+      }
+    }
+  }
+}
+@mixin heartFit-xxxsm-xxsm {
+  .heartFit {
+    margin-bottom: 24px;
+    .h1 {
+      &.big {
+        margin: 0 0 40px 0 !important;
+      }
+    }
+    &__score {
+      width: 30px;
+      height: 30px;
+      font-size: 14px;
+      line-height: 18px;
+    }
+    &__line {
+      height: 40px;
+    }
+    &__inner {
+      margin-bottom: 24px;
+      &-mark {
+        font-size: 8px;
+        line-height: 12px;
+      }
+    }
+  }
+}

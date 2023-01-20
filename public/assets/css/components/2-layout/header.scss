@@ -1,0 +1,57 @@
+.header {
+    &__inner {
+        padding: 43px 0 0 93px;
+
+        &-logo {
+            width: 264px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            img {
+                width: 100%;
+            }
+        }
+    }
+}
+
+@mixin header-xxlg-xxxlg {
+    .header {
+        &__inner {
+            padding: 20px 0 0 60px;
+        }
+    }
+}
+
+@mixin header-lg-xlg {
+    .header {
+        &__inner {
+            padding: 20px 0 0 40px;
+        }
+    }
+}
+
+@mixin header-sm-md {
+    .header {
+        &__inner {
+            padding: 20px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            &-logo {
+                width: 220px;
+            }
+        }
+    }
+}
+
+@mixin header-xsm-sm {
+    .header {
+        &__inner {
+            &-logo {
+                width: 160px;
+            }
+        }
+    }
+}

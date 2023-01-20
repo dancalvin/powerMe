@@ -1,0 +1,683 @@
+.steps {
+  padding: 107px 0 77px 0;
+
+  &__inner {
+    .h1 {
+      margin-bottom: 100px;
+      margin-left: -20px;
+      margin-right: -20px;
+      &.hist {
+        margin-bottom: 60px;
+      }
+    }
+
+    .button {
+      &.primary {
+        display: block;
+        margin: 0 auto;
+        &.clearDT {
+          margin-top: 20px;
+        }
+      }
+    }
+    &-result {
+      &-btns {
+        margin-top: 80px;
+
+        .button {
+          &.primary {
+            &.mirror {
+              margin-bottom: 32px;
+              &:nth-child(2) {
+                margin-bottom: 0;
+              }
+            }
+          }
+          &__row {
+            margin-top: 34px;
+            .button {
+              &.primary {
+                &.clearDT {
+                  margin-top: 0;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    &-goals {
+      &-btns {
+        margin-bottom: 80px;
+
+        .button {
+          &.primary {
+            &.mirror {
+              margin-top: 0;
+              margin-bottom: 32px;
+            }
+            &.share {
+              margin-top: 0;
+              margin-bottom: 0;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &__line {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    padding-top: 80px;
+    margin-bottom: 80px;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 30px;
+      left: 0;
+      width: calc(100% - 20px);
+      height: 1px;
+      background: $black;
+    }
+  }
+
+  &__item {
+    position: relative;
+
+    &:nth-child(1) {
+      .steps__item-circle {
+        border: 2px solid $main;
+
+        &.fill {
+          background: $main;
+        }
+      }
+    }
+
+    &:nth-child(2) {
+      .steps__item-circle {
+        border: 2px solid $secondary;
+
+        &.fill {
+          background: $secondary;
+        }
+      }
+    }
+
+    &:nth-child(3) {
+      .steps__item-circle {
+        border: 2px solid #f2644e;
+
+        &.fill {
+          background: #f2644e;
+        }
+      }
+    }
+
+    &:nth-child(4) {
+      .steps__item-circle {
+        border: 2px solid #95b6a8;
+
+        &.fill {
+          background: #95b6a8;
+        }
+      }
+    }
+
+    &:nth-child(5) {
+      .steps__item-circle {
+        border: 2px solid #6d7b9b;
+
+        &.fill {
+          background: #6d7b9b;
+        }
+      }
+    }
+
+    &-circle {
+      position: absolute;
+      top: -80px;
+      left: 50%;
+      @include transformX;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: $bodybg;
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: $mainFont;
+      font-weight: 700;
+      font-size: 20px;
+      line-height: 24px;
+      color: $black;
+
+      &.fill {
+        color: $bodybg;
+      }
+    }
+
+    &-title {
+      font-family: $mainFont;
+      font-weight: 400;
+      font-size: 20px;
+      line-height: 24px;
+      text-align: center;
+      color: $black;
+
+      &.active {
+        font-weight: 700;
+      }
+    }
+  }
+}
+@mixin steps-xxlg-xxxlg {
+  .steps {
+    padding: 60px 0;
+
+    &__inner {
+      .h1 {
+        margin-bottom: 60px;
+        margin-left: 0;
+        margin-right: 0;
+      }
+
+      &-result {
+        &-btns {
+          margin-top: 60px;
+        }
+      }
+    }
+
+    &__line {
+      margin-bottom: 60px;
+    }
+  }
+}
+
+@mixin steps-md-lg {
+  .steps {
+    padding: 40px 0;
+
+    &__inner {
+      .h1 {
+        margin-bottom: 40px;
+      }
+
+      &-result {
+        &-btns {
+          margin-top: 40px;
+          .button {
+            &__row {
+              margin-top: 0;
+            }
+            &.primary {
+              &.clearDT {
+                margin-bottom: 20px;
+                &:last-child {
+                  margin-bottom: 0;
+                }
+              }
+              &.mirror {
+                margin-bottom: 20px;
+                &:nth-child(2) {
+                  margin-top: 0;
+                  margin-bottom: 20px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    &__line {
+      padding-top: 0;
+      margin-bottom: 40px;
+    }
+
+    &__item {
+      &-title {
+        display: none;
+      }
+
+      &-circle {
+        position: static;
+        @include transformReset;
+        top: unset;
+        left: unset;
+      }
+    }
+  }
+}
+
+@mixin steps-sm-md {
+  .steps {
+    padding: 20px 0 40px 0;
+
+    &__inner {
+      .h1 {
+        margin-bottom: 32px;
+      }
+    }
+
+    &__line {
+      margin-bottom: 32px;
+    }
+  }
+}
+
+@mixin steps-xsm-sm {
+  .steps {
+    padding: 0 0 30px 0;
+
+    &__inner {
+      .h1 {
+        margin: 0 -32px 32px -32px;
+        padding: 17px 40px;
+        &.hist {
+          margin-bottom: 0;
+        }
+        &.first {
+          background: $main;
+        }
+
+        &.second {
+          background: $secondary;
+        }
+
+        &.third {
+          background: #f2644e;
+        }
+
+        &.fourth {
+          background: #95b6a8;
+        }
+
+        &.fifth {
+          background: #6d7b9b;
+          padding: 32px 40px;
+          &.hist {
+            padding: 23px 40px;
+          }
+          span {
+            display: none;
+          }
+        }
+      }
+      &-result {
+        &-btns {
+          .button {
+            &.primary {
+              &.share {
+                svg {
+                  margin-left: 10px;
+                }
+              }
+              &.mirror {
+                width: 100%;
+                max-width: unset;
+                padding: 14px 0;
+              }
+              &.clearDT {
+                padding: 14px 0;
+              }
+            }
+          }
+        }
+      }
+      &-goals {
+        &-btns {
+          padding-bottom: 40px;
+          margin-bottom: 26px;
+          border-bottom: 1px solid $black;
+          .button {
+            &.primary {
+              &.share {
+                svg {
+                  margin-left: 10px;
+                }
+              }
+              &.mirror {
+                width: 100%;
+                max-width: unset;
+                padding: 14px 0;
+                margin-bottom: 20px;
+              }
+              &.clearDT {
+                padding: 14px 0;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    &__line {
+      &::before {
+        top: 18px;
+      }
+    }
+
+    &__item {
+      &-circle {
+        width: 36px;
+        height: 36px;
+        border: 1px solid $black !important;
+        font-size: 16px;
+        line-height: 20px;
+
+        &.fill {
+          background: $black !important;
+        }
+      }
+    }
+  }
+}
+@mixin steps-xxxsm-xxsm {
+  .steps {
+    &__inner {
+      &-result {
+        &-btns {
+          margin-top: 24px;
+        }
+      }
+      .h1 {
+        margin: 0 -24px 24px -24px;
+      }
+    }
+  }
+}
+.step {
+  padding: 60px 84px 60px 96px;
+  box-sizing: border-box;
+  border: 1px solid $black;
+  position: relative;
+
+  .h2 {
+    margin-bottom: 24px;
+  }
+
+  .h3 {
+    &.light {
+      margin-bottom: 28px;
+    }
+  }
+
+  .h3 {
+    &.reg {
+      margin-bottom: 24px;
+    }
+  }
+
+  &.second {
+    &::before {
+      background: $secondary;
+    }
+  }
+
+  &.third {
+    &::before {
+      background: #f2644e;
+    }
+  }
+
+  &.fourth {
+    &::before {
+      background: #95b6a8;
+    }
+  }
+
+  &.fifth {
+    .rangeSlider {
+      &.weight {
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+    &::before {
+      background: #545a88;
+    }
+
+    .h3 {
+      &.light {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  &.add {
+    display: flex;
+    align-items: center;
+
+    &::before {
+      background: #f7a08c;
+    }
+
+    .step {
+      &__image {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 20%;
+        max-width: 125px;
+        margin-right: 100px;
+
+        img {
+          width: 100%;
+        }
+      }
+
+      &__content {
+        width: calc(80% - 100px);
+        max-width: 525px;
+
+        .h3 {
+          &.light {
+            margin-bottom: 24px;
+
+            &:last-child {
+              margin-bottom: 0;
+            }
+
+            a {
+              text-decoration: underline;
+              color: #f7a08c;
+              display: block;
+              &:hover {
+                text-decoration: none;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 20px;
+    background: $main;
+  }
+
+  &__outer {
+    .button {
+      &.primary {
+        &.large {
+          margin-top: 0;
+          margin-bottom: 60px;
+        }
+      }
+    }
+
+    .step {
+      margin-bottom: 80px;
+      h3 {
+        &.light {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+}
+
+@mixin step-md-lg {
+  .step {
+    padding: 40px 60px 40px 70px;
+
+    &__outer {
+      .step {
+        margin-bottom: 40px;
+      }
+    }
+  }
+}
+
+@mixin step-sm-md {
+  .step {
+    padding: 30px 40px 30px 50px;
+
+    &__outer {
+      .step {
+        margin-bottom: 32px;
+      }
+
+      .button {
+        &.primary {
+          &.large {
+            margin-top: 0;
+            margin-bottom: 32px;
+          }
+        }
+      }
+    }
+
+    &.add {
+      justify-content: space-between;
+
+      .step {
+        &__image {
+          margin-right: 0;
+        }
+
+        &__content {
+          width: calc(80% - 50px);
+
+          .h2 {
+            margin-bottom: 16px;
+          }
+
+          .h3 {
+            &.light {
+              margin-bottom: 16px;
+
+              a {
+                text-decoration: underline;
+                color: #f7a08c;
+
+                &:hover {
+                  text-decoration: none;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@mixin step-xsm-sm {
+  .step {
+    padding: 0;
+    border: none;
+    &.res {
+      padding: 32px 0;
+      border-top: 1px solid $black;
+      border-bottom: 1px solid $black;
+      margin-bottom: 0;
+    }
+    .h2 {
+      margin-bottom: 16px;
+    }
+
+    .h3 {
+      &.light {
+        margin-bottom: 40px;
+      }
+
+      &.reg {
+        margin-bottom: 20px;
+      }
+    }
+
+    tr {
+      &:last-child {
+        border-bottom: 1px solid $black;
+      }
+    }
+
+    &::before {
+      display: none;
+    }
+
+    &__outer {
+      .step {
+        .h2 {
+          margin-bottom: 8px;
+        }
+      }
+    }
+
+    &.add {
+      justify-content: unset;
+      align-items: unset;
+      flex-direction: column;
+
+      .step {
+        &__image {
+          width: 100%;
+          margin: 0 auto 20px auto;
+        }
+
+        &__content {
+          width: 100%;
+          max-width: 293px;
+
+          .h2 {
+            margin-bottom: 8px;
+          }
+
+          .h3 {
+            &.light {
+              a {
+                font-weight: 700;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+@mixin step-xxxsm-xxsm {
+  .step {
+    &.res {
+      padding: 24px 0;
+    }
+    .h3 {
+      &.light {
+        margin-bottom: 20px;
+      }
+    }
+  }
+}
